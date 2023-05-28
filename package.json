@@ -2,7 +2,6 @@
   "name": "general-chatgpt-server",
   "version": "1.0.0",
   "description": "",
-  "type": "module",
   "main": "server.js",
   "scripts": {
     "start": "npm run serve",

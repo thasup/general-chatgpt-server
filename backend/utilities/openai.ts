@@ -1,7 +1,7 @@
 import dotenv from "dotenv";
 import { Configuration, OpenAIApi, type ChatCompletionRequestMessage } from "openai";
 
-import { colorsPaletteTextInstruction, colorsPaletteChatInstruction } from "../models/colors-palette.model";
+import { colorsPaletteTextInstruction, colorsPaletteChatInstruction, colorsPaletteChatInstruction2 } from "../models/colors-palette.model";
 
 dotenv.config();
 const { OPENAI_API_KEY } = process.env;
@@ -37,7 +37,7 @@ const createPromptForChatCompletion = (input: string, instruction?: (input: stri
   if (instruction) {
     return instruction(input);
   }
-  return colorsPaletteChatInstruction(input);
+  return colorsPaletteChatInstruction2(input);
 };
 
 const chatCompletion = async (input: string, instruction?: (input: string) => ChatCompletionRequestMessage[]): Promise<string | undefined> => {

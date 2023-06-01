@@ -56,7 +56,59 @@ const colorsPaletteChatInstruction = (input: string): ChatCompletionRequestMessa
   ];
 };
 
+const colorsPaletteChatInstruction2 = (input: string): ChatCompletionRequestMessage[] => {
+  return [
+    {
+      role: "system",
+      content: `
+        You're a colors palette generator assistant who must do your task without adding any comments or notes.
+        You'll generate color palettes that match the given theme, mood, or instructions.
+        You'll avoid duplicating color code or color name within the same response, but you can generate a new palette even if it is the same input.
+        You must keep the palette size between 2 to 8 colors.
+        You must return a JSON array, where each element follows this format: {"code": <color_code>, "name": <color_name>}
+        If you recieve the same input, try generate a new colors palette again.
+        If you recieve an empty input, just ramdomly generate a new beautiful colors palette.
+        `
+    },
+    {
+      role: "user",
+      content: "Generate a color palette for: ocean breeze"
+    },
+    {
+      role: "assistant",
+      content: `
+        [
+          {"code": "#4ECDC4", "name": "Turquoise"},
+          {"code": "#F7FFF7", "name": "Mint Cream"},
+          {"code": "#9BC1BC", "name": "Opal"},
+          {"code": "#5D5C61", "name": "Slate Gray"}
+        ]
+        `
+    },
+    {
+      role: "user",
+      content: "Generate a color palette for: foresta"
+    },
+    {
+      role: "assistant",
+      content: `
+        [
+          {"code": "#556B2F", "name": "Dark Olive Green"},
+          {"code": "#8F9779", "name": "Camouflage Green"},
+          {"code": "#BDB76B", "name": "Dark Khaki"},
+          {"code": "#FFF8DC", "name": "Cornsilk"}
+        ]
+        `
+    },
+    {
+      role: "user",
+      content: `Generate a color palette for: ${input}`
+    }
+  ];
+};
+
 export {
   colorsPaletteTextInstruction,
-  colorsPaletteChatInstruction
+  colorsPaletteChatInstruction,
+  colorsPaletteChatInstruction2
 };

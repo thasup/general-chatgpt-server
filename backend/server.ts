@@ -1,17 +1,19 @@
-import express, { Request, Response } from 'express';
-import morgan from 'morgan';
-import dotenv from 'dotenv';
-import colors from 'colors';
+import express, { type Request, type Response } from "express";
+import morgan from "morgan";
+import dotenv from "dotenv";
+import colors from "colors";
 
-import colorsPaletteRouter from './routes/colors-palette.router';
+import colorsPaletteRouter from "./routes/colors-palette.router";
+
 dotenv.config();
-const { PORT, NODE_ENV } = process.env
+const { PORT, NODE_ENV } = process.env;
 
-const port = PORT || 7777;
+
+const port = PORT ?? 7777;
 const app = express();
 
-if (NODE_ENV === 'development') {
-  app.use(morgan('dev'));
+if (NODE_ENV === "development") {
+  app.use(morgan("dev"));
 }
 
 app.use(express.json());
@@ -25,12 +27,12 @@ app.use((req: Request, res: Response, next) => {
   console.log(`${req.method} ${req.baseUrl}${req.url} ${delta}ms`);
 });
 
-app.get('/', async (req: Request, res: Response) => {
-  res.send('API is running...');
+app.get("/", async (req: Request, res: Response) => {
+  res.send("API is running...");
 });
-app.use('/api/colors', colorsPaletteRouter);
+app.use("/api/colors", colorsPaletteRouter);
 
 app.listen(
   port,
-  () => console.log(colors.yellow(`Server running in ${NODE_ENV} mode on port ${port}.`))
+  () => { console.log(colors.yellow(`Server running in ${NODE_ENV ?? "development"} mode on port ${port}.`)); }
 );

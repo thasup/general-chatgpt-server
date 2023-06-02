@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import colors from "colors";
 
 import colorsPaletteRouter from "./routes/colors-palette.router";
+import mangaComparatorRouter from "./routes/manga-comparator.router";
 
 dotenv.config();
 const { PORT, NODE_ENV } = process.env;
@@ -31,6 +32,7 @@ app.get("/", async (req: Request, res: Response) => {
   res.send("API is running...");
 });
 app.use("/api/colors", colorsPaletteRouter);
+app.use("/api/manga", mangaComparatorRouter);
 
 app.listen(
   port,

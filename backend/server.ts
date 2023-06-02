@@ -3,6 +3,8 @@ import morgan from "morgan";
 import dotenv from "dotenv";
 import colors from "colors";
 
+import { errorHandler, notFound } from "./middlewares/errors-handling.middleware";
+
 import colorsPaletteRouter from "./routes/colors-palette.router";
 import mangaComparatorRouter from "./routes/manga-comparator.router";
 
@@ -33,6 +35,9 @@ app.get("/", async (req: Request, res: Response) => {
 });
 app.use("/api/colors", colorsPaletteRouter);
 app.use("/api/manga", mangaComparatorRouter);
+
+app.use(notFound);
+app.use(errorHandler);
 
 app.listen(
   port,

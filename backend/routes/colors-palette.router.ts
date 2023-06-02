@@ -9,8 +9,8 @@ router.use((req: Request, res: Response, next) => {
   next();
 });
 
-router.post("/", postColorsPaletteInput);
 router.get("/", getSomething);
 router.get("/:input", getColorsPalette);
+router.post("/", postColorsPaletteInput);
 
 export default router;

@@ -1,7 +1,7 @@
 import dotenv from "dotenv";
-import { Configuration, OpenAIApi, type ChatCompletionRequestMessage } from "openai";
+import { Configuration, OpenAIApi, type ChatCompletionRequestMessage, type CreateChatCompletionRequest, type CreateCompletionRequest } from "openai";
 
-import { colorsPaletteTextInstruction, colorsPaletteChatInstruction, colorsPaletteChatInstruction2 } from "../models/colors-palette.model";
+import { defaultChatInstruction, defaultTextInstruction } from "../models/default-prompt.model";
 
 dotenv.config();
 const { OPENAI_API_KEY } = process.env;
@@ -16,18 +16,25 @@ const createPromptForTextCompletion = (input: string, instruction?: (input: stri
   if (instruction) {
     return instruction(input);
   }
-  return colorsPaletteTextInstruction(input);
+
+  const defaultPrompt = defaultTextInstruction(input);
+  return defaultPrompt;
 };
 
-const textCompletion = async (input: string, instruction?: (input: string) => string): Promise<string | undefined> => {
+const textCompletion = async (
+  input: string,
+  instruction?: (input: string) => string,
+  options?: Partial<CreateCompletionRequest>
+): Promise<string | undefined> => {
   const completion = await openai.createCompletion({
     model: "text-davinci-003",
     prompt: createPromptForTextCompletion(input, instruction),
-    max_tokens: 500,
-    temperature: 0.7,
-    top_p: 0.5
+    max_tokens: options?.max_tokens ?? 100,
+    temperature: options?.temperature ?? 0,
+    top_p: options?.top_p ?? 1
   });
   const res = completion?.data?.choices[0]?.text;
+  console.log({ res });
 
   return res;
 };
@@ -37,20 +44,27 @@ const createPromptForChatCompletion = (input: string, instruction?: (input: stri
   if (instruction) {
     return instruction(input);
   }
-  return colorsPaletteChatInstruction2(input);
+
+  const defaultPrompt = defaultChatInstruction(input);
+  return defaultPrompt;
 };
 
-const chatCompletion = async (input: string, instruction?: (input: string) => ChatCompletionRequestMessage[]): Promise<string | undefined> => {
+const chatCompletion = async (
+  input: string,
+  instruction?: (input: string) => ChatCompletionRequestMessage[],
+  options?: Partial<CreateChatCompletionRequest>
+): Promise<string | undefined> => {
   const completion = await openai.createChatCompletion(
     {
       model: "gpt-3.5-turbo",
       messages: createPromptForChatCompletion(input, instruction),
-      max_tokens: 500,
-      temperature: 0.7,
-      top_p: 0.5
+      max_tokens: options?.max_tokens ?? 100,
+      temperature: options?.temperature ?? 0,
+      top_p: options?.top_p ?? 1
     }
   );
   const res = completion?.data?.choices[0]?.message?.content;
+  console.log({ res });
 
   return res;
 };

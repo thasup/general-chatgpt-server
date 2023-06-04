@@ -12,7 +12,7 @@ const configuration = new Configuration({
 });
 const openai = new OpenAIApi(configuration);
 
-const createPrompt = <T>(input: T, instruction?: (input: T) => string | ChatCompletionRequestMessage[]): any => {
+const createPrompt = <T>(input: T, instruction?: (input: T) => any): any => {
   if (instruction) {
     return instruction(input);
   }

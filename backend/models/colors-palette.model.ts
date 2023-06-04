@@ -1,4 +1,5 @@
 import { type ChatCompletionRequestMessage } from "openai";
+import { type InputObject } from "../types/openai";
 
 const colorsPaletteTextInstruction = (input: string): string => {
   return `
@@ -27,7 +28,7 @@ const colorsPaletteTextInstruction = (input: string): string => {
   `;
 };
 
-const colorsPaletteChatInstruction = (input: string): ChatCompletionRequestMessage[] => {
+const colorsPaletteChatInstruction = (inputObj: InputObject): ChatCompletionRequestMessage[] => {
   return [
     {
       role: "system",
@@ -51,12 +52,12 @@ const colorsPaletteChatInstruction = (input: string): ChatCompletionRequestMessa
     },
     {
       role: "user",
-      content: `Generate a color palette for ${input}`
+      content: `Generate a color palette for ${inputObj.input as string}`
     }
   ];
 };
 
-const colorsPaletteChatInstruction2 = (input: string): ChatCompletionRequestMessage[] => {
+const colorsPaletteChatInstruction2 = (inputObj: InputObject): ChatCompletionRequestMessage[] => {
   return [
     {
       role: "system",
@@ -102,7 +103,7 @@ const colorsPaletteChatInstruction2 = (input: string): ChatCompletionRequestMess
     },
     {
       role: "user",
-      content: `Generate a color palette for: ${input}`
+      content: `Generate a color palette for: ${inputObj.input as string}`
     }
   ];
 };

@@ -33,8 +33,8 @@ app.use((req: Request, res: Response, next) => {
 app.get("/", async (req: Request, res: Response) => {
   res.send("API is running...");
 });
-app.use("/api/colors", colorsPaletteRouter);
-app.use("/api/manga", mangaComparatorRouter);
+app.use("/v1/colors", colorsPaletteRouter);
+app.use("/v1/manga", mangaComparatorRouter);
 
 app.use(notFound);
 app.use(errorHandler);

@@ -7,6 +7,7 @@ import { errorHandler, notFound } from "./middlewares/errors-handling.middleware
 
 import colorsPaletteRouter from "./routes/colors-palette.router";
 import mangaComparatorRouter from "./routes/manga-comparator.router";
+import spotifyPlaylistRouter from "./routes/spotify-playlist.router";
 
 dotenv.config();
 const { PORT, NODE_ENV } = process.env;
@@ -35,6 +36,7 @@ app.get("/", async (req: Request, res: Response) => {
 });
 app.use("/v1/colors", colorsPaletteRouter);
 app.use("/v1/manga", mangaComparatorRouter);
+app.use("/v1/spotify", spotifyPlaylistRouter);
 
 app.use(notFound);
 app.use(errorHandler);

@@ -1,4 +1,5 @@
 import { type Request, type Response } from "express";
+
 import { chatCompletion, textCompletion } from "../utilities/openai";
 import { colorsPaletteChatInstruction2, colorsPaletteTextInstruction } from "../models/colors-palette.model";
 
@@ -16,7 +17,15 @@ async function getColorsPalette (req: Request, res: Response): Promise<void> {
   }
 
   try {
-    const palette = await textCompletion(input);
+    const palette = await textCompletion(
+      input,
+      colorsPaletteTextInstruction,
+      {
+        max_tokens: 500,
+        temperature: 0.5,
+        top_p: 0.5
+      }
+    );
 
     res.status(200).json(palette);
   } catch {

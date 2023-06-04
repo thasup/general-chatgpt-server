@@ -1,9 +1,10 @@
-import path from "path";
+// import path from "path";
 import express, { type Request, type Response } from "express";
 import morgan from "morgan";
 import dotenv from "dotenv";
 import colors from "colors";
 import cookieParser from "cookie-parser";
+import cors from "cors";
 
 import { errorHandler, notFound } from "./middlewares/errors-handling.middleware";
 
@@ -17,13 +18,23 @@ const { PORT, NODE_ENV } = process.env;
 const port = PORT ?? 9999;
 const app = express();
 
-if (NODE_ENV === "development") {
-  app.use(morgan("dev"));
-}
-
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+if (NODE_ENV === "development") {
+  app.use(morgan("dev"));
+
+  // Configure CORS options
+  app.use(cors({
+    origin: "*"
+  }));
+} else if (NODE_ENV === "production") {
+  // Configure CORS options
+  app.use(cors({
+    origin: "https://color-palette-generator-v0ah.onrender.com"
+  }));
+}
 
 // Middlewares
 app.use((req: Request, res: Response, next) => {

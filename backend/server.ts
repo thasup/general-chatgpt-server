@@ -1,7 +1,9 @@
+import path from "path";
 import express, { type Request, type Response } from "express";
 import morgan from "morgan";
 import dotenv from "dotenv";
 import colors from "colors";
+import cookieParser from "cookie-parser";
 
 import { errorHandler, notFound } from "./middlewares/errors-handling.middleware";
 
@@ -12,14 +14,14 @@ import spotifyPlaylistRouter from "./routes/spotify-playlist.router";
 dotenv.config();
 const { PORT, NODE_ENV } = process.env;
 
-
-const port = PORT ?? 7777;
+const port = PORT ?? 9999;
 const app = express();
 
 if (NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
 
+app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -31,7 +33,14 @@ app.use((req: Request, res: Response, next) => {
   console.log(`${req.method} ${req.baseUrl}${req.url} ${delta}ms`);
 });
 
-app.get("/", async (req: Request, res: Response) => {
+app.use(express.static(path.join(
+  __dirname.replace("/dist", ""),
+  "/frontend",
+  "/colors",
+  "/public"
+)));
+
+app.get("/", (req: Request, res: Response) => {
   res.send("API is running...");
 });
 app.use("/v1/colors", colorsPaletteRouter);

@@ -1,0 +1,1 @@
+{"version":3,"file":"openai.model.d.ts","sourceRoot":"","sources":["../../backend/models/openai.model.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,KAAK,4BAA4B,EAAE,MAAM,QAAQ,CAAC;AAC3D,OAAO,EAAE,KAAK,WAAW,EAAE,MAAM,iBAAiB,CAAC;AAEnD,QAAA,MAAM,sBAAsB,UAAW,MAAM,KAAG,MAE/C,CAAC;AAEF,QAAA,MAAM,sBAAsB,aAAc,WAAW,KAAG,4BAA4B,EAWnF,CAAC;AAEF,OAAO,EACL,sBAAsB,EACtB,sBAAsB,EACvB,CAAC"}

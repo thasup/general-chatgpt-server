@@ -43,6 +43,16 @@ app.use(express.static(path.join(
 app.get("/", (req: Request, res: Response) => {
   res.send("API is running...");
 });
+
+app.get("/colors", (req: Request, res: Response) => {
+  res.sendFile(path.resolve(
+    __dirname.replace("/dist", ""),
+    "frontend",
+    "colors",
+    "public",
+    "index.html"
+  ));
+});
 app.use("/v1/colors", colorsPaletteRouter);
 app.use("/v1/manga", mangaComparatorRouter);
 app.use("/v1/spotify", spotifyPlaylistRouter);

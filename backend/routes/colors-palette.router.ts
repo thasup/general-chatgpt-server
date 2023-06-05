@@ -9,9 +9,12 @@ router.use((req: Request, res: Response, next) => {
   next();
 });
 
-router.get("/", getSomething);
-router.get("/:input", getColorsPalette);
+// Define more specific routes first
 router.post("/text", postColorsPaletteTextCompletion);
 router.post("/chat", postColorsPaletteChatCompletion);
+router.get("/:input", getColorsPalette);
+
+// Define generic routes at the end
+router.get("/", getSomething);
 
 export default router;

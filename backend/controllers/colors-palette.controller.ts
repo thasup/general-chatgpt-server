@@ -9,17 +9,20 @@ function getSomething (req: Request, res: Response): void {
 
 async function getColorsPalette (req: Request, res: Response): Promise<void> {
   const input = req.params.input;
+  const inputObj = {
+    input
+  };
 
-  if (!input) {
+  if (!inputObj) {
     res.status(404).json({
       error: "Missing an input"
     });
   }
 
   try {
-    const palette = await textCompletion(
-      input,
-      colorsPaletteTextInstruction,
+    const palette = await chatCompletion(
+      inputObj,
+      colorsPaletteChatInstruction2,
       {
         max_tokens: 500,
         temperature: 0.5,
@@ -27,7 +30,17 @@ async function getColorsPalette (req: Request, res: Response): Promise<void> {
       }
     );
 
-    res.status(200).json(palette);
+    if (!palette) {
+      res.status(500).json({
+        error: "Something went wrong!"
+      });
+    }
+
+    const jsonResponse = {
+      result: JSON.parse(palette as string)
+    };
+
+    res.status(200).json(jsonResponse);
   } catch {
     res.status(500).json({
       error: "Something went wrong!"
@@ -65,8 +78,11 @@ async function postColorsPaletteTextCompletion (req: Request, res: Response): Pr
 
 async function postColorsPaletteChatCompletion (req: Request, res: Response): Promise<void> {
   const { input } = req.body;
+  const inputObj = {
+    input
+  };
 
-  if (!input) {
+  if (!inputObj) {
     res.status(400).json({
       error: "Missing an input"
     });
@@ -74,7 +90,7 @@ async function postColorsPaletteChatCompletion (req: Request, res: Response): Pr
 
   try {
     const palette = await chatCompletion(
-      input,
+      inputObj,
       colorsPaletteChatInstruction2,
       {
         max_tokens: 500,
@@ -83,7 +99,17 @@ async function postColorsPaletteChatCompletion (req: Request, res: Response): Pr
       }
     );
 
-    res.status(200).json(palette);
+    if (!palette) {
+      res.status(500).json({
+        error: "Something went wrong!"
+      });
+    }
+
+    const jsonResponse = {
+      result: JSON.parse(palette as string)
+    };
+
+    res.status(200).json(jsonResponse);
   } catch {
     res.status(500).json({
       error: "Something went wrong!"

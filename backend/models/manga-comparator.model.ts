@@ -1,7 +1,8 @@
 import { type ChatCompletionRequestMessage } from "openai";
-import { type MangaInput } from "../types/manga-comparator";
 
-const mangaComparatorChatInstruction = (mangaInput: MangaInput): ChatCompletionRequestMessage[] => {
+import { type InputObject } from "../types/openai";
+
+const mangaComparatorChatInstruction = (mangaInput: InputObject): ChatCompletionRequestMessage[] => {
   const { char1, char2, manga1, manga2 } = mangaInput;
   return [
     {

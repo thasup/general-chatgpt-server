@@ -63,6 +63,7 @@ const chatCompletion = async (
 };
 
 export {
+  createPrompt,
   textCompletion,
   chatCompletion
 };

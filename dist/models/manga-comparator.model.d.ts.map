@@ -1,1 +1,0 @@
-{"version":3,"file":"manga-comparator.model.d.ts","sourceRoot":"","sources":["../../backend/models/manga-comparator.model.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,KAAK,4BAA4B,EAAE,MAAM,QAAQ,CAAC;AAE3D,OAAO,EAAE,KAAK,WAAW,EAAE,MAAM,iBAAiB,CAAC;AAEnD,QAAA,MAAM,8BAA8B,eAAgB,WAAW,KAAG,4BAA4B,EAoB7F,CAAC;AAEF,OAAO,EACL,8BAA8B,EAC/B,CAAC"}

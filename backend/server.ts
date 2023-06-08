@@ -25,8 +25,8 @@ app.use(express.urlencoded({ extended: true }));
 // Configure CORS options with multiple allowed origins
 const corsOptions = {
   origin: [
-    'https://color-palette-generator-v0ah.onrender.com',
-    'https://suppee.shop/general-chatgpt-server',
+    "https://color-palette-generator-v0ah.onrender.com",
+    "https://suppee.shop/general-chatgpt-server",
   ]
 };
 

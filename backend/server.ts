@@ -22,6 +22,14 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Configure CORS options with multiple allowed origins
+const corsOptions = {
+  origin: [
+    'https://color-palette-generator-v0ah.onrender.com',
+    'https://suppee.shop/general-chatgpt-server',
+  ]
+};
+
 if (NODE_ENV === "development") {
   app.use(morgan("dev"));
 
@@ -31,9 +39,7 @@ if (NODE_ENV === "development") {
   }));
 } else if (NODE_ENV === "production") {
   // Configure CORS options
-  app.use(cors({
-    origin: "https://color-palette-generator-v0ah.onrender.com"
-  }));
+  app.use(cors(corsOptions));
 }
 
 // Middlewares

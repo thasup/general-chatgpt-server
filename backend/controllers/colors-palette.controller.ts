@@ -1,7 +1,7 @@
 import { type Request, type Response } from "express";
 
 import { chatCompletion, textCompletion } from "../utilities/openai";
-import { colorsPaletteChatInstruction2, colorsPaletteTextInstruction } from "../models/colors-palette.model";
+import { colorsPaletteChatInstruction2, colorsPaletteChatInstruction3, colorsPaletteTextInstruction } from "../models/colors-palette.model";
 
 function getSomething (req: Request, res: Response): void {
   res.send("Hello! This is colors palette generator API :D");
@@ -91,7 +91,7 @@ async function postColorsPaletteChatCompletion (req: Request, res: Response): Pr
   try {
     const palette = await chatCompletion(
       inputObj,
-      colorsPaletteChatInstruction2,
+      colorsPaletteChatInstruction3,
       {
         max_tokens: 500,
         temperature: 0.5,

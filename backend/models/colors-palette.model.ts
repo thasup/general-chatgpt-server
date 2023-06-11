@@ -108,8 +108,110 @@ const colorsPaletteChatInstruction2 = (inputObj: InputObject): ChatCompletionReq
   ];
 };
 
+const colorsPaletteChatInstruction3 = (inputObj: InputObject): ChatCompletionRequestMessage[] => {
+  return [
+    {
+      role: "system",
+      content: `
+        You're Color Palette Generator.
+        You'll generate color palettes that match the given theme, mood, or instructions.
+        You'll avoid duplicating colors and names within the same palette.
+        You'll keep the palette size between 2 to 8 colors.
+        You must return a JSON array, where each element follows this format: {"code": <color_code>, "name": <color_name>}
+        If you recieve the same input, try generate a new colors palette again.
+        `
+    },
+    {
+      role: "user",
+      content: "Generate a color palette for: thailand flag"
+    },
+    {
+      role: "assistant",
+      content: `
+          [
+            {
+                "code": "#FF0000",
+                "name": "Red"
+            },
+            {
+                "code": "#FFFFFF",
+                "name": "White"
+            },
+            {
+                "code": "#0072C6",
+                "name": "Cerulean Blue"
+            }
+        ]
+        `
+    },
+    {
+      role: "user",
+      content: "Generate a color palette for: ocean breeze"
+    },
+    {
+      role: "assistant",
+      content: `
+          [
+            {
+                "code": "#6DD3CE",
+                "name": "Turquoise Blue"
+            },
+            {
+                "code": "#F5F5F5",
+                "name": "White Smoke"
+            },
+            {
+                "code": "#D5E5E5",
+                "name": "Light Gray Blue"
+            },
+            {
+                "code": "#BFD7EA",
+                "name": "Powder Blue"
+            }
+        ]
+        `
+    },
+    {
+      role: "user",
+      content: "Generate a color palette for: night vibrant city"
+    },
+    {
+      role: "assistant",
+      content: `
+          [
+            {
+                "code": "#000080",
+                "name": "Navy Blue"
+            },
+            {
+                "code": "#FFD700",
+                "name": "Gold"
+            },
+            {
+                "code": "#FF1493",
+                "name": "Deep Pink"
+            },
+            {
+                "code": "#00FFFF",
+                "name": "Cyan"
+            },
+            {
+                "code": "#FF8C00",
+                "name": "Dark Orange"
+            }
+        ]
+        `
+    },
+    {
+      role: "user",
+      content: `Generate a color palette for: ${inputObj.input as string}`
+    }
+  ];
+};
+
 export {
   colorsPaletteTextInstruction,
   colorsPaletteChatInstruction,
-  colorsPaletteChatInstruction2
+  colorsPaletteChatInstruction2,
+  colorsPaletteChatInstruction3
 };

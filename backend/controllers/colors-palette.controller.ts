@@ -1,7 +1,8 @@
 import { type Request, type Response } from "express";
 
-import { chatCompletion, textCompletion } from "../utilities/openai";
+import { chatCompletion, openAiConfig, textCompletion } from "../utilities/openai";
 import { colorsPaletteChatInstruction2, colorsPaletteChatInstruction3, colorsPaletteTextInstruction } from "../models/colors-palette.model";
+import { handleApiResponse, handleError } from "../utilities/common";
 
 async function getColorsPalette (req: Request, res: Response): Promise<void> {
   const input = req.params.input;
@@ -9,7 +10,7 @@ async function getColorsPalette (req: Request, res: Response): Promise<void> {
     input
   };
 
-  if (!inputObj) {
+  if (!inputObj.input) {
     res.status(404).json({
       error: "Missing an input"
     });
@@ -19,28 +20,12 @@ async function getColorsPalette (req: Request, res: Response): Promise<void> {
     const palette = await chatCompletion(
       inputObj,
       colorsPaletteChatInstruction2,
-      {
-        max_tokens: 500,
-        temperature: 0.5,
-        top_p: 0.5
-      }
+      openAiConfig
     );
 
-    if (!palette) {
-      res.status(500).json({
-        error: "Something went wrong!"
-      });
-    }
-
-    const jsonResponse = {
-      result: JSON.parse(palette as string)
-    };
-
-    res.status(200).json(jsonResponse);
-  } catch {
-    res.status(500).json({
-      error: "Something went wrong!"
-    });
+    await handleApiResponse(res, palette);
+  } catch (error) {
+    await handleError(res, error);
   }
 }
 
@@ -55,20 +40,16 @@ async function postColorsPaletteTextCompletion (req: Request, res: Response): Pr
 
   try {
     const palette = await textCompletion(
-      input,
-      colorsPaletteTextInstruction,
       {
-        max_tokens: 500,
-        temperature: 0.5,
-        top_p: 0.5
-      }
+        input
+      },
+      colorsPaletteTextInstruction,
+      openAiConfig
     );
 
-    res.status(200).json(palette);
-  } catch {
-    res.status(500).json({
-      error: "Something went wrong!"
-    });
+    await handleApiResponse(res, palette);
+  } catch (error) {
+    await handleError(res, error);
   }
 }
 
@@ -88,28 +69,12 @@ async function postColorsPaletteChatCompletion (req: Request, res: Response): Pr
     const palette = await chatCompletion(
       inputObj,
       colorsPaletteChatInstruction3,
-      {
-        max_tokens: 500,
-        temperature: 0.5,
-        top_p: 0.5
-      }
+      openAiConfig
     );
 
-    if (!palette) {
-      res.status(500).json({
-        error: "Something went wrong!"
-      });
-    }
-
-    const jsonResponse = {
-      result: JSON.parse(palette as string)
-    };
-
-    res.status(200).json(jsonResponse);
-  } catch {
-    res.status(500).json({
-      error: "Something went wrong!"
-    });
+    await handleApiResponse(res, palette);
+  } catch (error) {
+    await handleError(res, error);
   }
 }
 

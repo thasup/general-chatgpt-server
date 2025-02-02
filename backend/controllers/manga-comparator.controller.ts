@@ -2,6 +2,7 @@ import { type Request, type Response } from "express";
 
 import { chatCompletion } from "../utilities/openai";
 import { mangaComparatorChatInstruction } from "../models/manga-comparator.model";
+import { handleApiResponse, handleError } from "../utilities/common";
 
 function getManga (req: Request, res: Response): void {
   res.send("Hello! This is manga comparator API :D");
@@ -23,7 +24,7 @@ async function postManga (req: Request, res: Response): Promise<void> {
   }
 
   try {
-    const charactor = await chatCompletion(
+    const charactorResponse = await chatCompletion(
       mangaInput,
       mangaComparatorChatInstruction,
       {
@@ -33,11 +34,9 @@ async function postManga (req: Request, res: Response): Promise<void> {
       }
     );
 
-    res.status(200).json(charactor);
-  } catch {
-    res.status(500).json({
-      error: "Something went wrong!"
-    });
+    await handleApiResponse(res, charactorResponse);
+  } catch (error) {
+    await handleError(res, error);
   }
 }
 

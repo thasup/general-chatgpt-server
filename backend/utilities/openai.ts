@@ -3,6 +3,7 @@ import { Configuration, OpenAIApi, type ChatCompletionRequestMessage, type Creat
 
 import { defaultChatInstruction, defaultTextInstruction } from "../models/openai.model";
 import { type InputObject } from "../types/openai";
+import { OPENAI_MODEL } from "../types/common";
 
 dotenv.config();
 const { OPENAI_API_KEY } = process.env;
@@ -11,6 +12,12 @@ const configuration = new Configuration({
   apiKey: OPENAI_API_KEY
 });
 const openai = new OpenAIApi(configuration);
+
+const openAiConfig = {
+  max_tokens: 500,
+  temperature: 0.5,
+  top_p: 0.5
+};
 
 const createPrompt = <T>(input: T, instruction?: (input: T) => any): any => {
   if (instruction) {
@@ -27,13 +34,13 @@ const createPrompt = <T>(input: T, instruction?: (input: T) => any): any => {
 };
 
 const textCompletion = async (
-  input: string,
-  instruction?: (input: string) => string,
+  inputObj: InputObject,
+  instruction?: (inputObj: InputObject) => string,
   options?: Partial<CreateCompletionRequest>
 ): Promise<string | undefined> => {
   const completion = await openai.createCompletion({
-    model: "text-davinci-003",
-    prompt: createPrompt(input, instruction),
+    model: OPENAI_MODEL.TEXT_DAVINCI_003,
+    prompt: createPrompt(inputObj, instruction),
     max_tokens: options?.max_tokens ?? 100,
     temperature: options?.temperature ?? 0,
     top_p: options?.top_p ?? 1
@@ -50,7 +57,7 @@ const chatCompletion = async (
 ): Promise<string | undefined> => {
   const completion = await openai.createChatCompletion(
     {
-      model: "gpt-3.5-turbo",
+      model: OPENAI_MODEL.GPT_4O_MINI,
       messages: createPrompt(inputObj, instruction),
       max_tokens: options?.max_tokens ?? 100,
       temperature: options?.temperature ?? 0,
@@ -63,6 +70,7 @@ const chatCompletion = async (
 };
 
 export {
+  openAiConfig,
   createPrompt,
   textCompletion,
   chatCompletion

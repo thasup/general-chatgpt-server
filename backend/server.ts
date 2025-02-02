@@ -75,7 +75,7 @@ app.get("/", (req: Request, res: Response) => {
 //   ));
 // });
 
-app.use("/v1/", generalRouter);
+app.use("/v1/general", generalRouter);
 app.use("/v1/colors", colorsPaletteRouter);
 app.use("/v1/manga", mangaComparatorRouter);
 

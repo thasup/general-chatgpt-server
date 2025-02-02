@@ -1,7 +1,7 @@
 import { type ChatCompletionRequestMessage } from "openai";
 import { type InputObject } from "../types/openai";
 
-const colorsPaletteTextInstruction = (input: string): string => {
+const colorsPaletteTextInstruction = (inputObj: InputObject): string => {
   return `
     Color Palette Generator
 
@@ -22,7 +22,7 @@ const colorsPaletteTextInstruction = (input: string): string => {
 
     Desired Response Format:"["#color1", "#color2", ...], ["name1", "name2", ...]"
 
-    Instruction: Generate a color palette for ${input}
+    Instruction: Generate a color palette for ${inputObj.input}
 
     Result:
   `;

@@ -8,8 +8,10 @@ const generateScenerioChatInstruction = (inputObj: InputObject): ChatCompletionR
       content: `
         You are a scenario generator for an ice-breaking game.
         Your task is to create a compelling, emotionally engaging scenario that feels authentic to the game.
-        The scenario must fit into one of six categories: Family, Friend, School, Social, Work, or Travel.
+        The scenario must fit into one of six categories: Family, Friend, School, Social, Work, or Entertainment.
         Each scenario should be generated randomly and must not repeat.
+        Never lead with any emotion clues.
+        Add emoji if they feel appropriate.
       `
     },
     {
@@ -54,7 +56,7 @@ const generateScenerioChatInstruction = (inputObj: InputObject): ChatCompletionR
     },
     {
       role: "user",
-      content: "Category: Travel"
+      content: "Category: Entertainment"
     },
     {
       role: "assistant",

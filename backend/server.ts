@@ -10,6 +10,7 @@ import { errorHandler, notFound } from "./middlewares/errors-handling.middleware
 
 import colorsPaletteRouter from "./routes/colors-palette.router";
 import mangaComparatorRouter from "./routes/manga-comparator.router";
+import generalRouter from "./routes/general.router";
 
 dotenv.config();
 const { PORT, NODE_ENV } = process.env;
@@ -25,7 +26,9 @@ app.use(express.urlencoded({ extended: true }));
 const corsOptions = {
   origin: [
     "https://color-palette-generator-v0ah.onrender.com",
-    "https://suppee.shop/general-chatgpt-server"
+    "https://suppee.shop/general-chatgpt-server",
+    "http://thanachon.me",
+    "http://*.thanachon.me"
   ]
 };
 
@@ -34,7 +37,9 @@ if (NODE_ENV === "development") {
 
   // Configure CORS options
   app.use(cors({
-    origin: "*"
+    origin: "*",
+    allowedHeaders: ["Content-Type", "Authorization"],
+    methods: ["GET", "POST", "PUT", "DELETE"]
   }));
 } else if (NODE_ENV === "production") {
   // Configure CORS options
@@ -70,6 +75,7 @@ app.get("/", (req: Request, res: Response) => {
 //   ));
 // });
 
+app.use("/v1/", generalRouter);
 app.use("/v1/colors", colorsPaletteRouter);
 app.use("/v1/manga", mangaComparatorRouter);
 

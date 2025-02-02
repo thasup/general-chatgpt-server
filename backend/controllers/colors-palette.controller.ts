@@ -3,10 +3,6 @@ import { type Request, type Response } from "express";
 import { chatCompletion, textCompletion } from "../utilities/openai";
 import { colorsPaletteChatInstruction2, colorsPaletteChatInstruction3, colorsPaletteTextInstruction } from "../models/colors-palette.model";
 
-function getSomething (req: Request, res: Response): void {
-  res.send("Hello! This is colors palette generator API :D");
-}
-
 async function getColorsPalette (req: Request, res: Response): Promise<void> {
   const input = req.params.input;
   const inputObj = {
@@ -118,7 +114,6 @@ async function postColorsPaletteChatCompletion (req: Request, res: Response): Pr
 }
 
 export {
-  getSomething,
   getColorsPalette,
   postColorsPaletteTextCompletion,
   postColorsPaletteChatCompletion

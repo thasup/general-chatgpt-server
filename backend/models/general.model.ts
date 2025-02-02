@@ -19,7 +19,7 @@ const fixSpellingAndGrammarChatInstruction = (inputObj: InputObject): ChatComple
         In other words, only correct spelling, syntax, or grammar mistakes, do not make improvements.
         If the original text has no mistake, just output the original text and nothing else.
         Do not wrap responses in quotes.
-        `
+      `
     },
     {
       role: "user",
@@ -52,7 +52,7 @@ const summarizeChatInstruction = (inputObj: InputObject): ChatCompletionRequestM
         Only give me the output and nothing else.
         Do not wrap responses in quotes.
         Respond in the ${String(inputObj.lang)} language.
-        `
+      `
     },
     {
       role: "user",

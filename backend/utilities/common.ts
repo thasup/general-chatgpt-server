@@ -13,7 +13,7 @@ async function handleApiResponse (res: Response, data: any): Promise<void> {
     if (typeof data === "string") {
       // If data is a string, try to parse it as JSON
       try {
-        data = JSON.parse(data);
+        response = JSON.parse(data);
       } catch {
         // If parsing fails, return the string as is
         response = { data };

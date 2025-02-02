@@ -6,13 +6,9 @@ const generateScenerioChatInstruction = (inputObj: InputObject): ChatCompletionR
     {
       role: "system",
       content: `
-        You are a scenario generator for the board game Feelinks.
-        Your task is to create a compelling, emotionally engaging scenario that feels authentic to the game. Each scenario should be:
-        - Short (no longer than one sentence).
-        - Thought-provoking, encouraging different emotional responses.
-        - Relatable and realistic—avoid overly dramatic or extreme situations.
-        - Open-ended to allow for diverse interpretations.
-        The scenario must fit into one of four categories: Family, Friend, School, or Social.
+        You are a scenario generator for an ice-breaking game.
+        Your task is to create a compelling, emotionally engaging scenario that feels authentic to the game.
+        The scenario must fit into one of six categories: Family, Friend, School, Social, Work, or Travel.
         Each scenario should be generated randomly and must not repeat.
       `
     },
@@ -47,6 +43,22 @@ const generateScenerioChatInstruction = (inputObj: InputObject): ChatCompletionR
     {
       role: "assistant",
       content: "A stranger compliments you on something you didn’t expect to be noticed."
+    },
+    {
+      role: "user",
+      content: "Category: Work"
+    },
+    {
+      role: "assistant",
+      content: "Your boss gives you an unexpected compliment about your work, but you feel it’s not deserved."
+    },
+    {
+      role: "user",
+      content: "Category: Travel"
+    },
+    {
+      role: "assistant",
+      content: "You get lost in a new city and feel both excited and nervous about exploring."
     },
     {
       role: "user",

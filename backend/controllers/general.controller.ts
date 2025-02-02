@@ -1,7 +1,11 @@
 import { type Request, type Response } from "express";
-import { openAiConfig, textCompletion } from "../utilities/openai";
-import { fixSpellingAndGrammarTextInstruction, summarizeTextInstruction } from "../models/general.model";
+
+import { chatCompletion, openAiConfig } from "../utilities/openai";
 import { handleApiResponse, handleError } from "../utilities/common";
+import {
+  fixSpellingAndGrammarChatInstruction,
+  summarizeChatInstruction
+} from "../models/general.model";
 
 function getSomething (req: Request, res: Response): void {
   res.send("Hello! This is general API :D");
@@ -17,11 +21,11 @@ async function postFixSpellingAndGrammarTextCompletion (req: Request, res: Respo
   }
 
   try {
-    const palette = await textCompletion(
+    const palette = await chatCompletion(
       {
         input
       },
-      fixSpellingAndGrammarTextInstruction,
+      fixSpellingAndGrammarChatInstruction,
       openAiConfig
     );
 
@@ -41,12 +45,12 @@ async function postSummarizeTextCompletion (req: Request, res: Response): Promis
   }
 
   try {
-    const response = await textCompletion(
+    const response = await chatCompletion(
       {
-        lang,
+        lang: lang || "en", // Default to English
         input
       },
-      summarizeTextInstruction,
+      summarizeChatInstruction,
       openAiConfig
     );
 

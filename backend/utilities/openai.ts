@@ -39,8 +39,8 @@ const textCompletion = async (
   options?: Partial<CreateCompletionRequest>
 ): Promise<string | undefined> => {
   const completion = await openai.createCompletion({
-    model: OPENAI_MODEL.TEXT_DAVINCI_003,
     prompt: createPrompt(inputObj, instruction),
+    model: OPENAI_MODEL.GPT_4O_MINI,
     max_tokens: options?.max_tokens ?? 100,
     temperature: options?.temperature ?? 0,
     top_p: options?.top_p ?? 1

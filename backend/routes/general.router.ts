@@ -1,6 +1,6 @@
 import express, { type Request, type Response } from "express";
 
-import { getSomething, postFixSpellingAndGrammarTextCompletion } from "../controllers/general.controller";
+import { getSomething, postFixSpellingAndGrammarTextCompletion, postSummarizeTextCompletion } from "../controllers/general.controller";
 
 const router = express.Router();
 
@@ -12,5 +12,6 @@ router.use((req: Request, res: Response, next) => {
 // Define generic routes at the end
 router.get("/", getSomething);
 router.post("/fix-grammar", postFixSpellingAndGrammarTextCompletion);
+router.post("/summarize", postSummarizeTextCompletion);
 
 export default router;

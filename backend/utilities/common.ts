@@ -9,11 +9,18 @@ async function handleApiResponse (res: Response, data: any): Promise<void> {
   }
 
   try {
-    const jsonResponse = {
-      result: JSON.parse(String(data))
-    };
+    let response;
+    if (typeof data === "string") {
+      // If data is a string, try to parse it as JSON
+      try {
+        data = JSON.parse(data);
+      } catch {
+        // If parsing fails, return the string as is
+        response = { data };
+      }
+    }
 
-    res.status(200).json(jsonResponse);
+    res.status(200).json(response);
   } catch {
     res.status(500).json({
       error: "Something went wrong!"

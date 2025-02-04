@@ -53,7 +53,7 @@ PORT=9999 # Optional, defaults to 9999
 
 ## API Endpoints
 
-### `GET /v1/`
+### `GET /v1/general`
 - **Description:** Returns a simple message indicating the API is working.
 - **Response:**
   ```json

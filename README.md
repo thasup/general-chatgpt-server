@@ -42,7 +42,7 @@ PORT=9999 # Optional, defaults to 9999
    ```
 2. Make a request to the API:
    ```sh
-   curl -X GET http://localhost:9999/v1/
+   curl -X GET http://localhost:9999/v1/general
    ```
 3. Example JSON response:
    ```json

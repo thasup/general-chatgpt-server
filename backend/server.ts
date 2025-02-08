@@ -30,7 +30,9 @@ const corsOptions = {
     "https://suppee.shop/general-chatgpt-server",
     "http://thanachon.me",
     "http://*.thanachon.me"
-  ]
+  ],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  methods: ["GET", "POST", "PUT", "DELETE"]
 };
 
 if (NODE_ENV === "development") {
@@ -86,5 +88,7 @@ app.use(errorHandler);
 
 app.listen(
   port,
-  () => { console.log(colors.yellow(`Server running in ${NODE_ENV ?? "development"} mode on port ${port}.`)); }
+  () => {
+    console.log(colors.yellow(`Server running in ${NODE_ENV ?? "development"} mode on port ${port}.`));
+  }
 );

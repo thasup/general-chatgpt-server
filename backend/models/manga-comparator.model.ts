@@ -1,12 +1,12 @@
-import { type ChatCompletionRequestMessage } from "openai";
+import type OpenAI from "openai";
 
 import { type InputObject } from "../types/openai";
 
-const mangaComparatorChatInstruction = (mangaInput: InputObject): ChatCompletionRequestMessage[] => {
+const mangaComparatorChatInstruction = (mangaInput: InputObject): OpenAI.Chat.Completions.ChatCompletionMessageParam[] => {
   const { char1, char2, manga1, manga2 } = mangaInput;
   return [
     {
-      role: "system",
+      role: "developer",
       content: "You're Manga character comparetor. You'll compare who is the overall strongest character from input choice. You'll give a name of winner character. You'll give a reason why the winner is the stronger than it opponent. You'll give a score out of 100 on how much strong both of them are"
     },
     {

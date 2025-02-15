@@ -1,6 +1,6 @@
 import express, { type Request, type Response } from "express";
 
-import { postGenerateScenerio } from "../controllers/stack-connect.controller";
+import { postGenerateScenario } from "../controllers/stack-connect.controller";
 
 const router = express.Router();
 
@@ -10,6 +10,6 @@ router.use((req: Request, res: Response, next) => {
 });
 
 // Define generic routes at the end
-router.post("/", postGenerateScenerio);
+router.post("/", postGenerateScenario);
 
 export default router;

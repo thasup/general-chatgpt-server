@@ -1,12 +1,12 @@
 import { type Request, type Response } from "express";
 
-import { chatCompletion, openAiConfig } from "../utilities/openai";
+import { chatCompletion, openAiDefaultConfig, textToSpeech } from "../utilities/openai";
 import { handleApiResponse, handleError } from "../utilities/common";
 import {
   generateScenerioChatInstruction
 } from "../models/stack-connect.model";
 
-async function postGenerateScenerio (req: Request, res: Response): Promise<void> {
+async function postGenerateScenario (req: Request, res: Response): Promise<void> {
   const { category } = req.body;
 
   if (!category) {
@@ -17,27 +17,30 @@ async function postGenerateScenerio (req: Request, res: Response): Promise<void>
   }
 
   try {
-    const palette = await chatCompletion(
+    const scenario = await chatCompletion(
       {
         category
       },
       generateScenerioChatInstruction,
       {
-        ...openAiConfig,
-        temperature: 0.7, // Balanced creativity
-        max_tokens: 200, // Set a reasonable max tokens for scenario length
-        top_p: 1,
+        ...openAiDefaultConfig,
+        temperature: 0.9, // Balanced creativity
+        max_completion_tokens: 200, // Set a reasonable max tokens for scenario length
         n: 1, // Generate one completion
         stream: false // No streaming required for a one-shot response
       }
     );
+    const audio = await textToSpeech(scenario ?? "");
 
-    await handleApiResponse(res, palette);
+    handleApiResponse(res, {
+      scenario,
+      audio
+    });
   } catch (error) {
-    await handleError(res, error);
+    handleError(res, error);
   }
 }
 
 export {
-  postGenerateScenerio
+  postGenerateScenario
 };

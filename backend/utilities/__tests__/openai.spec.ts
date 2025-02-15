@@ -1,29 +1,17 @@
-import { type CreateCompletionRequest, type ChatCompletionRequestMessage } from "openai";
+import type OpenAI from "openai";
 
-import { defaultChatInstruction, defaultTextInstruction } from "../../models/openai.model";
 import { type InputObject } from "../../types/openai";
-import { createPrompt, textCompletion } from "../openai";
 
 describe("createPrompt", () => {
-  test("should generate correct prompt with text instruction and string input", () => {
-    const stringInput = "Test string input";
-    const textInstruction = (input: string): string => {
-      return input.toUpperCase();
-    };
-    expect(createPrompt(stringInput, textInstruction)).toBe(
-      "TEST STRING INPUT"
-    );
-  });
-
   test("should generate correct prompt with chat instruction and object input", () => {
     const objectInput = { message: "Test object input" };
     const chatInstruction = (
       inputObj: InputObject
-    ): ChatCompletionRequestMessage[] => {
+    ): OpenAI.Chat.Completions.ChatCompletionMessageParam[] => {
       const { message } = inputObj;
       return [
         {
-          role: "system",
+          role: "developer",
           content: "You're a helpful chatbot"
         },
         {
@@ -32,9 +20,9 @@ describe("createPrompt", () => {
         }
       ];
     };
-    const expectedInput: ChatCompletionRequestMessage[] = [
+    const expectedInput: OpenAI.Chat.Completions.ChatCompletionMessageParam[] = [
       {
-        role: "system",
+        role: "developer",
         content: "You're a helpful chatbot"
       },
       {
@@ -43,23 +31,8 @@ describe("createPrompt", () => {
       }
     ];
 
-    expect(createPrompt(objectInput, chatInstruction)).toStrictEqual(
+    expect(chatInstruction(objectInput)).toStrictEqual(
       expectedInput
-    );
-  });
-
-  test("should generate correct prompt with default text instruction and string input", () => {
-    const stringInput = "Test string input";
-
-    expect(createPrompt(stringInput)).toBe(
-      defaultTextInstruction(stringInput)
-    );
-  });
-
-  test("should generate correct prompt with default chat instruction and object input", () => {
-    const objectInput = { message: "Test object input" };
-    expect(createPrompt(objectInput)).toStrictEqual(
-      defaultChatInstruction(objectInput)
     );
   });
 });

@@ -1,4 +1,4 @@
-import { type ChatCompletionRequestMessage } from "openai";
+import type OpenAI from "openai";
 import { type InputObject } from "../types/openai";
 
 const colorsPaletteTextInstruction = (inputObj: InputObject): string => {
@@ -28,10 +28,10 @@ const colorsPaletteTextInstruction = (inputObj: InputObject): string => {
   `;
 };
 
-const colorsPaletteChatInstruction = (inputObj: InputObject): ChatCompletionRequestMessage[] => {
+const colorsPaletteChatInstruction = (inputObj: InputObject): OpenAI.Chat.Completions.ChatCompletionMessageParam[] => {
   return [
     {
-      role: "system",
+      role: "developer",
       content: "You're Color Palette Generator. You'll generate color palettes that match the given theme, mood, or instructions. You'll avoid duplicating colors and names within the same palette. You'll keep the palette size between 2 to 8 colors."
     },
     {
@@ -57,10 +57,10 @@ const colorsPaletteChatInstruction = (inputObj: InputObject): ChatCompletionRequ
   ];
 };
 
-const colorsPaletteChatInstruction2 = (inputObj: InputObject): ChatCompletionRequestMessage[] => {
+const colorsPaletteChatInstruction2 = (inputObj: InputObject): OpenAI.Chat.Completions.ChatCompletionMessageParam[] => {
   return [
     {
-      role: "system",
+      role: "developer",
       content: `
         You're a colors palette generator assistant who must do your task without adding any comments or notes.
         You'll generate color palettes that match the given theme, mood, or instructions.
@@ -108,10 +108,10 @@ const colorsPaletteChatInstruction2 = (inputObj: InputObject): ChatCompletionReq
   ];
 };
 
-const colorsPaletteChatInstruction3 = (inputObj: InputObject): ChatCompletionRequestMessage[] => {
+const colorsPaletteChatInstruction3 = (inputObj: InputObject): OpenAI.Chat.Completions.ChatCompletionMessageParam[] => {
   return [
     {
-      role: "system",
+      role: "developer",
       content: `
         You're Color Palette Generator.
         You'll generate color palettes that match the given theme, mood, or instructions.

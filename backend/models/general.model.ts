@@ -1,4 +1,4 @@
-import { type ChatCompletionRequestMessage } from "openai";
+import type OpenAI from "openai";
 import { type InputObject } from "../types/openai";
 
 const fixSpellingAndGrammarTextInstruction = (inputObj: InputObject): string => {
@@ -10,10 +10,10 @@ const fixSpellingAndGrammarTextInstruction = (inputObj: InputObject): string => 
   `;
 };
 
-const fixSpellingAndGrammarChatInstruction = (inputObj: InputObject): ChatCompletionRequestMessage[] => {
+const fixSpellingAndGrammarChatInstruction = (inputObj: InputObject): OpenAI.Chat.Completions.ChatCompletionMessageParam[] => {
   return [
     {
-      role: "system",
+      role: "developer",
       content: `
         Correct any spelling, syntax, or grammar mistakes in the text delimited by triple quotes without making any improvements or changes to the original meaning or style.
         In other words, only correct spelling, syntax, or grammar mistakes, do not make improvements.
@@ -40,10 +40,10 @@ const summarizeTextInstruction = (inputObj: InputObject): string => {
   `;
 };
 
-const summarizeChatInstruction = (inputObj: InputObject): ChatCompletionRequestMessage[] => {
+const summarizeChatInstruction = (inputObj: InputObject): OpenAI.Chat.Completions.ChatCompletionMessageParam[] => {
   return [
     {
-      role: "system",
+      role: "developer",
       content: `
         You are a highly skilled AI trained in language comprehension and summarization.
         I would like you to read the text delimited by triple quotes and summarize it into a concise abstract paragraph.
@@ -61,10 +61,10 @@ const summarizeChatInstruction = (inputObj: InputObject): ChatCompletionRequestM
   ];
 };
 
-const rewriteChatInstruction = (inputObj: InputObject): ChatCompletionRequestMessage[] => {
+const rewriteChatInstruction = (inputObj: InputObject): OpenAI.Chat.Completions.ChatCompletionMessageParam[] => {
   return [
     {
-      role: "system",
+      role: "developer",
       content: `
         Rewrite the following text, which will be delimited by triple quotes, to be more concise and well-written while preserving the original meaning.
         Provide only the rewritten text as your output, without any quotes or tags.
@@ -78,10 +78,10 @@ const rewriteChatInstruction = (inputObj: InputObject): ChatCompletionRequestMes
   ];
 };
 
-const explainChatInstruction = (inputObj: InputObject): ChatCompletionRequestMessage[] => {
+const explainChatInstruction = (inputObj: InputObject): OpenAI.Chat.Completions.ChatCompletionMessageParam[] => {
   return [
     {
-      role: "system",
+      role: "developer",
       content: `
         Please explain clearly and concisely in ${inputObj.lang} language.
       `
@@ -93,10 +93,10 @@ const explainChatInstruction = (inputObj: InputObject): ChatCompletionRequestMes
   ];
 };
 
-const translateChatInstruction = (inputObj: InputObject): ChatCompletionRequestMessage[] => {
+const translateChatInstruction = (inputObj: InputObject): OpenAI.Chat.Completions.ChatCompletionMessageParam[] => {
   return [
     {
-      role: "system",
+      role: "developer",
       content: `
         You are a highly skilled AI trained in language translation.
         I would like you to translate the text delimited by triple quotes into ${inputObj.lang} language.
@@ -111,10 +111,10 @@ const translateChatInstruction = (inputObj: InputObject): ChatCompletionRequestM
   ];
 };
 
-const brainstormChatInstruction = (inputObj: InputObject): ChatCompletionRequestMessage[] => {
+const brainstormChatInstruction = (inputObj: InputObject): OpenAI.Chat.Completions.ChatCompletionMessageParam[] => {
   return [
     {
-      role: "system",
+      role: "developer",
       content: `
         Please generate 10 creative ideas based on the following keywords or topics.
         Each idea should be unique and provide a fresh perspective.
@@ -130,10 +130,10 @@ const brainstormChatInstruction = (inputObj: InputObject): ChatCompletionRequest
   ];
 };
 
-const outlineChatInstruction = (inputObj: InputObject): ChatCompletionRequestMessage[] => {
+const outlineChatInstruction = (inputObj: InputObject): OpenAI.Chat.Completions.ChatCompletionMessageParam[] => {
   return [
     {
-      role: "system",
+      role: "developer",
       content: `
         Please use the following topics or keywords to generate an outline that includes titles, chapters, and subsections.
         Output it in Markdown format.
@@ -148,10 +148,10 @@ const outlineChatInstruction = (inputObj: InputObject): ChatCompletionRequestMes
   ];
 };
 
-const writeBlogChatInstruction = (inputObj: InputObject): ChatCompletionRequestMessage[] => {
+const writeBlogChatInstruction = (inputObj: InputObject): OpenAI.Chat.Completions.ChatCompletionMessageParam[] => {
   return [
     {
-      role: "system",
+      role: "developer",
       content: `
         Help me generate a blog post based on the following topics or keywords.
         Follow the steps below:
@@ -171,10 +171,10 @@ const writeBlogChatInstruction = (inputObj: InputObject): ChatCompletionRequestM
   ];
 };
 
-const shorterChatInstruction = (inputObj: InputObject): ChatCompletionRequestMessage[] => {
+const shorterChatInstruction = (inputObj: InputObject): OpenAI.Chat.Completions.ChatCompletionMessageParam[] => {
   return [
     {
-      role: "system",
+      role: "developer",
       content: `
         Please rewrite the text input to be no more than half the number of characters while keeping the core meaning the same.
         Output only the rewritten text, without any quotes or other formatting.
@@ -188,10 +188,10 @@ const shorterChatInstruction = (inputObj: InputObject): ChatCompletionRequestMes
   ];
 };
 
-const longerChatInstruction = (inputObj: InputObject): ChatCompletionRequestMessage[] => {
+const longerChatInstruction = (inputObj: InputObject): OpenAI.Chat.Completions.ChatCompletionMessageParam[] => {
   return [
     {
-      role: "system",
+      role: "developer",
       content: `
         Please rewrite the text input to be twice as long, while keeping the core meaning the same.
         Do not add any completely new information, ideas or opinions.

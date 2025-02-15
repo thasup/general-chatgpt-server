@@ -1,6 +1,6 @@
 import { type Request, type Response } from "express";
 
-import { chatCompletion, openAiConfig } from "../utilities/openai";
+import { chatCompletion, openAiDefaultConfig } from "../utilities/openai";
 import { handleApiResponse, handleError } from "../utilities/common";
 import {
   brainstormChatInstruction,
@@ -34,7 +34,7 @@ async function postFixSpellingAndGrammar (req: Request, res: Response): Promise<
         input
       },
       fixSpellingAndGrammarChatInstruction,
-      openAiConfig
+      openAiDefaultConfig
     );
 
     await handleApiResponse(res, palette);
@@ -59,7 +59,7 @@ async function postSummarize (req: Request, res: Response): Promise<void> {
         input
       },
       summarizeChatInstruction,
-      openAiConfig
+      openAiDefaultConfig
     );
 
     await handleApiResponse(res, response);
@@ -83,7 +83,7 @@ async function postRewrite (req: Request, res: Response): Promise<void> {
         input
       },
       rewriteChatInstruction,
-      openAiConfig
+      openAiDefaultConfig
     );
 
     await handleApiResponse(res, response);
@@ -108,7 +108,7 @@ async function postExplain (req: Request, res: Response): Promise<void> {
         lang: lang || "en"
       },
       explainChatInstruction,
-      openAiConfig
+      openAiDefaultConfig
     );
 
     await handleApiResponse(res, response);
@@ -137,7 +137,7 @@ async function postTranslate (req: Request, res: Response): Promise<void> {
         lang
       },
       translateChatInstruction,
-      openAiConfig
+      openAiDefaultConfig
     );
 
     await handleApiResponse(res, response);
@@ -162,7 +162,7 @@ async function postBrainstorm (req: Request, res: Response): Promise<void> {
         lang: lang || "en"
       },
       brainstormChatInstruction,
-      openAiConfig
+      openAiDefaultConfig
     );
 
     await handleApiResponse(res, response);
@@ -187,7 +187,7 @@ async function postOutline (req: Request, res: Response): Promise<void> {
         lang: lang || "en"
       },
       outlineChatInstruction,
-      openAiConfig
+      openAiDefaultConfig
     );
 
     await handleApiResponse(res, response);
@@ -212,7 +212,7 @@ async function postWriteBlog (req: Request, res: Response): Promise<void> {
         lang: lang || "en"
       },
       writeBlogChatInstruction,
-      openAiConfig
+      openAiDefaultConfig
     );
 
     await handleApiResponse(res, response);
@@ -237,7 +237,7 @@ async function postShorter (req: Request, res: Response): Promise<void> {
         lang: lang || "en"
       },
       shorterChatInstruction,
-      openAiConfig
+      openAiDefaultConfig
     );
 
     await handleApiResponse(res, response);
@@ -262,7 +262,7 @@ async function postLonger (req: Request, res: Response): Promise<void> {
         lang: lang || "en"
       },
       longerChatInstruction,
-      openAiConfig
+      openAiDefaultConfig
     );
 
     await handleApiResponse(res, response);

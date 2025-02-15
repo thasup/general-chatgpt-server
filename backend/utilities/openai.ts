@@ -1,77 +1,68 @@
 import dotenv from "dotenv";
-import { Configuration, OpenAIApi, type ChatCompletionRequestMessage, type CreateChatCompletionRequest, type CreateCompletionRequest } from "openai";
+import OpenAI from "openai";
+// import fs from "fs";
+// import path from "path";
+// import { Readable } from "stream";
 
-import { defaultChatInstruction, defaultTextInstruction } from "../models/openai.model";
 import { type InputObject } from "../types/openai";
 import { OPENAI_MODEL } from "../types/common";
+import { type ChatCompletionCreateParamsBase } from "openai/resources/chat/completions";
+import { type ResponseFormatJSONObject, type ResponseFormatJSONSchema, type ResponseFormatText } from "openai/resources";
+import { streamToBuffer } from "./common";
 
 dotenv.config();
 const { OPENAI_API_KEY } = process.env;
 
-const configuration = new Configuration({
+const openai = new OpenAI({
   apiKey: OPENAI_API_KEY
 });
-const openai = new OpenAIApi(configuration);
 
-const openAiConfig = {
-  max_tokens: 500,
-  temperature: 0.5,
-  top_p: 0.5
-};
-
-const createPrompt = <T>(input: T, instruction?: (input: T) => any): any => {
-  if (instruction) {
-    return instruction(input);
-  }
-  switch (typeof input) {
-    case "string":
-      return defaultTextInstruction(input as string);
-    case "object":
-      return defaultChatInstruction(input as InputObject);
-    default:
-      return null;
-  }
-};
-
-const textCompletion = async (
-  inputObj: InputObject,
-  instruction?: (inputObj: InputObject) => string,
-  options?: Partial<CreateCompletionRequest>
-): Promise<string | undefined> => {
-  const completion = await openai.createCompletion({
-    prompt: createPrompt(inputObj, instruction),
-    model: OPENAI_MODEL.GPT_4O_MINI,
-    max_tokens: options?.max_tokens ?? 100,
-    temperature: options?.temperature ?? 0,
-    top_p: options?.top_p ?? 1
-  });
-  const res = completion?.data?.choices[0]?.text;
-
-  return res;
+const openAiDefaultConfig = {
+  max_completion_tokens: 100,
+  temperature: 0,
+  top_p: 1
 };
 
 const chatCompletion = async (
   inputObj: InputObject,
-  instruction?: (inputObj: InputObject) => ChatCompletionRequestMessage[],
-  options?: Partial<CreateChatCompletionRequest>
-): Promise<string | undefined> => {
-  const completion = await openai.createChatCompletion(
+  instruction: (inputObj: InputObject) => OpenAI.Chat.Completions.ChatCompletionMessageParam[],
+  options?: Partial<ChatCompletionCreateParamsBase>,
+  format?: ResponseFormatJSONSchema | ResponseFormatText | ResponseFormatJSONObject | undefined
+): Promise<string | null> => {
+  const completion = await openai.chat.completions.create(
     {
       model: OPENAI_MODEL.GPT_4O_MINI,
-      messages: createPrompt(inputObj, instruction),
-      max_tokens: options?.max_tokens ?? 100,
-      temperature: options?.temperature ?? 0,
-      top_p: options?.top_p ?? 1
+      messages: instruction(inputObj),
+      response_format: format,
+      max_completion_tokens: options?.max_completion_tokens ?? openAiDefaultConfig.max_completion_tokens,
+      temperature: options?.temperature ?? openAiDefaultConfig.temperature,
+      top_p: options?.top_p ?? openAiDefaultConfig.top_p
     }
   );
-  const res = completion?.data?.choices[0]?.message?.content;
+  const res = completion?.choices[0]?.message?.content;
 
   return res;
 };
 
+const textToSpeech = async (text: string): Promise<string> => {
+  // const speechFile = path.resolve("./speech.mp3");
+  const mp3 = await openai.audio.speech.create({
+    model: "tts-1",
+    voice: "nova",
+    input: text,
+    response_format: "mp3", // Return audio in MP3 format
+    speed: 1
+  });
+  // const buffer = Buffer.from(await mp3.arrayBuffer());
+  // await fs.promises.writeFile(speechFile, buffer);
+
+  const audioStream = mp3.body;
+  const audioBuffer = await streamToBuffer(audioStream);
+  return audioBuffer.toString("base64");
+};
+
 export {
-  openAiConfig,
-  createPrompt,
-  textCompletion,
-  chatCompletion
+  openAiDefaultConfig,
+  chatCompletion,
+  textToSpeech
 };

@@ -1,10 +1,10 @@
-import { type ChatCompletionRequestMessage } from "openai";
+import type OpenAI from "openai";
 import { type InputObject } from "../types/openai";
 
-const generateScenerioChatInstruction = (inputObj: InputObject): ChatCompletionRequestMessage[] => {
+const generateScenerioChatInstruction = (inputObj: InputObject): OpenAI.Chat.Completions.ChatCompletionMessageParam[] => {
   return [
     {
-      role: "system",
+      role: "developer",
       content: `
         You are a scenario generator for an ice-breaking game.
         Your task is to create a compelling, emotionally engaging scenario that feels authentic to the game.

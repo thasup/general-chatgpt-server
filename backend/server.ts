@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import colors from "colors";
 import cookieParser from "cookie-parser";
 import cors from "cors";
+import "openai/shims/node"; // Ensures correct types for streaming responses in Node
 
 import { errorHandler, notFound } from "./middlewares/errors-handling.middleware";
 

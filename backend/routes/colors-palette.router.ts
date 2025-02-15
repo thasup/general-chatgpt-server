@@ -1,6 +1,6 @@
 import express, { type Request, type Response } from "express";
 
-import { getColorsPalette, postColorsPaletteChatCompletion, postColorsPaletteTextCompletion } from "../controllers/colors-palette.controller";
+import { getColorsPalette, postColorsPaletteChatCompletion } from "../controllers/colors-palette.controller";
 
 const router = express.Router();
 
@@ -10,8 +10,7 @@ router.use((req: Request, res: Response, next) => {
 });
 
 // Define more specific routes first
-router.post("/text", postColorsPaletteTextCompletion);
-router.post("/chat", postColorsPaletteChatCompletion);
 router.get("/:input", getColorsPalette);
+router.post("/chat", postColorsPaletteChatCompletion);
 
 export default router;

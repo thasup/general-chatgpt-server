@@ -28,7 +28,7 @@ async function postManga (req: Request, res: Response): Promise<void> {
       mangaInput,
       mangaComparatorChatInstruction,
       {
-        max_tokens: 300,
+        max_completion_tokens: 300,
         temperature: 0,
         top_p: 1
       }

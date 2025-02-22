@@ -37,9 +37,9 @@ async function postFixSpellingAndGrammar (req: Request, res: Response): Promise<
       openAiDefaultConfig
     );
 
-    await handleApiResponse(res, palette);
+    handleApiResponse(res, palette);
   } catch (error) {
-    await handleError(res, error);
+    handleError(res, error);
   }
 }
 
@@ -62,9 +62,9 @@ async function postSummarize (req: Request, res: Response): Promise<void> {
       openAiDefaultConfig
     );
 
-    await handleApiResponse(res, response);
+    handleApiResponse(res, response);
   } catch (error) {
-    await handleError(res, error);
+    handleError(res, error);
   }
 }
 
@@ -86,9 +86,9 @@ async function postRewrite (req: Request, res: Response): Promise<void> {
       openAiDefaultConfig
     );
 
-    await handleApiResponse(res, response);
+    handleApiResponse(res, response);
   } catch (error) {
-    await handleError(res, error);
+    handleError(res, error);
   }
 }
 
@@ -111,9 +111,9 @@ async function postExplain (req: Request, res: Response): Promise<void> {
       openAiDefaultConfig
     );
 
-    await handleApiResponse(res, response);
+    handleApiResponse(res, response);
   } catch (error) {
-    await handleError(res, error);
+    handleError(res, error);
   }
 }
 
@@ -140,9 +140,9 @@ async function postTranslate (req: Request, res: Response): Promise<void> {
       openAiDefaultConfig
     );
 
-    await handleApiResponse(res, response);
+    handleApiResponse(res, response);
   } catch (error) {
-    await handleError(res, error);
+    handleError(res, error);
   }
 }
 
@@ -165,9 +165,9 @@ async function postBrainstorm (req: Request, res: Response): Promise<void> {
       openAiDefaultConfig
     );
 
-    await handleApiResponse(res, response);
+    handleApiResponse(res, response);
   } catch (error) {
-    await handleError(res, error);
+    handleError(res, error);
   }
 }
 
@@ -190,9 +190,9 @@ async function postOutline (req: Request, res: Response): Promise<void> {
       openAiDefaultConfig
     );
 
-    await handleApiResponse(res, response);
+    handleApiResponse(res, response);
   } catch (error) {
-    await handleError(res, error);
+    handleError(res, error);
   }
 }
 
@@ -215,9 +215,9 @@ async function postWriteBlog (req: Request, res: Response): Promise<void> {
       openAiDefaultConfig
     );
 
-    await handleApiResponse(res, response);
+    handleApiResponse(res, response);
   } catch (error) {
-    await handleError(res, error);
+    handleError(res, error);
   }
 }
 
@@ -240,9 +240,9 @@ async function postShorter (req: Request, res: Response): Promise<void> {
       openAiDefaultConfig
     );
 
-    await handleApiResponse(res, response);
+    handleApiResponse(res, response);
   } catch (error) {
-    await handleError(res, error);
+    handleError(res, error);
   }
 }
 
@@ -265,9 +265,9 @@ async function postLonger (req: Request, res: Response): Promise<void> {
       openAiDefaultConfig
     );
 
-    await handleApiResponse(res, response);
+    handleApiResponse(res, response);
   } catch (error) {
-    await handleError(res, error);
+    handleError(res, error);
   }
 }
 

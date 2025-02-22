@@ -76,9 +76,9 @@ async function getColorsPalette (req: Request, res: Response): Promise<void> {
       zodResponseFormat(ColorsResponseSchema, "color_schema")
     );
 
-    await handleApiResponse(res, palette);
+    handleApiResponse(res, palette);
   } catch (error) {
-    await handleError(res, error);
+    handleError(res, error);
   }
 }
 
@@ -102,9 +102,9 @@ async function postColorsPaletteChatCompletion (req: Request, res: Response): Pr
       zodResponseFormat(ColorsResponseSchema, "color_schema")
     );
 
-    await handleApiResponse(res, palette);
+    handleApiResponse(res, palette);
   } catch (error) {
-    await handleError(res, error);
+    handleError(res, error);
   }
 }
 

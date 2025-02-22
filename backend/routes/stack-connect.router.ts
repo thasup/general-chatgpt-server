@@ -1,6 +1,9 @@
 import express, { type Request, type Response } from "express";
 
-import { postGenerateScenario } from "../controllers/stack-connect.controller";
+import {
+  postGenerateFeelinksScenario,
+  postGenerateSoundsFishyScenario
+} from "../controllers/stack-connect.controller";
 
 const router = express.Router();
 
@@ -10,6 +13,7 @@ router.use((req: Request, res: Response, next) => {
 });
 
 // Define generic routes at the end
-router.post("/", postGenerateScenario);
+router.post("/", postGenerateFeelinksScenario);
+router.post("/sounds-fishy", postGenerateSoundsFishyScenario);
 
 export default router;

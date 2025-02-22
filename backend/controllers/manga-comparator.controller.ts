@@ -34,9 +34,9 @@ async function postManga (req: Request, res: Response): Promise<void> {
       }
     );
 
-    await handleApiResponse(res, charactorResponse);
+    handleApiResponse(res, charactorResponse);
   } catch (error) {
-    await handleError(res, error);
+    handleError(res, error);
   }
 }
 

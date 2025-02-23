@@ -4,6 +4,7 @@ import { chatCompletion, openAiDefaultConfig, textToSpeech } from "../utilities/
 import { handleApiResponse, handleError } from "../utilities/common";
 import {
   generateFeelinksScenerioChatInstruction,
+  generateItoQuestionChatInstruction,
   generateSoundsFishyScenerioChatInstruction
 } from "../models/stack-connect.model";
 
@@ -13,6 +14,12 @@ interface SoundsFishyScenerio {
   reference: string
   category: string
   lang: string
+}
+
+interface ItoQuestion {
+  question: string
+  least: string
+  most: string
 }
 
 async function postGenerateFeelinksScenario (req: Request, res: Response): Promise<void> {
@@ -97,7 +104,45 @@ async function postGenerateSoundsFishyScenario (req: Request, res: Response): Pr
   }
 }
 
+async function postGenerateItoQuestion (req: Request, res: Response): Promise<void> {
+  const { category, lang } = req.body;
+
+  if (!category) {
+    res.status(400).json({
+      error: "Missing a category input"
+    });
+    return;
+  }
+
+  try {
+    const response = await chatCompletion(
+      {
+        category,
+        lang: lang || "en"
+      },
+      generateItoQuestionChatInstruction,
+      {
+        ...openAiDefaultConfig,
+        temperature: 0.9, // Balanced creativity
+        max_completion_tokens: 200, // Set a reasonable max tokens for scenario length
+        n: 1, // Generate one completion
+        stream: false // No streaming required for a one-shot response
+      }
+    );
+    const itoData: ItoQuestion = JSON.parse(String(response));
+    const audio = await textToSpeech(itoData.question ?? "");
+
+    handleApiResponse(res, {
+      itoData,
+      audio
+    });
+  } catch (error) {
+    handleError(res, error);
+  }
+}
+
 export {
   postGenerateFeelinksScenario,
-  postGenerateSoundsFishyScenario
+  postGenerateSoundsFishyScenario,
+  postGenerateItoQuestion
 };

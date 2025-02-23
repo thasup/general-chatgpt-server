@@ -172,4 +172,121 @@ const generateSoundsFishyScenerioChatInstruction = (
   ];
 };
 
-export { generateFeelinksScenerioChatInstruction, generateSoundsFishyScenerioChatInstruction };
+const generateItoQuestionChatInstruction = (
+  inputObj: InputObject
+): OpenAI.Chat.Completions.ChatCompletionMessageParam[] => {
+  return [
+    {
+      role: "developer",
+      content: `
+          You are an AI that generates **fun and engaging theme questions** for the party game "ITO."
+          Your goal is to create **simple, recognizable, and discussion-worthy** topics that players can easily rank from least to most.
+
+          ✅ **Rules for a good question:**
+          - **Short & Clear**: Easy to understand at a glance.
+          - **Engaging & Relatable**: Based on pop culture, daily life, humor, or absurd situations.
+          - **Easy to Rank**: Players should naturally debate and order their choices.
+
+          ✅ **Format of your response (JSON format):**
+          {
+            "question": "<A simple and fun theme>",
+            "least": "<Least extreme choice>",
+            "most": "<Most extreme choice>"
+          }
+
+          🎯 **Examples of great questions:**
+
+          - **Entertainment & Celebrities**
+            {
+              "question": "Famous Cartoons",
+              "least": "Not Well-Known",
+              "most": "Everyone Knows It"
+            }
+            {
+              "question": "Superpowers You Want!",
+              "least": "Not That Useful",
+              "most": "Totally Overpowered"
+            }
+
+          - **Daily Life & Objects**
+            {
+              "question": "Household Items You Can't Live Without",
+              "least": "Rarely Used",
+              "most": "Essential Every Day"
+            }
+            {
+              "question": "Things That Scare You!",
+              "least": "Not That Scary",
+              "most": "Terrifying"
+            }
+
+          - **Humor & Absurdity**
+            {
+              "question": "Worst Things to Yell as a Battle Cry!",
+              "least": "Sounds Okay",
+              "most": "Totally Ridiculous"
+            }
+            {
+              "question": "Best Souvenirs for Aliens!",
+              "least": "Not Impressive",
+              "most": "The Perfect Gift"
+            }
+
+          - **Brands & Products**
+            {
+              "question": "Popular Convenience Store Items",
+              "least": "Rarely Bought",
+              "most": "Best-Seller"
+            }
+            {
+              "question": "Most Iconic Brands!",
+              "least": "Lesser Known",
+              "most": "Famous"
+            }
+
+          💡 **Guidelines:**
+          - **Keep the question format clean and familiar.**
+          - **Make sure players can rank their choices naturally.**
+          - **Ensure fun and variety, suitable for different audiences.**
+        `
+    },
+    {
+      role: "user",
+      content: `Generate a question for Food theme, in English language`
+    },
+    {
+      role: "assistant",
+      content: `
+          {
+            "question": "Most Addictive Snacks!",
+            "least": "Easy to Stop Eating",
+            "most": "Can't Stop Eating"
+          }
+        `
+    },
+    {
+      role: "user",
+      content: `Generate a question for Superheroes theme, in English language`
+    },
+    {
+      role: "assistant",
+      content: `
+          {
+            "question": "Most Overpowered Superheroes!",
+            "least": "Kinda Strong",
+            "most": "Unbeatable"
+          }
+        `
+    },
+    {
+      role: "user",
+      content: `Generate a question for ${inputObj.category} theme, in ${inputObj.lang} language`
+    }
+  ];
+};
+
+export {
+  generateFeelinksScenerioChatInstruction,
+  generateSoundsFishyScenerioChatInstruction,
+  generateItoQuestionChatInstruction
+};

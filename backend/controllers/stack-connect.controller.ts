@@ -129,11 +129,11 @@ async function postGenerateItoQuestion (req: Request, res: Response): Promise<vo
         stream: false // No streaming required for a one-shot response
       }
     );
-    const itoData: ItoQuestion = JSON.parse(String(response));
-    const audio = await textToSpeech(itoData.question ?? "");
+    const data: ItoQuestion = JSON.parse(String(response));
+    const audio = await textToSpeech(data.question ?? "");
 
     handleApiResponse(res, {
-      itoData,
+      data,
       audio
     });
   } catch (error) {

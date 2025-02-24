@@ -1,4 +1,6 @@
 import { type Request, type Response } from "express";
+import { zodResponseFormat } from "openai/helpers/zod";
+import { z } from "zod";
 
 import { chatCompletion, openAiDefaultConfig, textToSpeech } from "../utilities/openai";
 import { handleApiResponse, handleError } from "../utilities/common";
@@ -100,7 +102,7 @@ async function postGenerateSoundsFishyScenario (req: Request, res: Response): Pr
     console.log("🚀 ~ postGenerateSoundsFishyScenario ~ scenarioObj:", scenarioObj);
 
     handleApiResponse(res, {
-      scenario,
+      scenarioObj,
       questionAudio: audios[0],
       answerAudio: audios[1],
       referenceAudio: audios[2]
@@ -120,6 +122,13 @@ async function postGenerateItoQuestion (req: Request, res: Response): Promise<vo
     return;
   }
 
+  // Define a schema for response objects
+  const ResponseSchema = z.object({
+    question: z.string(),
+    least: z.string(),
+    most: z.string()
+  });
+
   try {
     const response = await chatCompletion(
       {
@@ -137,6 +146,7 @@ async function postGenerateItoQuestion (req: Request, res: Response): Promise<vo
         n: 1, // Single response per request (adjust as needed)
         seed: Math.floor(Math.random() * 1000000) // Ensures a different output each time
       },
+      zodResponseFormat(ResponseSchema, "response_schema")
     );
     const data: ItoQuestion = JSON.parse(String(response));
     const audio = await textToSpeech(data.question ?? "");

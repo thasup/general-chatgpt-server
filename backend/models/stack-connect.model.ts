@@ -94,16 +94,14 @@ const generateSoundsFishyScenerioChatInstruction = (
         {
           "question": <generated_question>,
           "answer": <real_answer>,
-          "reference": <real_world_reference>,
-          "category": <category>,
-          "lang": <language, default: English>
+          "reference": <real_world_reference_or_trivial_fact>,
         }.
         If you receive the same input, generate a new trivia question again.
       `
     },
     {
       role: "user",
-      content: "Generate an absurd trivia question in the category: History"
+      content: "Generate an absurd trivia question in the category: History, and response in English language"
     },
     {
       role: "assistant",
@@ -112,14 +110,12 @@ const generateSoundsFishyScenerioChatInstruction = (
           "question": "Which animal was officially enlisted as a soldier in World War II?",
           "answer": "A bear named Wojtek",
           "reference": "Wojtek, a Syrian brown bear, was enlisted in the Polish Army in 1942 and helped carry artillery shells during the Battle of Monte Cassino in 1944.",
-          "category": "History",
-          "lang": "English"
         }
       `
     },
     {
       role: "user",
-      content: "Generate an absurd trivia question in the category: Science"
+      content: "Generate an absurd trivia question in the category: Science, and response in English language"
     },
     {
       role: "assistant",
@@ -128,14 +124,12 @@ const generateSoundsFishyScenerioChatInstruction = (
           "question": "What substance, found in most living organisms, was once used as an explosive ingredient?",
           "answer": "Urea",
           "reference": "Urea was used in the 19th century for making urea nitrate, an explosive compound. The first synthetic urea was created by Friedrich Wähler in 1828.",
-          "category": "Science",
-          "lang": "German"
         }
       `
     },
     {
       role: "user",
-      content: "Generate an absurd trivia question in the category: Food"
+      content: "Generate an absurd trivia question in the category: Food, and response in English language"
     },
     {
       role: "assistant",
@@ -144,14 +138,12 @@ const generateSoundsFishyScenerioChatInstruction = (
           "question": "What popular candy was originally invented as a tool to help people quit smoking?",
           "answer": "Cotton candy",
           "reference": "Cotton candy was first patented by dentist William Morrison in 1897, who promoted it as a way to satisfy sugar cravings and reduce cigarette consumption.",
-          "category": "Food",
-          "lang": "English"
         }
       `
     },
     {
       role: "user",
-      content: "Generate an absurd trivia question in the category: Law"
+      content: "Generate an absurd trivia question in the category: Law, and response in English language"
     },
     {
       role: "assistant",
@@ -160,14 +152,12 @@ const generateSoundsFishyScenerioChatInstruction = (
           "question": "In what U.S. state is it illegal to carry an ice cream cone in your back pocket?",
           "answer": "Alabama",
           "reference": "An old Alabama law, originally enacted to prevent horse theft, made it illegal to place an ice cream cone in your back pocket because it could be used to lure away horses.",
-          "category": "Law",
-          "lang": "English"
         }
       `
     },
     {
       role: "user",
-      content: `Generate an absurd trivia question in the category: ${inputObj.category}, language: ${inputObj.lang}`
+      content: `Generate an absurd trivia question in the category: ${inputObj.category}, and response in ${inputObj.lang} language`
     }
   ];
 };

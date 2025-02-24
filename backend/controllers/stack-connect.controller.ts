@@ -14,8 +14,6 @@ interface SoundsFishyScenerio {
   question: string
   answer: string
   reference: string
-  category: string
-  lang: string
 }
 
 interface ItoQuestion {
@@ -46,7 +44,7 @@ async function postGenerateFeelinksScenario (req: Request, res: Response): Promi
         top_p: 0.9, // Diverse responses but still coherent
         frequency_penalty: 0.4, // Slightly discourages repetition
         presence_penalty: 1, // Encourages novelty in responses
-        max_tokens: 100, // Limits response length for efficiency
+        max_completion_tokens: 100, // Limits response length for efficiency
         n: 1, // Single response per request (adjust as needed)
         seed: Math.floor(Math.random() * 1000000) // Ensures a different output each time
       }
@@ -72,8 +70,15 @@ async function postGenerateSoundsFishyScenario (req: Request, res: Response): Pr
     return;
   }
 
+  // Define a schema for response objects
+  const ResponseSchema = z.object({
+    question: z.string(),
+    answer: z.string(),
+    reference: z.string()
+  });
+
   try {
-    const scenario = await chatCompletion(
+    const response = await chatCompletion(
       {
         category,
         lang: lang || "en"
@@ -85,27 +90,26 @@ async function postGenerateSoundsFishyScenario (req: Request, res: Response): Pr
         top_p: 0.9, // Diverse responses but still coherent
         frequency_penalty: 0.4, // Slightly discourages repetition
         presence_penalty: 1, // Encourages novelty in responses
-        max_tokens: 100, // Limits response length for efficiency
+        max_completion_tokens: 500, // Limits response length for efficiency
         n: 1, // Single response per request (adjust as needed)
         seed: Math.floor(Math.random() * 1000000) // Ensures a different output each time
-      }
+      },
+      zodResponseFormat(ResponseSchema, "response_schema")
     );
     // parse JSON format from scenario data
-    const scenarioObj: SoundsFishyScenerio = JSON.parse(String(scenario));
+    const scenario: SoundsFishyScenerio = JSON.parse(String(response));
     // call text to speech in parallel for question, answer, and reference, then send them to handleApiResponse
     const audios = await Promise.all([
-      textToSpeech(scenarioObj.question),
-      textToSpeech(scenarioObj.answer),
-      textToSpeech(scenarioObj.reference)
+      textToSpeech(scenario.question)
+      // textToSpeech(scenario.answer),
+      // textToSpeech(scenario.reference)
     ]);
-    console.log("🚀 ~ postGenerateSoundsFishyScenario ~ audio:", audios);
-    console.log("🚀 ~ postGenerateSoundsFishyScenario ~ scenarioObj:", scenarioObj);
 
     handleApiResponse(res, {
-      scenarioObj,
-      questionAudio: audios[0],
-      answerAudio: audios[1],
-      referenceAudio: audios[2]
+      scenario,
+      questionAudio: audios[0]
+      // answerAudio: audios[1],
+      // referenceAudio: audios[2]
     });
   } catch (error) {
     handleError(res, error);
@@ -142,7 +146,7 @@ async function postGenerateItoQuestion (req: Request, res: Response): Promise<vo
         top_p: 0.9, // Diverse responses but still coherent
         frequency_penalty: 0.4, // Slightly discourages repetition
         presence_penalty: 1, // Encourages novelty in responses
-        max_tokens: 100, // Limits response length for efficiency
+        max_completion_tokens: 100, // Limits response length for efficiency
         n: 1, // Single response per request (adjust as needed)
         seed: Math.floor(Math.random() * 1000000) // Ensures a different output each time
       },

@@ -40,10 +40,13 @@ async function postGenerateFeelinksScenario (req: Request, res: Response): Promi
       generateFeelinksScenerioChatInstruction,
       {
         ...openAiDefaultConfig,
-        temperature: 0.9, // Balanced creativity
-        max_completion_tokens: 200, // Set a reasonable max tokens for scenario length
-        n: 1, // Generate one completion
-        stream: false // No streaming required for a one-shot response
+        temperature: 1.2, // Encourages high creativity
+        top_p: 0.9, // Diverse responses but still coherent
+        frequency_penalty: 0.4, // Slightly discourages repetition
+        presence_penalty: 1, // Encourages novelty in responses
+        max_tokens: 100, // Limits response length for efficiency
+        n: 1, // Single response per request (adjust as needed)
+        seed: Math.floor(Math.random() * 1000000) // Ensures a different output each time
       }
     );
     const audio = await textToSpeech(scenario ?? "");
@@ -76,10 +79,13 @@ async function postGenerateSoundsFishyScenario (req: Request, res: Response): Pr
       generateSoundsFishyScenerioChatInstruction,
       {
         ...openAiDefaultConfig,
-        temperature: 0.9, // Balanced creativity
-        max_completion_tokens: 200, // Set a reasonable max tokens for scenario length
-        n: 1, // Generate one completion
-        stream: false // No streaming required for a one-shot response
+        temperature: 1.2, // Encourages high creativity
+        top_p: 0.9, // Diverse responses but still coherent
+        frequency_penalty: 0.4, // Slightly discourages repetition
+        presence_penalty: 1, // Encourages novelty in responses
+        max_tokens: 100, // Limits response length for efficiency
+        n: 1, // Single response per request (adjust as needed)
+        seed: Math.floor(Math.random() * 1000000) // Ensures a different output each time
       }
     );
     // parse JSON format from scenario data
@@ -123,11 +129,14 @@ async function postGenerateItoQuestion (req: Request, res: Response): Promise<vo
       generateItoQuestionChatInstruction,
       {
         ...openAiDefaultConfig,
-        temperature: 0.9, // Balanced creativity
-        max_completion_tokens: 200, // Set a reasonable max tokens for scenario length
-        n: 1, // Generate one completion
-        stream: false // No streaming required for a one-shot response
-      }
+        temperature: 1.2, // Encourages high creativity
+        top_p: 0.9, // Diverse responses but still coherent
+        frequency_penalty: 0.4, // Slightly discourages repetition
+        presence_penalty: 1, // Encourages novelty in responses
+        max_tokens: 100, // Limits response length for efficiency
+        n: 1, // Single response per request (adjust as needed)
+        seed: Math.floor(Math.random() * 1000000) // Ensures a different output each time
+      },
     );
     const data: ItoQuestion = JSON.parse(String(response));
     const audio = await textToSpeech(data.question ?? "");

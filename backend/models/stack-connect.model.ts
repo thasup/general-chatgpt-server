@@ -13,7 +13,7 @@ const generateFeelinksScenerioChatInstruction = (
         The scenario must fit into one of six categories: Family, Friend, School, Social, Work, or Entertainment.
         Each scenario should be generated randomly and must not repeat.
         Never lead with any emotion clues.
-        Add emoji if they feel appropriate.
+        Always, add appropriate emoji(s) at the end.
       `
     },
     {

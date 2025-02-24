@@ -14,7 +14,7 @@ router.use((req: Request, res: Response, next) => {
 });
 
 // Define generic routes at the end
-router.post("/", postGenerateFeelinksScenario);
+router.post("/feelinks", postGenerateFeelinksScenario);
 router.post("/sounds-fishy", postGenerateSoundsFishyScenario);
 router.post("/ito", postGenerateItoQuestion);
 

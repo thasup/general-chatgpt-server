@@ -242,7 +242,7 @@ const generateItoQuestionChatInstruction = (
     },
     {
       role: "user",
-      content: `Generate a question for Food theme, in English language`
+      content: "Generate a question for Food theme, in English language"
     },
     {
       role: "assistant",
@@ -256,7 +256,7 @@ const generateItoQuestionChatInstruction = (
     },
     {
       role: "user",
-      content: `Generate a question for Superheroes theme, in English language`
+      content: "Generate a question for Superheroes theme, in English language"
     },
     {
       role: "assistant",

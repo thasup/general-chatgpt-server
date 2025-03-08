@@ -1,8 +1,5 @@
 import dotenv from "dotenv";
 import OpenAI from "openai";
-// import fs from "fs";
-// import path from "path";
-// import { Readable } from "stream";
 
 import { type InputObject } from "../types/openai";
 import { OPENAI_MODEL } from "../types/common";

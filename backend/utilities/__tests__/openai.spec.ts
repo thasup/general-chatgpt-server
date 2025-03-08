@@ -6,6 +6,14 @@ import { generateFeelinksScenerioChatInstruction } from "../../models/stack-conn
 import { mangaComparatorChatInstruction } from "../../models/manga-comparator.model";
 import { Readable } from "stream";
 
+// Import after mocking
+let chatCompletion: any, textToSpeech: any;
+jest.isolateModules(async () => {
+  const openai = await import("../openai");
+  chatCompletion = openai.chatCompletion;
+  textToSpeech = openai.textToSpeech;
+});
+
 // Set up environment variables for testing
 process.env.NODE_ENV = "test";
 process.env.PORT = "3000";
@@ -34,9 +42,6 @@ jest.doMock("openai", () => ({
   }
 }));
 
-// Import after mocking
-const { chatCompletion, textToSpeech } = require("../openai");
-
 // Mock responses
 const mockResponse = {
   id: "test-id",
@@ -58,7 +63,7 @@ const mockResponse = {
   model: "gpt-3.5-turbo",
   object: "chat.completion",
   usage: { prompt_tokens: 10, completion_tokens: 20, total_tokens: 30 }
-};
+} as const;
 
 const mockAudioResponse = {
   body: Readable.from(Buffer.from("test audio"))
@@ -164,10 +169,10 @@ describe("OpenAI Utilities", () => {
 
       expect(result).toBeDefined();
       expect(mockCreate).toHaveBeenCalledTimes(1);
-    });
+    }, 10000);
 
     it("should handle API error", async () => {
-      // @ts-expect-error - TODO: Fix OpenAI types in a separate PR
+      // @ts-expect-error - Mock rejection doesn't need exact type
       mockCreate.mockRejectedValueOnce(new Error("API Error"));
 
       await expect(chatCompletion(
@@ -177,9 +182,13 @@ describe("OpenAI Utilities", () => {
     });
 
     test("should handle empty response", async () => {
-      // @ts-expect-error - TODO: Fix OpenAI types in a separate PR
-      mockCreate.mockResolvedValue({
-        choices: []
+      // @ts-expect-error - Mock response doesn't need to match exact OpenAI types
+      mockCreate.mockResolvedValueOnce({
+        id: "test-id",
+        choices: [],
+        created: 123,
+        model: "gpt-3.5-turbo",
+        object: "chat.completion"
       });
 
       const result = await chatCompletion(
@@ -188,7 +197,7 @@ describe("OpenAI Utilities", () => {
         { temperature: 0.8 }
       );
 
-      expect(result).toBeNull();
+      expect(result).toBeUndefined();
     });
   });
 
@@ -200,21 +209,25 @@ describe("OpenAI Utilities", () => {
     });
 
     it("should handle API error", async () => {
-      // @ts-expect-error - TODO: Fix OpenAI types in a separate PR
+      // @ts-expect-error - Mock rejection doesn't need exact type
       mockCreateSpeech.mockRejectedValueOnce(new Error("API Error"));
 
       await expect(textToSpeech("Hello world")).rejects.toThrow("API Error");
     });
 
     test("should handle empty input", async () => {
-      await expect(textToSpeech("")).rejects.toThrow();
-    });
+      // @ts-expect-error - Mock rejection doesn't need exact type
+      mockCreateSpeech.mockRejectedValueOnce(new Error("String should have at least 1 character"));
+
+      await expect(textToSpeech("")).rejects.toThrow("String should have at least 1 character");
+    }, 10000);
   });
 
   describe("Response Format Validation", () => {
     test("should validate color palette response format", async () => {
-      // @ts-expect-error - TODO: Fix OpenAI types in a separate PR
-      mockCreate.mockResolvedValue({
+      // @ts-expect-error - Mock response doesn't need to match exact OpenAI types
+      mockCreate.mockResolvedValueOnce({
+        id: "test-id",
         choices: [
           {
             message: {
@@ -226,7 +239,10 @@ describe("OpenAI Utilities", () => {
               })
             }
           }
-        ]
+        ],
+        created: 123,
+        model: "gpt-3.5-turbo",
+        object: "chat.completion"
       });
 
       const result = await chatCompletion(

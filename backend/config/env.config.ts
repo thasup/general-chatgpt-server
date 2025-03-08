@@ -9,7 +9,7 @@ interface EnvConfig {
 }
 
 export const envConfig: EnvConfig = {
-  port: Number(process.env.PORT) ?? 3000,
+  port: Number(process.env.PORT) ?? 9999,
   nodeEnv: process.env.NODE_ENV ?? "development",
   isDevelopment: (process.env.NODE_ENV ?? "development") === "development"
 };

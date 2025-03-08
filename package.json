@@ -14,10 +14,9 @@
     "watch-ts": "tsc -w",
 
     "// === Build Commands ===": "",
-    "build": "npm run clean && npm run build-ts",
+    "build": "npm run build-ts",
     "build-ts": "tsc",
     "clean": "rm -rf dist",
-    "prepare": "npm run build",
 
     "// === Debug Commands ===": "",
     "debug": "npm run build && npm run watch-debug",
@@ -34,7 +33,7 @@
     "test:ci": "jest --config jest.config.js --ci --coverage --reporters='default' --reporters='jest-junit'",
 
     "// === Deployment Commands ===": "",
-    "build:production": "npm ci && NODE_ENV=production npm run build"
+    "build:production": "npm install --production=false && npm run build && npm ci"
   },
   "keywords": [],
   "author": "thasup",

@@ -17,8 +17,8 @@
 
     "// === Build Commands ===": "",
     "build-ts": "tsc",
-    "clean": "npx rimraf dist",
-    "copy-files": "cp -r backend/config dist/ && cp .env dist/ 2>/dev/null || true",
+    "clean": "rimraf dist",
+    "copy-files": "mkdir -p dist/config && cp -r backend/config/* dist/config/ 2>/dev/null || true",
 
     "// === Debug Commands ===": "",
     "debug": "npm run build && npm run watch-debug",
@@ -35,8 +35,7 @@
     "test:ci": "jest --config jest.config.js --ci --coverage --reporters='default' --reporters='jest-junit'",
 
     "// === Deployment Commands ===": "",
-    "build:digitalocean": "npm ci && NODE_ENV=production npm run build",
-    "build:production": "NODE_ENV=production npm run build",
+    "build:production": "npm ci && NODE_ENV=production npm run build",
     "postinstall": "npm run build"
   },
   "keywords": [],

@@ -3,7 +3,7 @@ const form = document.querySelector("#form");
 const errorText = document.querySelector(".error-text");
 
 function fetchPalette (query) {
-  fetch("http://localhost:9999/v1/colors/chat", {
+  fetch("http://localhost:3000/v1/colors/chat", {
     method: "POST",
     headers: {
       "Content-Type": "application/x-www-form-urlencoded"

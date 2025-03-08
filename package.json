@@ -14,7 +14,7 @@
     "watch-ts": "tsc -w",
 
     "// === Build Commands ===": "",
-    "build": "npm run build-ts",
+    "build": "npm run clean && npm run build-ts",
     "build-ts": "tsc",
     "clean": "rm -rf dist",
 

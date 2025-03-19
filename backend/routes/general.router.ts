@@ -12,8 +12,9 @@ router.use((req: Request, res: Response, next) => {
 /**
  * @swagger
  *
- * /:
+ * /general/:
  *   get:
+ *     tags: [General]
  *     produces:
  *       - application/json
  *     responses:
@@ -25,8 +26,9 @@ router.get("/", getSomething);
 /**
  * @swagger
  *
- * /fix-grammar:
+ * /general/fix-grammar:
  *   post:
+ *     tags: [General]
  *     produces:
  *       - application/json
  *     parameters:
@@ -43,8 +45,9 @@ router.post("/fix-grammar", postFixSpellingAndGrammar);
 /**
  * @swagger
  *
- * /summarize:
+ * /general/summarize:
  *   post:
+ *     tags: [General]
  *     produces:
  *       - application/json
  *     parameters:
@@ -61,8 +64,9 @@ router.post("/summarize", postSummarize);
 /**
  * @swagger
  *
- * /rewrite:
+ * /general/rewrite:
  *   post:
+ *     tags: [General]
  *     produces:
  *       - application/json
  *     parameters:
@@ -79,8 +83,9 @@ router.post("/rewrite", postRewrite);
 /**
  * @swagger
  *
- * /explain:
+ * /general/explain:
  *   post:
+ *     tags: [General]
  *     produces:
  *       - application/json
  *     parameters:
@@ -97,8 +102,9 @@ router.post("/explain", postExplain);
 /**
  * @swagger
  *
- * /translate:
+ * /general/translate:
  *   post:
+ *     tags: [General]
  *     produces:
  *       - application/json
  *     parameters:
@@ -115,8 +121,9 @@ router.post("/translate", postTranslate);
 /**
  * @swagger
  *
- * /brainstorm:
+ * /general/brainstorm:
  *   post:
+ *     tags: [General]
  *     produces:
  *       - application/json
  *     parameters:
@@ -133,8 +140,9 @@ router.post("/brainstorm", postBrainstorm);
 /**
  * @swagger
  *
- * /outline:
+ * /general/outline:
  *   post:
+ *     tags: [General]
  *     produces:
  *       - application/json
  *     parameters:
@@ -151,8 +159,9 @@ router.post("/outline", postOutline);
 /**
  * @swagger
  *
- * /write-blog:
+ * /general/write-blog:
  *   post:
+ *     tags: [General]
  *     produces:
  *       - application/json
  *     parameters:
@@ -169,8 +178,9 @@ router.post("/write-blog", postWriteBlog);
 /**
  * @swagger
  *
- * /shorter:
+ * /general/shorter:
  *   post:
+ *     tags: [General]
  *     produces:
  *       - application/json
  *     parameters:
@@ -187,8 +197,9 @@ router.post("/shorter", postShorter);
 /**
  * @swagger
  *
- * /longer:
+ * /general/longer:
  *   post:
+ *     tags: [General]
  *     produces:
  *       - application/json
  *     parameters:

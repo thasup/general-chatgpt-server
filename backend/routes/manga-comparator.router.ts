@@ -12,7 +12,7 @@ router.use((req: Request, res: Response, next) => {
 /**
  * @swagger
  *
- * /:
+ * /manga/:
  *   get:
  *     produces:
  *       - application/json
@@ -25,7 +25,7 @@ router.get("/", getManga);
 /**
  * @swagger
  *
- * /:
+ * /manga/:
  *   post:
  *     produces:
  *       - application/json

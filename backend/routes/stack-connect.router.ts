@@ -16,7 +16,7 @@ router.use((req: Request, res: Response, next) => {
 /**
  * @swagger
  *
- * /feelinks:
+ * /stack-connect/feelinks:
  *   post:
  *     produces:
  *       - application/json
@@ -34,7 +34,7 @@ router.post("/feelinks", postGenerateFeelinksScenario);
 /**
  * @swagger
  *
- * /sounds-fishy:
+ * /stack-connect/sounds-fishy:
  *   post:
  *     produces:
  *       - application/json
@@ -52,7 +52,7 @@ router.post("/sounds-fishy", postGenerateSoundsFishyScenario);
 /**
  * @swagger
  *
- * /ito:
+ * /stack-connect/ito:
  *   post:
  *     produces:
  *       - application/json

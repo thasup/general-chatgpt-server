@@ -13,8 +13,9 @@ router.use((req: Request, res: Response, next) => {
 /**
  * @swagger
  *
- * /{input}:
+ * /colors/{input}:
  *   get:
+ *     tags: [Colors]
  *     produces:
  *       - application/json
  *     parameters:
@@ -31,8 +32,9 @@ router.get("/:input", getColorsPalette);
 /**
  * @swagger
  *
- * /chat:
+ * /colors/chat:
  *   post:
+ *     tags: [Colors]
  *     produces:
  *       - application/json
  *     parameters:

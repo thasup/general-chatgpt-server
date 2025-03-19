@@ -6,6 +6,10 @@ import cors from "cors";
 import helmet from "helmet";
 import compression from "compression";
 import rateLimit from "express-rate-limit";
+// import { apiReference } from "@scalar/express-api-reference";
+import swaggerJsdoc from "swagger-jsdoc";
+import swaggerUi from "swagger-ui-express";
+
 import { getCorsConfig } from "./cors.config";
 import { envConfig } from "./env.config";
 
@@ -35,6 +39,34 @@ export const configureMiddleware = (app: Express): void => {
   } else {
     app.use(morgan("combined"));
   }
+
+  const options = {
+    failOnErrors: true, // Whether or not to throw when parsing errors. Defaults to false.
+    definition: {
+      openapi: "3.0.0",
+      info: {
+        title: "General ChatGPT Server",
+        version: "1.0.0"
+      },
+      servers: [
+        {
+          url: `http://localhost:${process.env.PORT ?? 9999}/v1`
+        }
+      ]
+    },
+    apis: ["./backend/**/*.ts"]
+  };
+
+  const swaggerSpec = swaggerJsdoc(options);
+  app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
+  // app.use(
+  //   "/reference",
+  //   apiReference({
+  //     theme: "purple",
+  //     url: "/openapi.json"
+  //   })
+  // );
 
   // Request timing middleware
   app.use((req: Request, res: Response, next) => {

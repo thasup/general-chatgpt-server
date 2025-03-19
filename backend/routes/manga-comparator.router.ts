@@ -9,7 +9,35 @@ router.use((req: Request, res: Response, next) => {
   next();
 });
 
+/**
+ * @swagger
+ *
+ * /:
+ *   get:
+ *     produces:
+ *       - application/json
+ *     responses:
+ *       200:
+ *         description: Returns manga information
+ */
 router.get("/", getManga);
+
+/**
+ * @swagger
+ *
+ * /:
+ *   post:
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: mangaData
+ *         in: body
+ *         required: true
+ *         type: object
+ *     responses:
+ *       200:
+ *         description: Submits manga data for processing
+ */
 router.post("/", postManga);
 
 export default router;

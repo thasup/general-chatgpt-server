@@ -11,6 +11,23 @@ router.use((req: Request, res: Response, next) => {
 
 /**
  * @swagger
+ * components:
+ *   schemas:
+ *     TextInput:
+ *       type: object
+ *       properties:
+ *         input:
+ *           type: string
+ *           description: The text to be processed
+ *           example: "This is an example text."
+ *         lang:
+ *           type: string
+ *           description: The language to be processed
+ *           example: "en-US"
+ */
+
+/**
+ * @swagger
  *
  * /general/:
  *   get:
@@ -29,13 +46,12 @@ router.get("/", getSomething);
  * /general/fix-grammar:
  *   post:
  *     tags: [General]
- *     produces:
- *       - application/json
- *     parameters:
- *       - name: text
- *         in: body
- *         required: true
- *         type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/TextInput'
  *     responses:
  *       200:
  *         description: Fixes grammar in the provided text
@@ -50,11 +66,12 @@ router.post("/fix-grammar", postFixSpellingAndGrammar);
  *     tags: [General]
  *     produces:
  *       - application/json
- *     parameters:
- *       - name: text
- *         in: body
- *         required: true
- *         type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/TextInput'
  *     responses:
  *       200:
  *         description: Summarizes the provided text
@@ -69,11 +86,12 @@ router.post("/summarize", postSummarize);
  *     tags: [General]
  *     produces:
  *       - application/json
- *     parameters:
- *       - name: text
- *         in: body
- *         required: true
- *         type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/TextInput'
  *     responses:
  *       200:
  *         description: Rewrites the provided text
@@ -88,11 +106,12 @@ router.post("/rewrite", postRewrite);
  *     tags: [General]
  *     produces:
  *       - application/json
- *     parameters:
- *       - name: text
- *         in: body
- *         required: true
- *         type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/TextInput'
  *     responses:
  *       200:
  *         description: Explains the provided text
@@ -107,11 +126,12 @@ router.post("/explain", postExplain);
  *     tags: [General]
  *     produces:
  *       - application/json
- *     parameters:
- *       - name: text
- *         in: body
- *         required: true
- *         type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/TextInput'
  *     responses:
  *       200:
  *         description: Translates the provided text
@@ -126,11 +146,12 @@ router.post("/translate", postTranslate);
  *     tags: [General]
  *     produces:
  *       - application/json
- *     parameters:
- *       - name: topic
- *         in: body
- *         required: true
- *         type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/TextInput'
  *     responses:
  *       200:
  *         description: Brainstorms ideas for the provided topic
@@ -145,11 +166,12 @@ router.post("/brainstorm", postBrainstorm);
  *     tags: [General]
  *     produces:
  *       - application/json
- *     parameters:
- *       - name: topic
- *         in: body
- *         required: true
- *         type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/TextInput'
  *     responses:
  *       200:
  *         description: Outlines the provided topic
@@ -164,11 +186,12 @@ router.post("/outline", postOutline);
  *     tags: [General]
  *     produces:
  *       - application/json
- *     parameters:
- *       - name: topic
- *         in: body
- *         required: true
- *         type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/TextInput'
  *     responses:
  *       200:
  *         description: Writes a blog post on the provided topic
@@ -183,11 +206,12 @@ router.post("/write-blog", postWriteBlog);
  *     tags: [General]
  *     produces:
  *       - application/json
- *     parameters:
- *       - name: text
- *         in: body
- *         required: true
- *         type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/TextInput'
  *     responses:
  *       200:
  *         description: Shortens the provided text
@@ -202,11 +226,12 @@ router.post("/shorter", postShorter);
  *     tags: [General]
  *     produces:
  *       - application/json
- *     parameters:
- *       - name: text
- *         in: body
- *         required: true
- *         type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/TextInput'
  *     responses:
  *       200:
  *         description: Lengthens the provided text

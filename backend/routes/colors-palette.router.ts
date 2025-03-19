@@ -23,6 +23,8 @@ router.use((req: Request, res: Response, next) => {
  *         in: path
  *         required: true
  *         type: string
+ *         description: Description or theme for the color palette
+ *         example: "Neon Pastel"
  *     responses:
  *       200:
  *         description: Returns a color palette based on input
@@ -35,13 +37,17 @@ router.get("/:input", getColorsPalette);
  * /colors/chat:
  *   post:
  *     tags: [Colors]
- *     produces:
- *       - application/json
- *     parameters:
- *       - name: message
- *         in: body
- *         required: true
- *         type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               input:
+ *                 type: string
+ *                 description: The description or theme for the color palette
+ *                 example: "Neon Pastel"
  *     responses:
  *       200:
  *         description: Returns chat completion for colors palette

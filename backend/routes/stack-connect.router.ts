@@ -18,13 +18,18 @@ router.use((req: Request, res: Response, next) => {
  *
  * /stack-connect/feelinks:
  *   post:
- *     produces:
- *       - application/json
- *     parameters:
- *       - name: scenario
- *         in: body
- *         required: true
- *         type: string
+ *     tags: [Stack Connect]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               category:
+ *                 type: string
+ *                 description: The category of the scenario
+ *                 example: "music"
  *     responses:
  *       200:
  *         description: Generates a feelinks scenario
@@ -36,13 +41,22 @@ router.post("/feelinks", postGenerateFeelinksScenario);
  *
  * /stack-connect/sounds-fishy:
  *   post:
- *     produces:
- *       - application/json
- *     parameters:
- *       - name: scenario
- *         in: body
- *         required: true
- *         type: string
+ *     tags: [Stack Connect]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               category:
+ *                 type: string
+ *                 description: The category of the scenario
+ *                 example: "music"
+ *               lang:
+ *                 type: string
+ *                 description: The language of the scenario
+ *                 example: "en-US"
  *     responses:
  *       200:
  *         description: Generates a sounds fishy scenario
@@ -54,13 +68,22 @@ router.post("/sounds-fishy", postGenerateSoundsFishyScenario);
  *
  * /stack-connect/ito:
  *   post:
- *     produces:
- *       - application/json
- *     parameters:
- *       - name: question
- *         in: body
- *         required: true
- *         type: string
+ *     tags: [Stack Connect]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               category:
+ *                 type: string
+ *                 description: The category of the scenario
+ *                 example: "music"
+ *               lang:
+ *                 type: string
+ *                 description: The language of the scenario
+ *                 example: "en-US"
  *     responses:
  *       200:
  *         description: Generates an Ito question

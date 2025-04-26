@@ -1,6 +1,6 @@
 # General ChatGPT Server
 
-A versatile Express.js server built with TypeScript, providing various API endpoints for different services including color palette generation, manga comparison, and general utilities.
+A production-grade Express.js API server built with TypeScript, providing various API endpoints for different services including color palette generation, manga comparison, and general utilities.
 
 ## 🚀 Features
 
@@ -12,6 +12,7 @@ A versatile Express.js server built with TypeScript, providing various API endpo
 - 📝 TypeScript Support
 - 🧪 Jest Testing Framework
 - ☁️ AWS Lambda Support
+- 📚 Swagger API Documentation
 
 ## 📋 Prerequisites
 
@@ -230,6 +231,13 @@ Development: http://localhost:3000
 Production:  https://api.thanachon.me
 ```
 
+### API Documentation
+Access the Swagger API documentation at:
+```
+Development: http://localhost:3000/docs
+Production:  https://api.thanachon.me/docs
+```
+
 ### 🎨 Color Palette API
 
 #### Generate Color Palette
@@ -405,8 +413,12 @@ npm run build:digitalocean
 general-chatgpt-server/
 ├── backend/
 │   ├── config/         # Configuration files
+│   ├── controllers/    # API controllers
 │   ├── middlewares/    # Express middlewares
+│   ├── models/         # Data models
 │   ├── routes/         # API routes
+│   ├── types/          # TypeScript type definitions
+│   ├── utilities/      # Utility functions
 │   └── server.ts       # Main server file
 ├── dist/               # Compiled JavaScript
 ├── tests/              # Test files

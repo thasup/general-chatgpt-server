@@ -29,8 +29,10 @@
     "module": "commonjs",
     // "rootDir": "./",                                  /* Specify the root folder within your source files. */
     "moduleResolution": "node",                     /* Specify how TypeScript looks up a file from a given module specifier. */
-    // "baseUrl": "./",                                  /* Specify the base directory to resolve non-relative module names. */
-    // "paths": {},                                      /* Specify a set of entries that re-map imports to additional lookup locations. */
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["backend/*"]
+    },
     // "rootDirs": [],                                   /* Allow multiple folders to be treated as one when resolving modules. */
     "typeRoots": [
       "./node_modules/@types",
@@ -115,6 +117,7 @@
     "backend/types/**/*.d.ts"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "dist"
   ]
 }

@@ -14,7 +14,7 @@ A versatile Express.js server built with TypeScript, providing various API endpo
 
 ## 📋 Prerequisites
 
-- Node.js (v14 or higher)
+- Node.js (v22 or higher)
 - npm (v6 or higher)
 
 ## 🛠 Installation

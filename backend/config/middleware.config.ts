@@ -16,7 +16,28 @@ import { envConfig } from "./env.config";
 // Rate limit configuration
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100 // limit each IP to 100 requests per windowMs
+  max: 100, // limit each IP to 100 requests per windowMs
+  // Custom key generator that works in Lambda environment
+  keyGenerator: (req: Request): string => {
+    // Try to get IP from various sources including Lambda-specific headers
+    const ip =
+      req.ip ??
+      req.headers["x-forwarded-for"] ??
+      req.headers["x-real-ip"] ??
+      req.socket.remoteAddress ??
+      "unknown-ip";
+
+    return typeof ip === "string"
+      ? ip
+      : Array.isArray(ip)
+        ? ip[0]
+        : "unknown-ip";
+  },
+  // Skip failed requests for API testing purposes
+  skip: (req: Request, res: Response): boolean => {
+    // Skip rate limiting in development or for testing
+    return envConfig.isDevelopment || req.headers["x-test-request"] === "true";
+  }
 });
 
 export const configureMiddleware = (app: Express): void => {

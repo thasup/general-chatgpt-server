@@ -16,13 +16,26 @@ export const runLocal = async function (): Promise<void> {
 
     req.on("end", async () => {
       try {
+        // Add AWS specific headers that would be present in a real Lambda environment
+        const headers = {
+          ...req.headers,
+          // Simulate the API Gateway adding client IP
+          "x-forwarded-for": req.socket.remoteAddress ?? "127.0.0.1"
+        };
+
         // Create event object for Lambda handler
         const event = {
           path: req.url,
           httpMethod: req.method,
-          headers: req.headers,
+          headers,
           body,
-          isBase64Encoded: false
+          isBase64Encoded: false,
+          // Add requestContext object with IP as API Gateway would
+          requestContext: {
+            identity: {
+              sourceIp: req.socket.remoteAddress ?? "127.0.0.1"
+            }
+          }
         };
 
         // Call the Lambda handler

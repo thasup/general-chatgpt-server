@@ -4,16 +4,23 @@ frameworkVersion: '3'
 
 provider:
   name: aws
-  runtime: nodejs18.x
+  runtime: nodejs22.x
   stage: ${opt:stage, 'dev'}
-  region: ${opt:region, 'us-east-1'}
+  region: ap-southeast-1  # Default region, can be overridden with --region flag
   memorySize: 1024
   timeout: 30
   environment:
     NODE_ENV: ${opt:stage, 'dev'}
-    # Add any other environment variables your app needs
-  
+    PORT: 8080
+    # Environment variables will be loaded from .env.${opt:stage, 'dev'} file
+    # For sensitive values, use AWS SSM Parameter Store:
+    # OPENAI_API_KEY: ${ssm:/my-app/${opt:stage, 'dev'}/api-secret~true}
+    OPENAI_API_KEY: ${opt:stage, 'dev'}
+  apiGateway:
+    shouldStartNameWithService: true
+
 plugins:
+  - serverless-dotenv-plugin
   - serverless-offline
 
 functions:
@@ -29,10 +36,19 @@ functions:
           method: ANY
           cors: true
 
+# Dotenv plugin configuration
 custom:
+  dotenv:
+    path: ./.env.${opt:stage, 'dev'}
+    include:
+      - NODE_ENV
+      - PORT
+      - OPENAI_API_KEY
+      - DATABASE_URL
+      # Add other environment variables you want to expose
   serverless-offline:
     httpPort: 3000
-    
+
 package:
   patterns:
     - '!node_modules/.cache/**'
@@ -45,4 +61,4 @@ package:
     - '!coverage/**'
     - '!backend/**'
     - 'dist/**'
-    - 'node_modules/**' 
+    - 'node_modules/**'

@@ -63,6 +63,75 @@ npm run build:production  # Build for production
 npm start                # Start production server
 ```
 
+## 📊 Environment Variables
+
+This project uses environment variables for configuration. You can manage them in several ways:
+
+### Local Development
+
+For local development, create a `.env` file in the root directory:
+
+```env
+NODE_ENV=development
+PORT=3000
+OPENAI_API_KEY=your_api_key_here
+```
+
+### AWS Lambda Deployment
+
+For AWS Lambda deployment, you have several options:
+
+1. **Environment-specific files**
+
+   Create environment-specific files like `.env.dev`, `.env.staging`, and `.env.production`:
+
+   ```bash
+   # Create environment-specific file
+   cp .env.example .env.dev
+   # Edit with your values
+   nano .env.dev
+   ```
+
+   The serverless-dotenv-plugin will load variables from these files based on the deployment stage.
+
+2. **Directly in serverless.yml**
+
+   For non-sensitive configuration, define variables directly in the serverless.yml file:
+
+   ```yaml
+   provider:
+     environment:
+       NODE_ENV: ${opt:stage, 'dev'}
+       PORT: 8080
+   ```
+
+3. **AWS Parameter Store for Sensitive Values**
+
+   For API keys, database connection strings, and other sensitive values, use AWS Parameter Store:
+
+   ```yaml
+   provider:
+     environment:
+       OPENAI_API_KEY: ${ssm:/my-app/${opt:stage, 'dev'}/api-key~true}
+       DATABASE_URL: ${ssm:/my-app/${opt:stage, 'dev'}/database-url~true}
+   ```
+
+   To store a value in Parameter Store:
+
+   ```bash
+   # Store a secure parameter
+   aws ssm put-parameter --name "/my-app/dev/api-key" --type "SecureString" --value "your-api-key-here"
+   ```
+
+### Required Environment Variables
+
+| Variable | Description | Default | Required |
+|----------|-------------|---------|----------|
+| NODE_ENV | Environment (development, production) | development | Yes |
+| PORT | Port to run the server on | 3000 | No |
+| OPENAI_API_KEY | API key for external services | - | Yes |
+| DATABASE_URL | Database connection string | - | No |
+
 ## ☁️ AWS Lambda Deployment
 
 This project is configured to run as an AWS Lambda function using the Serverless Framework.
@@ -117,11 +186,41 @@ npm run lambda:deploy -- --region us-west-2
 
 The Lambda function is configured in the `serverless.yml` file. Key configuration options:
 
-- **Runtime**: Node.js 18.x
+- **Runtime**: Node.js 22.x
 - **Memory**: 1024MB
 - **Timeout**: 30 seconds
 - **API Gateway**: HTTP API with CORS enabled
-- **Environment Variables**: NODE_ENV and other variables as needed
+- **Environment Variables**: 
+  - Loaded from `.env.{stage}` files via serverless-dotenv-plugin
+  - Directly defined in serverless.yml
+  - Securely stored in AWS Parameter Store for sensitive data
+
+#### Setting Up AWS Parameters
+
+For sensitive environment variables, use AWS Parameter Store:
+
+```bash
+# Store API key securely
+aws ssm put-parameter \
+  --name "/my-app/dev/api-key" \
+  --type "SecureString" \
+  --value "your-api-key-here"
+
+# Store database connection string
+aws ssm put-parameter \
+  --name "/my-app/dev/database-url" \
+  --type "SecureString" \
+  --value "postgres://user:password@hostname:5432/dbname"
+```
+
+Then reference them in serverless.yml:
+
+```yaml
+provider:
+  environment:
+    OPENAI_API_KEY: ${ssm:/my-app/${opt:stage, 'dev'}/api-key~true}
+    DATABASE_URL: ${ssm:/my-app/${opt:stage, 'dev'}/database-url~true}
+```
 
 ## 📚 API Documentation
 

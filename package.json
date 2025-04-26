@@ -85,6 +85,7 @@
     "jest-junit": "^16.0.0",
     "nodemon": "^3.1.9",
     "serverless": "^3.38.0",
+    "serverless-dotenv-plugin": "^6.0.0",
     "serverless-offline": "^13.3.2",
     "ts-jest": "^29.2.6",
     "ts-node": "^10.9.2",

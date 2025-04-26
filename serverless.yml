@@ -5,19 +5,32 @@ frameworkVersion: '3'
 provider:
   name: aws
   runtime: nodejs22.x
+  architecture: arm64
   stage: ${opt:stage, 'dev'}
-  region: ap-southeast-1  # Default region, can be overridden with --region flag
+  region: ap-southeast-1 # Default region, can be overridden with --region flag
+  profile: ${opt:profile, 'thasup'}
   memorySize: 1024
   timeout: 30
   environment:
     NODE_ENV: ${opt:stage, 'dev'}
     PORT: 8080
-    # Environment variables will be loaded from .env.${opt:stage, 'dev'} file
-    # For sensitive values, use AWS SSM Parameter Store:
-    # OPENAI_API_KEY: ${ssm:/my-app/${opt:stage, 'dev'}/api-secret~true}
-    OPENAI_API_KEY: ${opt:stage, 'dev'}
+    OPENAI_API_KEY: ${ssm:/aws/reference/secretsmanager/general-chatgpt-server-${opt:stage, 'dev'}-openai-api-key}
   apiGateway:
     shouldStartNameWithService: true
+  # Add IAM permissions to access Secrets Manager
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - secretsmanager:GetSecretValue
+          Resource:
+            - Fn::Join:
+              - ":"
+              - - "arn:aws:secretsmanager"
+                - ${self:provider.region}
+                - Ref: "AWS::AccountId"
+                - "secret:general-chatgpt-server-${opt:stage, 'dev'}-openai-api-key*"
 
 plugins:
   - serverless-dotenv-plugin
@@ -44,7 +57,6 @@ custom:
       - NODE_ENV
       - PORT
       - OPENAI_API_KEY
-      - DATABASE_URL
       # Add other environment variables you want to expose
   serverless-offline:
     httpPort: 3000

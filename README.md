@@ -179,7 +179,7 @@ npm run lambda:deploy -- --stage production
 To deploy to a specific region:
 
 ```bash
-npm run lambda:deploy -- --region us-west-2
+npm run lambda:deploy -- --region ap-southeast-1
 ```
 
 ### AWS Lambda Configuration
@@ -190,7 +190,7 @@ The Lambda function is configured in the `serverless.yml` file. Key configuratio
 - **Memory**: 1024MB
 - **Timeout**: 30 seconds
 - **API Gateway**: HTTP API with CORS enabled
-- **Environment Variables**: 
+- **Environment Variables**:
   - Loaded from `.env.{stage}` files via serverless-dotenv-plugin
   - Directly defined in serverless.yml
   - Securely stored in AWS Parameter Store for sensitive data

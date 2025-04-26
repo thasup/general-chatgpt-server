@@ -2,9 +2,9 @@ import express from "express";
 import colors from "colors";
 import "openai/shims/node";
 
-import { envConfig } from "./config/env.config";
-import { configureMiddleware } from "./config/middleware.config";
-import { configureRoutes } from "./config/routes.config";
+import { envConfig } from "@/config/env.config";
+import { configureMiddleware } from "@/config/middleware.config";
+import { configureRoutes } from "@/config/routes.config";
 
 const app = express();
 

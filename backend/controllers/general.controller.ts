@@ -1,7 +1,7 @@
 import { type Request, type Response } from "express";
 
-import { chatCompletion, openAiDefaultConfig } from "../utilities/openai";
-import { handleApiResponse, handleError } from "../utilities/common";
+import { chatCompletion, openAiDefaultConfig } from "@/utilities/openai";
+import { handleApiResponse, handleError } from "@/utilities/common";
 import {
   brainstormChatInstruction,
   explainChatInstruction,
@@ -13,7 +13,7 @@ import {
   summarizeChatInstruction,
   translateChatInstruction,
   writeBlogChatInstruction
-} from "../models/general.model";
+} from "@/models/general.model";
 
 function getSomething (req: Request, res: Response): void {
   res.send("Hello! This is general API :D");

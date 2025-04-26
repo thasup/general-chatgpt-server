@@ -1,6 +1,6 @@
 import express, { type Request, type Response } from "express";
 
-import { getColorsPalette, postColorsPaletteChatCompletion } from "../controllers/colors-palette.controller";
+import { getColorsPalette, postColorsPaletteChatCompletion } from "@/controllers/colors-palette.controller";
 
 const router = express.Router();
 

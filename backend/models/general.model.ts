@@ -1,5 +1,5 @@
 import type OpenAI from "openai";
-import { type InputObject } from "../types/openai";
+import { type InputObject } from "@/types/openai";
 
 const fixSpellingAndGrammarTextInstruction = (inputObj: InputObject): string => {
   return `

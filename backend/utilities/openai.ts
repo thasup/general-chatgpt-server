@@ -1,11 +1,11 @@
 import dotenv from "dotenv";
 import OpenAI from "openai";
-
-import { type InputObject } from "../types/openai";
-import { OPENAI_MODEL } from "../types/common";
-import { type ChatCompletionCreateParamsBase } from "openai/resources/chat/completions";
 import { type ResponseFormatJSONObject, type ResponseFormatJSONSchema, type ResponseFormatText } from "openai/resources";
-import { streamToBuffer } from "./common";
+
+import { type InputObject } from "@/types/openai";
+import { OPENAI_MODEL } from "@/types/common";
+import { type ChatCompletionCreateParamsBase } from "openai/resources/chat/completions";
+import { streamToBuffer } from "@/utilities/common";
 
 dotenv.config();
 const { OPENAI_API_KEY } = process.env;

@@ -2,13 +2,13 @@ import { type Request, type Response } from "express";
 import { zodResponseFormat } from "openai/helpers/zod";
 import { z } from "zod";
 
-import { chatCompletion, openAiDefaultConfig, textToSpeech } from "../utilities/openai";
-import { handleApiResponse, handleError } from "../utilities/common";
+import { chatCompletion, openAiDefaultConfig, textToSpeech } from "@/utilities/openai";
+import { handleApiResponse, handleError } from "@/utilities/common";
 import {
   generateFeelinksScenerioChatInstruction,
   generateItoQuestionChatInstruction,
   generateSoundsFishyScenerioChatInstruction
-} from "../models/stack-connect.model";
+} from "@/models/stack-connect.model";
 
 interface SoundsFishyScenerio {
   question: string

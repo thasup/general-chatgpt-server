@@ -1,6 +1,6 @@
 import express, { type Request, type Response } from "express";
 
-import { getManga, postManga } from "../controllers/manga-comparator.controller";
+import { getManga, postManga } from "@/controllers/manga-comparator.controller";
 
 const router = express.Router();
 

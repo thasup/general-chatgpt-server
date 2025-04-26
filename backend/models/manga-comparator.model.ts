@@ -1,6 +1,5 @@
 import type OpenAI from "openai";
-
-import { type InputObject } from "../types/openai";
+import { type InputObject } from "@/types/openai";
 
 const mangaComparatorChatInstruction = (mangaInput: InputObject): OpenAI.Chat.Completions.ChatCompletionMessageParam[] => {
   const { char1, char2, manga1, manga2 } = mangaInput;

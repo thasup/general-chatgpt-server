@@ -1,6 +1,7 @@
-import { mockCreate, mockResponse } from "./setup";
-import { type InputObject } from "../../types/openai";
+import { mockCreate, mockResponse } from "@/utilities/__tests__/setup";
 import { type ChatCompletionMessageParam } from "openai/resources/chat";
+
+import { type InputObject } from "@/types/openai";
 
 // Import after mocking
 let chatCompletion: any;

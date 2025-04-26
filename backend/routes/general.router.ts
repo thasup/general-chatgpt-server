@@ -1,6 +1,18 @@
 import express, { type Request, type Response } from "express";
 
-import { getSomething, postBrainstorm, postExplain, postFixSpellingAndGrammar, postLonger, postOutline, postRewrite, postShorter, postSummarize, postTranslate, postWriteBlog } from "../controllers/general.controller";
+import {
+  getSomething,
+  postBrainstorm,
+  postExplain,
+  postFixSpellingAndGrammar,
+  postLonger,
+  postOutline,
+  postRewrite,
+  postShorter,
+  postSummarize,
+  postTranslate,
+  postWriteBlog
+} from "@/controllers/general.controller";
 
 const router = express.Router();
 

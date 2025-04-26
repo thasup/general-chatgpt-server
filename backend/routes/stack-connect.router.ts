@@ -4,7 +4,7 @@ import {
   postGenerateFeelinksScenario,
   postGenerateItoQuestion,
   postGenerateSoundsFishyScenario
-} from "../controllers/stack-connect.controller";
+} from "@/controllers/stack-connect.controller";
 
 const router = express.Router();
 

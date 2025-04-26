@@ -2,9 +2,9 @@ import { type Request, type Response } from "express";
 import { zodResponseFormat } from "openai/helpers/zod";
 import { z } from "zod";
 
-import { chatCompletion, openAiDefaultConfig } from "../utilities/openai";
-import { colorsPaletteChatInstruction2, colorsPaletteChatInstruction3 } from "../models/colors-palette.model";
-import { handleApiResponse, handleError } from "../utilities/common";
+import { chatCompletion, openAiDefaultConfig } from "@/utilities/openai";
+import { colorsPaletteChatInstruction2, colorsPaletteChatInstruction3 } from "@/models/colors-palette.model";
+import { handleApiResponse, handleError } from "@/utilities/common";
 import { type ChatCompletionCreateParamsBase } from "openai/resources/chat/completions";
 
 // Define a schema for individual color objects

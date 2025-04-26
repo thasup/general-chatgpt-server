@@ -1,9 +1,9 @@
 import { type Request, type Response } from "express";
 
-import { chatCompletion } from "../utilities/openai";
-import { mangaComparatorChatInstruction } from "../models/manga-comparator.model";
-import { handleApiResponse, handleError } from "../utilities/common";
-import { OPENAI_MODEL } from "../types/common";
+import { chatCompletion } from "@/utilities/openai";
+import { mangaComparatorChatInstruction } from "@/models/manga-comparator.model";
+import { handleApiResponse, handleError } from "@/utilities/common";
+import { OPENAI_MODEL } from "@/types/common";
 
 function getManga (req: Request, res: Response): void {
   res.send("Hello! This is manga comparator API :D");

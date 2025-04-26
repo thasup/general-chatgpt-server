@@ -6,7 +6,7 @@ const fixSpellingAndGrammarTextInstruction = (inputObj: InputObject): string => 
     Correct any spelling, syntax, or grammar mistakes in the text delimited by triple quotes without making any improvements or changes to the original meaning or style.
     In other words, only correct spelling, syntax, or grammar mistakes, do not make improvements.
     If the original text has no mistake, just output the original text and nothing else.
-    Do not wrap responses in quotes. """ ${inputObj.input} """
+    Do not wrap responses in quotes. """ ${inputObj.input as string} """
   `;
 };
 
@@ -23,7 +23,7 @@ const fixSpellingAndGrammarChatInstruction = (inputObj: InputObject): OpenAI.Cha
     },
     {
       role: "user",
-      content: `Input: """ ${inputObj.input} """`
+      content: `Input: """ ${inputObj.input as string} """`
     }
   ];
 };
@@ -36,7 +36,7 @@ const summarizeTextInstruction = (inputObj: InputObject): string => {
     Please avoid unnecessary details or tangential points.
     Only give me the output and nothing else.
     Do not wrap responses in quotes.
-    Respond in the ${inputObj.lang} language. """ ${inputObj.input} """
+    Respond in the ${inputObj.lang as string} language. """ ${inputObj.input as string} """
   `;
 };
 
@@ -51,12 +51,12 @@ const summarizeChatInstruction = (inputObj: InputObject): OpenAI.Chat.Completion
         Please avoid unnecessary details or tangential points.
         Only give me the output and nothing else.
         Do not wrap responses in quotes.
-        Respond in the ${String(inputObj.lang)} language.
+        Respond in the ${String(inputObj.lang as string)} language.
       `
     },
     {
       role: "user",
-      content: `Input: """ ${String(inputObj.input)} """`
+      content: `Input: """ ${String(inputObj.input as string)} """`
     }
   ];
 };
@@ -73,7 +73,7 @@ const rewriteChatInstruction = (inputObj: InputObject): OpenAI.Chat.Completions.
     },
     {
       role: "user",
-      content: `Input: """ ${String(inputObj.input)} """`
+      content: `Input: """ ${String(inputObj.input as string)} """`
     }
   ];
 };
@@ -83,12 +83,12 @@ const explainChatInstruction = (inputObj: InputObject): OpenAI.Chat.Completions.
     {
       role: "developer",
       content: `
-        Please explain clearly and concisely in ${inputObj.lang} language.
+        Please explain clearly and concisely in ${inputObj.lang as string} language.
       `
     },
     {
       role: "user",
-      content: `Input: """ ${String(inputObj.input)} """`
+      content: `Input: """ ${String(inputObj.input as string)} """`
     }
   ];
 };
@@ -99,14 +99,14 @@ const translateChatInstruction = (inputObj: InputObject): OpenAI.Chat.Completion
       role: "developer",
       content: `
         You are a highly skilled AI trained in language translation.
-        I would like you to translate the text delimited by triple quotes into ${inputObj.lang} language.
+        I would like you to translate the text delimited by triple quotes into ${inputObj.lang as string} language.
         Only give me the output and nothing else.
         Do not wrap responses in quotes.
       `
     },
     {
       role: "user",
-      content: `Input: """ ${String(inputObj.input)} """`
+      content: `Input: """ ${String(inputObj.input as string)} """`
     }
   ];
 };
@@ -120,12 +120,12 @@ const brainstormChatInstruction = (inputObj: InputObject): OpenAI.Chat.Completio
         Each idea should be unique and provide a fresh perspective.
         Output the ideas in the form of an unordered list.
         Only give me the output and nothing else.
-        The outline should be in the ${inputObj.lang} language.
+        The outline should be in the ${inputObj.lang as string} language.
       `
     },
     {
       role: "user",
-      content: `Input: """ ${String(inputObj.input)} """`
+      content: `Input: """ ${String(inputObj.input as string)} """`
     }
   ];
 };
@@ -138,12 +138,12 @@ const outlineChatInstruction = (inputObj: InputObject): OpenAI.Chat.Completions.
         Please use the following topics or keywords to generate an outline that includes titles, chapters, and subsections.
         Output it in Markdown format.
         Only give me the output and nothing else.
-        The outline should be in the ${inputObj.lang} language.
+        The outline should be in the ${inputObj.lang as string} language.
       `
     },
     {
       role: "user",
-      content: `Input: """ ${String(inputObj.input)} """`
+      content: `Input: """ ${String(inputObj.input as string)} """`
     }
   ];
 };
@@ -161,12 +161,12 @@ const writeBlogChatInstruction = (inputObj: InputObject): OpenAI.Chat.Completion
         Do not return anything other than the blog post.
         Do not include step information.
         Do not wrap responses in quotes.
-        Respond in the ${inputObj.lang} language.
+        Respond in the ${inputObj.lang as string} language.
       `
     },
     {
       role: "user",
-      content: `Input: """ ${String(inputObj.input)} """`
+      content: `Input: """ ${String(inputObj.input as string)} """`
     }
   ];
 };
@@ -183,7 +183,7 @@ const shorterChatInstruction = (inputObj: InputObject): OpenAI.Chat.Completions.
     },
     {
       role: "user",
-      content: `Input: """ ${String(inputObj.input)} """`
+      content: `Input: """ ${String(inputObj.input as string)} """`
     }
   ];
 };
@@ -201,7 +201,7 @@ const longerChatInstruction = (inputObj: InputObject): OpenAI.Chat.Completions.C
     },
     {
       role: "user",
-      content: `Input: """ ${String(inputObj.input)} """`
+      content: `Input: """ ${String(inputObj.input as string)} """`
     }
   ];
 };

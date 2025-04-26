@@ -18,12 +18,12 @@ configureRoutes(app);
 app.listen(envConfig.port, () => {
   console.log(
     colors.yellow(
-      `Server running in ${envConfig.nodeEnv} mode on port ${envConfig.port}.`
+      `Server running in ${String(envConfig.nodeEnv)} mode on port ${String(envConfig.port)}.`
     )
   );
   console.log(
     colors.yellow(
-      `Server URL: http://localhost:${envConfig.port}`
+      `Server URL: http://localhost:${String(envConfig.port)}`
     )
   );
 });

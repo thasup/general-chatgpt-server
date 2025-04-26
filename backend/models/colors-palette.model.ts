@@ -22,7 +22,7 @@ const colorsPaletteTextInstruction = (inputObj: InputObject): string => {
 
     Desired Response Format:"["#color1", "#color2", ...], ["name1", "name2", ...]"
 
-    Instruction: Generate a color palette for ${inputObj.input}
+    Instruction: Generate a color palette for ${inputObj.input as string}
 
     Result:
   `;

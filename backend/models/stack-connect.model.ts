@@ -22,7 +22,7 @@ const generateFeelinksScenerioChatInstruction = (
     },
     {
       role: "assistant",
-      content: "Your parents surprise you with a gift, but it’s something you don’t like."
+      content: "Your parents surprise you with a gift, but it's something you don't like."
     },
     {
       role: "user",
@@ -46,7 +46,7 @@ const generateFeelinksScenerioChatInstruction = (
     },
     {
       role: "assistant",
-      content: "A stranger compliments you on something you didn’t expect to be noticed."
+      content: "A stranger compliments you on something you didn't expect to be noticed."
     },
     {
       role: "user",
@@ -55,7 +55,7 @@ const generateFeelinksScenerioChatInstruction = (
     {
       role: "assistant",
       content:
-        "Your boss gives you an unexpected compliment about your work, but you feel it’s not deserved."
+        "Your boss gives you an unexpected compliment about your work, but you feel it's not deserved."
     },
     {
       role: "user",
@@ -67,7 +67,7 @@ const generateFeelinksScenerioChatInstruction = (
     },
     {
       role: "user",
-      content: `Category: ${inputObj.category}`
+      content: `Category: ${String(inputObj.category)}`
     }
   ];
 };
@@ -157,7 +157,7 @@ const generateSoundsFishyScenerioChatInstruction = (
     },
     {
       role: "user",
-      content: `Generate an absurd trivia question in the category: ${inputObj.category}, and response in ${inputObj.lang} language`
+      content: `Generate an absurd trivia question in the category: ${String(inputObj.category)}, and response in ${String(inputObj.lang)} language`
     }
   ];
 };
@@ -270,7 +270,7 @@ const generateItoQuestionChatInstruction = (
     },
     {
       role: "user",
-      content: `Generate a question for ${inputObj.category} theme, in ${inputObj.lang} language`
+      content: `Generate a question for ${String(inputObj.category)} theme, in ${String(inputObj.lang)} language`
     }
   ];
 };

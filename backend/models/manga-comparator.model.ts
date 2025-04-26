@@ -18,7 +18,7 @@ const mangaComparatorChatInstruction = (mangaInput: InputObject): OpenAI.Chat.Co
     },
     {
       role: "user",
-      content: `Compare who is the overall strongest character between ${char1} from ${manga1} and ${char2} from ${manga2}`
+      content: `Compare who is the overall strongest character between ${String(char1)} from ${String(manga1)} and ${String(char2)} from ${String(manga2)}`
     }
   ];
 };

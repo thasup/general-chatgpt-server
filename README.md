@@ -11,11 +11,14 @@ A versatile Express.js server built with TypeScript, providing various API endpo
 - 🔒 CORS Protection
 - 📝 TypeScript Support
 - 🧪 Jest Testing Framework
+- ☁️ AWS Lambda Support
 
 ## 📋 Prerequisites
 
 - Node.js (v22 or higher)
 - npm (v6 or higher)
+- AWS CLI (for deployment)
+- Serverless Framework (for deployment)
 
 ## 🛠 Installation
 
@@ -59,6 +62,66 @@ npm run typecheck   # Run TypeScript type checking
 npm run build:production  # Build for production
 npm start                # Start production server
 ```
+
+## ☁️ AWS Lambda Deployment
+
+This project is configured to run as an AWS Lambda function using the Serverless Framework.
+
+### Testing Locally
+
+To test the Lambda function locally before deployment:
+
+```bash
+npm run lambda:local
+```
+
+This will start a local server that simulates the AWS Lambda environment at http://localhost:3000.
+
+### Packaging for Deployment
+
+To create a deployment package without deploying:
+
+```bash
+npm run lambda:package
+```
+
+This will create a `.serverless` directory with the packaged Lambda function.
+
+### Deploying to AWS
+
+Ensure you have AWS credentials configured using AWS CLI:
+
+```bash
+aws configure
+```
+
+Then deploy to AWS:
+
+```bash
+npm run lambda:deploy
+```
+
+To deploy to a specific stage (e.g., production):
+
+```bash
+npm run lambda:deploy -- --stage production
+```
+
+To deploy to a specific region:
+
+```bash
+npm run lambda:deploy -- --region us-west-2
+```
+
+### AWS Lambda Configuration
+
+The Lambda function is configured in the `serverless.yml` file. Key configuration options:
+
+- **Runtime**: Node.js 18.x
+- **Memory**: 1024MB
+- **Timeout**: 30 seconds
+- **API Gateway**: HTTP API with CORS enabled
+- **Environment Variables**: NODE_ENV and other variables as needed
 
 ## 📚 API Documentation
 

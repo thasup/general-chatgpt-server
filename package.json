@@ -28,7 +28,11 @@
     "test:coverage": "jest --config jest.config.js --coverage",
     "test:ci": "jest --config jest.config.js --ci --coverage --reporters='default' --reporters='jest-junit'",
     "// === Deployment Commands ===": "",
-    "build:production": "npm install --production=false && npm run build && npm ci"
+    "build:production": "npm install --production=false && npm run build && npm ci",
+    "// === Lambda Commands ===": "",
+    "lambda:local": "npm run build && node -e \"require('./dist/lambda-local.js').runLocal()\"",
+    "lambda:package": "npm run build && serverless package",
+    "lambda:deploy": "npm run build && serverless deploy"
   },
   "keywords": [],
   "author": "thasup",
@@ -47,6 +51,7 @@
     "openai": "^4.85.1",
     "querystring": "^0.2.1",
     "request": "^2.88.2",
+    "serverless-http": "^3.2.0",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1",
     "zod": "^3.24.2"
@@ -78,6 +83,8 @@
     "jest-environment-node": "^29.7.0",
     "jest-junit": "^16.0.0",
     "nodemon": "^3.1.9",
+    "serverless": "^3.38.0",
+    "serverless-offline": "^13.3.2",
     "ts-jest": "^29.2.6",
     "ts-node": "^10.9.2",
     "typescript": "^5.1.3"

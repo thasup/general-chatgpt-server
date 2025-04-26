@@ -84,7 +84,7 @@ const colorsPaletteChatInstruction2 = (inputObj: InputObject): OpenAI.Chat.Compl
           {"code": "#9BC1BC", "name": "Opal"},
           {"code": "#5D5C61", "name": "Slate Gray"}
         ]
-        `
+      `
     },
     {
       role: "user",
@@ -99,7 +99,7 @@ const colorsPaletteChatInstruction2 = (inputObj: InputObject): OpenAI.Chat.Compl
           {"code": "#BDB76B", "name": "Dark Khaki"},
           {"code": "#FFF8DC", "name": "Cornsilk"}
         ]
-        `
+      `
     },
     {
       role: "user",
@@ -142,7 +142,7 @@ const colorsPaletteChatInstruction3 = (inputObj: InputObject): OpenAI.Chat.Compl
                 "name": "Cerulean Blue"
             }
         ]
-        `
+      `
     },
     {
       role: "user",
@@ -169,7 +169,7 @@ const colorsPaletteChatInstruction3 = (inputObj: InputObject): OpenAI.Chat.Compl
                 "name": "Powder Blue"
             }
         ]
-        `
+      `
     },
     {
       role: "user",
@@ -200,7 +200,7 @@ const colorsPaletteChatInstruction3 = (inputObj: InputObject): OpenAI.Chat.Compl
                 "name": "Dark Orange"
             }
         ]
-        `
+      `
     },
     {
       role: "user",

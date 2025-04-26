@@ -29,13 +29,13 @@ async function postFixSpellingAndGrammar (req: Request, res: Response): Promise<
   }
 
   try {
-    const palette = await chatCompletion(
-      {
+    const palette = await chatCompletion({
+      inputObj: {
         input
       },
-      fixSpellingAndGrammarChatInstruction,
-      openAiDefaultConfig
-    );
+      instruction: fixSpellingAndGrammarChatInstruction,
+      options: openAiDefaultConfig
+    });
 
     handleApiResponse(res, palette);
   } catch (error) {
@@ -53,14 +53,14 @@ async function postSummarize (req: Request, res: Response): Promise<void> {
   }
 
   try {
-    const response = await chatCompletion(
-      {
+    const response = await chatCompletion({
+      inputObj: {
         lang: lang || "en", // Default to English
         input
       },
-      summarizeChatInstruction,
-      openAiDefaultConfig
-    );
+      instruction: summarizeChatInstruction,
+      options: openAiDefaultConfig
+    });
 
     handleApiResponse(res, response);
   } catch (error) {
@@ -78,13 +78,13 @@ async function postRewrite (req: Request, res: Response): Promise<void> {
   }
 
   try {
-    const response = await chatCompletion(
-      {
+    const response = await chatCompletion({
+      inputObj: {
         input
       },
-      rewriteChatInstruction,
-      openAiDefaultConfig
-    );
+      instruction: rewriteChatInstruction,
+      options: openAiDefaultConfig
+    });
 
     handleApiResponse(res, response);
   } catch (error) {
@@ -102,14 +102,14 @@ async function postExplain (req: Request, res: Response): Promise<void> {
   }
 
   try {
-    const response = await chatCompletion(
-      {
+    const response = await chatCompletion({
+      inputObj: {
         input,
         lang: lang || "en"
       },
-      explainChatInstruction,
-      openAiDefaultConfig
-    );
+      instruction: explainChatInstruction,
+      options: openAiDefaultConfig
+    });
 
     handleApiResponse(res, response);
   } catch (error) {
@@ -131,14 +131,14 @@ async function postTranslate (req: Request, res: Response): Promise<void> {
   }
 
   try {
-    const response = await chatCompletion(
-      {
+    const response = await chatCompletion({
+      inputObj: {
         input,
         lang
       },
-      translateChatInstruction,
-      openAiDefaultConfig
-    );
+      instruction: translateChatInstruction,
+      options: openAiDefaultConfig
+    });
 
     handleApiResponse(res, response);
   } catch (error) {
@@ -156,14 +156,14 @@ async function postBrainstorm (req: Request, res: Response): Promise<void> {
   }
 
   try {
-    const response = await chatCompletion(
-      {
+    const response = await chatCompletion({
+      inputObj: {
         input,
         lang: lang || "en"
       },
-      brainstormChatInstruction,
-      openAiDefaultConfig
-    );
+      instruction: brainstormChatInstruction,
+      options: openAiDefaultConfig
+    });
 
     handleApiResponse(res, response);
   } catch (error) {
@@ -181,14 +181,14 @@ async function postOutline (req: Request, res: Response): Promise<void> {
   }
 
   try {
-    const response = await chatCompletion(
-      {
+    const response = await chatCompletion({
+      inputObj: {
         input,
         lang: lang || "en"
       },
-      outlineChatInstruction,
-      openAiDefaultConfig
-    );
+      instruction: outlineChatInstruction,
+      options: openAiDefaultConfig
+    });
 
     handleApiResponse(res, response);
   } catch (error) {
@@ -206,14 +206,14 @@ async function postWriteBlog (req: Request, res: Response): Promise<void> {
   }
 
   try {
-    const response = await chatCompletion(
-      {
+    const response = await chatCompletion({
+      inputObj: {
         input,
         lang: lang || "en"
       },
-      writeBlogChatInstruction,
-      openAiDefaultConfig
-    );
+      instruction: writeBlogChatInstruction,
+      options: openAiDefaultConfig
+    });
 
     handleApiResponse(res, response);
   } catch (error) {
@@ -231,14 +231,14 @@ async function postShorter (req: Request, res: Response): Promise<void> {
   }
 
   try {
-    const response = await chatCompletion(
-      {
+    const response = await chatCompletion({
+      inputObj: {
         input,
         lang: lang || "en"
       },
-      shorterChatInstruction,
-      openAiDefaultConfig
-    );
+      instruction: shorterChatInstruction,
+      options: openAiDefaultConfig
+    });
 
     handleApiResponse(res, response);
   } catch (error) {
@@ -256,14 +256,14 @@ async function postLonger (req: Request, res: Response): Promise<void> {
   }
 
   try {
-    const response = await chatCompletion(
-      {
+    const response = await chatCompletion({
+      inputObj: {
         input,
         lang: lang || "en"
       },
-      longerChatInstruction,
-      openAiDefaultConfig
-    );
+      instruction: longerChatInstruction,
+      options: openAiDefaultConfig
+    });
 
     handleApiResponse(res, response);
   } catch (error) {

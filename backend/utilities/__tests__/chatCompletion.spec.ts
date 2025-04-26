@@ -1,5 +1,6 @@
 import { mockCreate, mockResponse } from "./setup";
-import { colorsPaletteChatInstruction2 } from "../../models/colors-palette.model";
+import { type InputObject } from "../../types/openai";
+import { type ChatCompletionMessageParam } from "openai/resources/chat";
 
 // Import after mocking
 let chatCompletion: any;
@@ -8,6 +9,14 @@ jest.isolateModules(async () => {
   chatCompletion = openai.chatCompletion;
 });
 
+// Mock instruction function
+const mockInstruction = (inputObj: InputObject): ChatCompletionMessageParam[] => {
+  return [
+    { role: "system", content: "You are a helpful assistant." },
+    { role: "user", content: "Generate colors based on: " + JSON.stringify(inputObj) }
+  ];
+};
+
 describe("chatCompletion", () => {
   beforeEach(() => {
     jest.clearAllMocks();
@@ -15,10 +24,10 @@ describe("chatCompletion", () => {
   });
 
   it("should return chat completion response", async () => {
-    const result = await chatCompletion(
-      { userInput: "Generate a sunset-themed color palette" },
-      colorsPaletteChatInstruction2
-    );
+    const result = await chatCompletion({
+      inputObj: { userInput: "Generate a sunset-themed color palette" },
+      instruction: mockInstruction
+    });
 
     expect(result).toBeDefined();
     expect(mockCreate).toHaveBeenCalledTimes(1);
@@ -28,10 +37,10 @@ describe("chatCompletion", () => {
     // @ts-expect-error - Mock rejection doesn't need exact type
     mockCreate.mockRejectedValueOnce(new Error("API Error"));
 
-    await expect(chatCompletion(
-      { userInput: "Generate a color palette" },
-      colorsPaletteChatInstruction2
-    )).rejects.toThrow("API Error");
+    await expect(chatCompletion({
+      inputObj: { userInput: "Generate a color palette" },
+      instruction: mockInstruction
+    })).rejects.toThrow("API Error");
   });
 
   test("should handle empty response", async () => {
@@ -44,11 +53,11 @@ describe("chatCompletion", () => {
       object: "chat.completion"
     });
 
-    const result = await chatCompletion(
-      { input: "test" },
-      colorsPaletteChatInstruction2,
-      { temperature: 0.8 }
-    );
+    const result = await chatCompletion({
+      inputObj: { input: "test" },
+      instruction: mockInstruction,
+      options: { temperature: 0.8 }
+    });
 
     expect(result).toBeUndefined();
   });
@@ -74,11 +83,11 @@ describe("chatCompletion", () => {
       object: "chat.completion"
     });
 
-    const result = await chatCompletion(
-      { input: "sunset and spring" },
-      colorsPaletteChatInstruction2,
-      { temperature: 0.8 }
-    );
+    const result = await chatCompletion({
+      inputObj: { input: "sunset and spring" },
+      instruction: mockInstruction,
+      options: { temperature: 0.8 }
+    });
 
     const parsedResult = result ? JSON.parse(result) : null;
     expect(parsedResult).toMatchObject({

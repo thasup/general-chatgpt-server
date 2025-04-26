@@ -400,13 +400,6 @@ The server implements CORS protection with the following configurations:
   - thanachon.me and subdomains
   - Other configured domains
 
-## 🚀 Deployment
-
-### DigitalOcean Deployment
-```bash
-npm run build:digitalocean
-```
-
 ## 📝 Project Structure
 
 ```

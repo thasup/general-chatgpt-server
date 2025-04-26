@@ -20,15 +20,24 @@ const openAiDefaultConfig = {
   top_p: 1
 };
 
-const chatCompletion = async (
-  inputObj: InputObject,
-  instruction: (inputObj: InputObject) => OpenAI.Chat.Completions.ChatCompletionMessageParam[],
-  options?: Partial<ChatCompletionCreateParamsBase>,
-  format?: ResponseFormatJSONSchema | ResponseFormatText | ResponseFormatJSONObject | undefined
-): Promise<string | null> => {
+interface ChatCompletionParams {
+  inputObj: InputObject
+  instruction: (inputObj: InputObject) => OpenAI.Chat.Completions.ChatCompletionMessageParam[]
+  options?: Partial<ChatCompletionCreateParamsBase>
+  format?: ResponseFormatJSONSchema | ResponseFormatText | ResponseFormatJSONObject
+  model?: OPENAI_MODEL
+}
+
+const chatCompletion = async ({
+  inputObj,
+  instruction,
+  options,
+  format,
+  model
+}: ChatCompletionParams): Promise<string | null> => {
   const completion = await openai.chat.completions.create(
     {
-      model: OPENAI_MODEL.GPT_4O_MINI,
+      model: model ?? OPENAI_MODEL.GPT_4_1_MINI,
       messages: instruction(inputObj),
       response_format: format,
       max_completion_tokens: options?.max_completion_tokens ?? openAiDefaultConfig.max_completion_tokens,

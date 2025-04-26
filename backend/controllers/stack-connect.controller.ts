@@ -33,12 +33,12 @@ async function postGenerateFeelinksScenario (req: Request, res: Response): Promi
   }
 
   try {
-    const scenario = await chatCompletion(
-      {
+    const scenario = await chatCompletion({
+      inputObj: {
         category
       },
-      generateFeelinksScenerioChatInstruction,
-      {
+      instruction: generateFeelinksScenerioChatInstruction,
+      options: {
         ...openAiDefaultConfig,
         temperature: 1.2, // Encourages high creativity
         top_p: 0.9, // Diverse responses but still coherent
@@ -48,7 +48,7 @@ async function postGenerateFeelinksScenario (req: Request, res: Response): Promi
         n: 1, // Single response per request (adjust as needed)
         seed: Math.floor(Math.random() * 1000000) // Ensures a different output each time
       }
-    );
+    });
     const audio = await textToSpeech(scenario ?? "");
 
     handleApiResponse(res, {
@@ -78,13 +78,13 @@ async function postGenerateSoundsFishyScenario (req: Request, res: Response): Pr
   });
 
   try {
-    const response = await chatCompletion(
-      {
+    const response = await chatCompletion({
+      inputObj: {
         category,
         lang: lang || "en"
       },
-      generateSoundsFishyScenerioChatInstruction,
-      {
+      instruction: generateSoundsFishyScenerioChatInstruction,
+      options: {
         ...openAiDefaultConfig,
         temperature: 1.2, // Encourages high creativity
         top_p: 0.9, // Diverse responses but still coherent
@@ -94,8 +94,8 @@ async function postGenerateSoundsFishyScenario (req: Request, res: Response): Pr
         n: 1, // Single response per request (adjust as needed)
         seed: Math.floor(Math.random() * 1000000) // Ensures a different output each time
       },
-      zodResponseFormat(ResponseSchema, "response_schema")
-    );
+      format: zodResponseFormat(ResponseSchema, "response_schema")
+    });
     // parse JSON format from scenario data
     const scenario: SoundsFishyScenerio = JSON.parse(String(response));
     // call text to speech in parallel for question, answer, and reference, then send them to handleApiResponse
@@ -134,13 +134,13 @@ async function postGenerateItoQuestion (req: Request, res: Response): Promise<vo
   });
 
   try {
-    const response = await chatCompletion(
-      {
+    const response = await chatCompletion({
+      inputObj: {
         category,
         lang: lang || "en"
       },
-      generateItoQuestionChatInstruction,
-      {
+      instruction: generateItoQuestionChatInstruction,
+      options: {
         ...openAiDefaultConfig,
         temperature: 1.2, // Encourages high creativity
         top_p: 0.9, // Diverse responses but still coherent
@@ -150,8 +150,8 @@ async function postGenerateItoQuestion (req: Request, res: Response): Promise<vo
         n: 1, // Single response per request (adjust as needed)
         seed: Math.floor(Math.random() * 1000000) // Ensures a different output each time
       },
-      zodResponseFormat(ResponseSchema, "response_schema")
-    );
+      format: zodResponseFormat(ResponseSchema, "response_schema")
+    });
     const data: ItoQuestion = JSON.parse(String(response));
     const audio = await textToSpeech(data.question ?? "");
 

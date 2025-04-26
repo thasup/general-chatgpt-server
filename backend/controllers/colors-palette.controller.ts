@@ -69,12 +69,12 @@ async function getColorsPalette (req: Request, res: Response): Promise<void> {
   }
 
   try {
-    const palette = await chatCompletion(
+    const palette = await chatCompletion({
       inputObj,
-      colorsPaletteChatInstruction2,
-      colorsOptions,
-      zodResponseFormat(ColorsResponseSchema, "color_schema")
-    );
+      instruction: colorsPaletteChatInstruction2,
+      options: colorsOptions,
+      format: zodResponseFormat(ColorsResponseSchema, "color_schema")
+    });
 
     handleApiResponse(res, palette);
   } catch (error) {
@@ -95,12 +95,12 @@ async function postColorsPaletteChatCompletion (req: Request, res: Response): Pr
   }
 
   try {
-    const palette = await chatCompletion(
+    const palette = await chatCompletion({
       inputObj,
-      colorsPaletteChatInstruction3,
-      colorsOptions,
-      zodResponseFormat(ColorsResponseSchema, "color_schema")
-    );
+      instruction: colorsPaletteChatInstruction3,
+      options: colorsOptions,
+      format: zodResponseFormat(ColorsResponseSchema, "color_schema")
+    });
 
     handleApiResponse(res, palette);
   } catch (error) {

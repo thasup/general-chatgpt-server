@@ -1,3 +1,6 @@
+// Register module aliases
+import "./register-aliases";
+
 import express from "express";
 import colors from "colors";
 import "openai/shims/node";

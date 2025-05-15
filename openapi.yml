@@ -1,0 +1,401 @@
+openapi: 3.0.3
+info:
+  title: General ChatGPT Server
+  version: 1.0.0
+servers:
+  - url: http://localhost:9999/v1
+    description: Local dev server
+  - url: https://api.thanachon.me/v1
+    description: Production server
+paths:
+  /colors/{input}:
+    get:
+      tags:
+        - Colors
+      summary: Get color palette by input
+      description: Returns a color palette based on the input description.
+      parameters:
+        - name: input
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Description or theme for the color palette
+          example: Neon Pastel
+      responses:
+        '200':
+          description: Successful response with color palette
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  colors:
+                    type: array
+                    items:
+                      type: string
+                    description: Hex color codes
+                  paletteName:
+                    type: string
+                    description: Name of the generated color palette
+                  message:
+                    type: string
+                    description: Additional information about the palette
+        '400':
+          description: Invalid input provided
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Error message
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Error message
+  /colors/chat:
+    post:
+      tags:
+        - Colors
+      summary: Generate color palette via chat
+      description: >-
+        Returns a color palette based on a text description provided in the
+        request body.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                input:
+                  type: string
+                  description: Description for the color palette
+                  example: warm sunset colors
+                format:
+                  type: string
+                  enum:
+                    - hex
+                    - rgb
+                    - hsl
+                  default: hex
+                  description: Desired format for the color output
+      responses:
+        '200':
+          description: Successful response with generated color palette
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  colors:
+                    type: array
+                    items:
+                      oneOf:
+                        - type: string
+                        - type: object
+                    description: Color values in the requested format
+                  description:
+                    type: string
+                    description: Description of the generated palette
+        '400':
+          description: Invalid request body
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Error message
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Error message
+  /general/:
+    get:
+      tags:
+        - General
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Returns something
+  /general/fix-grammar:
+    post:
+      tags:
+        - General
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TextInput'
+      responses:
+        '200':
+          description: Fixes grammar in the provided text
+  /general/summarize:
+    post:
+      tags:
+        - General
+      produces:
+        - application/json
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TextInput'
+      responses:
+        '200':
+          description: Summarizes the provided text
+  /general/rewrite:
+    post:
+      tags:
+        - General
+      produces:
+        - application/json
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TextInput'
+      responses:
+        '200':
+          description: Rewrites the provided text
+  /general/explain:
+    post:
+      tags:
+        - General
+      produces:
+        - application/json
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TextInput'
+      responses:
+        '200':
+          description: Explains the provided text
+  /general/translate:
+    post:
+      tags:
+        - General
+      produces:
+        - application/json
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TextInput'
+      responses:
+        '200':
+          description: Translates the provided text
+  /general/brainstorm:
+    post:
+      tags:
+        - General
+      produces:
+        - application/json
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TextInput'
+      responses:
+        '200':
+          description: Brainstorms ideas for the provided topic
+  /general/outline:
+    post:
+      tags:
+        - General
+      produces:
+        - application/json
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TextInput'
+      responses:
+        '200':
+          description: Outlines the provided topic
+  /general/write-blog:
+    post:
+      tags:
+        - General
+      produces:
+        - application/json
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TextInput'
+      responses:
+        '200':
+          description: Writes a blog post on the provided topic
+  /general/shorter:
+    post:
+      tags:
+        - General
+      produces:
+        - application/json
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TextInput'
+      responses:
+        '200':
+          description: Shortens the provided text
+  /general/longer:
+    post:
+      tags:
+        - General
+      produces:
+        - application/json
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TextInput'
+      responses:
+        '200':
+          description: Lengthens the provided text
+  /manga/:
+    get:
+      tags:
+        - Manga
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Returns manga API information
+    post:
+      tags:
+        - Manga
+      produces:
+        - application/json
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                char1:
+                  type: string
+                  description: The first character to compare
+                  example: Kaido
+                char2:
+                  type: string
+                  description: The second character to compare
+                  example: Nagato
+                manga1:
+                  type: string
+                  description: The manga of the first character
+                  example: One Piece
+                manga2:
+                  type: string
+                  description: The manga of the second character
+                  example: Naruto
+      responses:
+        '200':
+          description: Submits manga data for processing
+  /stack-connect/feelinks:
+    post:
+      tags:
+        - Stack Connect
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                category:
+                  type: string
+                  description: The category of the scenario
+                  example: music
+      responses:
+        '200':
+          description: Generates a feelinks scenario
+  /stack-connect/sounds-fishy:
+    post:
+      tags:
+        - Stack Connect
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                category:
+                  type: string
+                  description: The category of the scenario
+                  example: music
+                lang:
+                  type: string
+                  description: The language of the scenario
+                  example: en-US
+      responses:
+        '200':
+          description: Generates a sounds fishy scenario
+  /stack-connect/ito:
+    post:
+      tags:
+        - Stack Connect
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                category:
+                  type: string
+                  description: The category of the scenario
+                  example: music
+                lang:
+                  type: string
+                  description: The language of the scenario
+                  example: en-US
+      responses:
+        '200':
+          description: Generates an Ito question
+components:
+  schemas:
+    TextInput:
+      type: object
+      properties:
+        input:
+          type: string
+          description: The text to be processed
+          example: This is an example text.
+        lang:
+          type: string
+          description: The language to be processed
+          example: en-US
+tags: []

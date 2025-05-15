@@ -12,6 +12,7 @@ import swaggerUi from "swagger-ui-express";
 
 import { getCorsConfig } from "@/config/cors.config";
 import { envConfig } from "@/config/env.config";
+import { writeYamlSpec } from "@/utilities/swagger";
 
 // Rate limit configuration
 const limiter = rateLimit({
@@ -61,28 +62,32 @@ export const configureMiddleware = (app: Express): void => {
     app.use(morgan("combined"));
   }
 
-  const options = {
+  const swaggerOptions: swaggerJsdoc.Options = {
     failOnErrors: true, // Whether or not to throw when parsing errors. Defaults to false.
     definition: {
-      openapi: "3.0.0",
+      openapi: "3.0.3",
       info: {
         title: "General ChatGPT Server",
         version: "1.0.0"
       },
       servers: [
         {
-          url: `http://localhost:${process.env.PORT ?? 9999}/v1`
+          url: `http://localhost:${process.env.PORT ?? 9999}/v1`,
+          description: 'Local dev server'
         },
         {
-          url: `https://api.thanachon.me/v1`
+          url: `https://api.thanachon.me/v1`,
+          description: 'Production server'
         }
       ]
     },
     apis: ["./**/*.ts"]
   };
 
-  const swaggerSpec = swaggerJsdoc(options);
+  const swaggerSpec = swaggerJsdoc(swaggerOptions);
   app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
+  writeYamlSpec(swaggerSpec);
 
   // app.use(
   //   "/reference",

@@ -14,6 +14,7 @@ import {
   translateChatInstruction,
   writeBlogChatInstruction
 } from "@/models/general.model";
+import { DEEPSEEK_MODEL, GEMINI_MODEL, OPENAI_MODEL } from "@/types/common";
 
 function getSomething (req: Request, res: Response): void {
   res.send("Hello! This is general API :D");
@@ -34,7 +35,6 @@ async function postFixSpellingAndGrammar (req: Request, res: Response): Promise<
         input
       },
       instruction: fixSpellingAndGrammarChatInstruction,
-      options: openAiDefaultConfig
     });
 
     handleApiResponse(res, palette);
@@ -59,7 +59,10 @@ async function postSummarize (req: Request, res: Response): Promise<void> {
         input
       },
       instruction: summarizeChatInstruction,
-      options: openAiDefaultConfig
+      options: {
+        ...openAiDefaultConfig,
+        temperature: 1
+      }
     });
 
     handleApiResponse(res, response);
@@ -83,7 +86,10 @@ async function postRewrite (req: Request, res: Response): Promise<void> {
         input
       },
       instruction: rewriteChatInstruction,
-      options: openAiDefaultConfig
+      options: {
+        max_completion_tokens: 1000,
+        temperature: 0.4
+      }
     });
 
     handleApiResponse(res, response);
@@ -107,6 +113,7 @@ async function postExplain (req: Request, res: Response): Promise<void> {
         input,
         lang: lang || "en"
       },
+      model: OPENAI_MODEL.GPT_4_1_NANO,
       instruction: explainChatInstruction,
       options: openAiDefaultConfig
     });
@@ -136,6 +143,7 @@ async function postTranslate (req: Request, res: Response): Promise<void> {
         input,
         lang
       },
+      model: GEMINI_MODEL.GEMINI_FLASH_1_5_8B,
       instruction: translateChatInstruction,
       options: openAiDefaultConfig
     });
@@ -161,8 +169,11 @@ async function postBrainstorm (req: Request, res: Response): Promise<void> {
         input,
         lang: lang || "en"
       },
+      model: DEEPSEEK_MODEL.DEEPSEEK_R1_FREE,
       instruction: brainstormChatInstruction,
-      options: openAiDefaultConfig
+      options: {
+        max_completion_tokens: 2000
+      }
     });
 
     handleApiResponse(res, response);
@@ -186,8 +197,11 @@ async function postOutline (req: Request, res: Response): Promise<void> {
         input,
         lang: lang || "en"
       },
+      model: DEEPSEEK_MODEL.DEEPSEEK_R1_FREE,
       instruction: outlineChatInstruction,
-      options: openAiDefaultConfig
+      options: {
+        max_completion_tokens: 2000
+      }
     });
 
     handleApiResponse(res, response);
@@ -211,8 +225,13 @@ async function postWriteBlog (req: Request, res: Response): Promise<void> {
         input,
         lang: lang || "en"
       },
+      model: OPENAI_MODEL.GPT_4O_MINI,
       instruction: writeBlogChatInstruction,
-      options: openAiDefaultConfig
+      options: {
+        ...openAiDefaultConfig,
+        max_completion_tokens: 1000,
+        temperature: 0.7
+      }
     });
 
     handleApiResponse(res, response);
@@ -262,7 +281,9 @@ async function postLonger (req: Request, res: Response): Promise<void> {
         lang: lang || "en"
       },
       instruction: longerChatInstruction,
-      options: openAiDefaultConfig
+      options: {
+        max_completion_tokens: 1000
+      }
     });
 
     handleApiResponse(res, response);

@@ -9,6 +9,7 @@ import {
   generateItoQuestionChatInstruction,
   generateSoundsFishyScenerioChatInstruction
 } from "@/models/stack-connect.model";
+import { OPENAI_MODEL } from "@/types/common";
 
 interface SoundsFishyScenerio {
   question: string
@@ -49,11 +50,11 @@ async function postGenerateFeelinksScenario (req: Request, res: Response): Promi
         seed: Math.floor(Math.random() * 1000000) // Ensures a different output each time
       }
     });
-    const audio = await textToSpeech(scenario ?? "");
+    // const audio = await textToSpeech(scenario ?? "");
 
     handleApiResponse(res, {
       scenario,
-      audio
+      audio: ''
     });
   } catch (error) {
     handleError(res, error);
@@ -99,15 +100,15 @@ async function postGenerateSoundsFishyScenario (req: Request, res: Response): Pr
     // parse JSON format from scenario data
     const scenario: SoundsFishyScenerio = JSON.parse(String(response));
     // call text to speech in parallel for question, answer, and reference, then send them to handleApiResponse
-    const audios = await Promise.all([
-      textToSpeech(scenario.question)
-      // textToSpeech(scenario.answer),
-      // textToSpeech(scenario.reference)
-    ]);
+    // const audios = await Promise.all([
+    //   textToSpeech(scenario.question)
+    //   textToSpeech(scenario.answer),
+    //   textToSpeech(scenario.reference)
+    // ]);
 
     handleApiResponse(res, {
       scenario,
-      questionAudio: audios[0]
+      // questionAudio: audios[0]
       // answerAudio: audios[1],
       // referenceAudio: audios[2]
     });
@@ -153,11 +154,11 @@ async function postGenerateItoQuestion (req: Request, res: Response): Promise<vo
       format: zodResponseFormat(ResponseSchema, "response_schema")
     });
     const data: ItoQuestion = JSON.parse(String(response));
-    const audio = await textToSpeech(data.question ?? "");
+    // const audio = await textToSpeech(data.question ?? "");
 
     handleApiResponse(res, {
       data,
-      audio
+      audio: ''
     });
   } catch (error) {
     handleError(res, error);

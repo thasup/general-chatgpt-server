@@ -3,7 +3,7 @@ import OpenAI from "openai";
 import { type ResponseFormatJSONObject, type ResponseFormatJSONSchema, type ResponseFormatText } from "openai/resources";
 
 import { type InputObject } from "@/types/openai";
-import { GEMINI_MODEL, OPENAI_MODEL } from "@/types/common";
+import { DEEPSEEK_MODEL, GEMINI_MODEL, OPENAI_MODEL } from "@/types/common";
 import { type ChatCompletionCreateParamsBase } from "openai/resources/chat/completions";
 import { streamToBuffer } from "@/utilities/common";
 
@@ -17,7 +17,7 @@ const openai = new OpenAI({
 
 const openAiDefaultConfig = {
   max_completion_tokens: 100,
-  temperature: 0,
+  temperature: 0.7,
   top_p: 1
 };
 
@@ -26,7 +26,7 @@ interface ChatCompletionParams {
   instruction: (inputObj: InputObject) => OpenAI.Chat.Completions.ChatCompletionMessageParam[]
   options?: Partial<ChatCompletionCreateParamsBase>
   format?: ResponseFormatJSONSchema | ResponseFormatText | ResponseFormatJSONObject
-  model?: OPENAI_MODEL | GEMINI_MODEL
+  model?: OPENAI_MODEL | GEMINI_MODEL | DEEPSEEK_MODEL
 }
 
 const chatCompletion = async ({
@@ -36,18 +36,36 @@ const chatCompletion = async ({
   format,
   model
 }: ChatCompletionParams): Promise<string | null> => {
-  const completion = await openai.chat.completions.create(
-    {
-      model: model ?? GEMINI_MODEL.GEMMA_3_1B_FREE,
-      messages: instruction(inputObj),
-      response_format: format,
-      max_completion_tokens: options?.max_completion_tokens ?? openAiDefaultConfig.max_completion_tokens,
-      temperature: options?.temperature ?? openAiDefaultConfig.temperature,
-      top_p: options?.top_p ?? openAiDefaultConfig.top_p
-    }
-  );
-  const res = completion?.choices[0]?.message?.content;
+  let parsedCompletion: any = null;
+  let completion: OpenAI.Chat.Completions.ChatCompletion | null = null;
+  if (format) {
+    parsedCompletion = await openai.beta.chat.completions.parse(
+      {
+        model: model ?? OPENAI_MODEL.GPT_4O_MINI,
+        messages: instruction(inputObj),
+        response_format: format,
+        max_completion_tokens: options?.max_completion_tokens ?? openAiDefaultConfig.max_completion_tokens,
+        temperature: options?.temperature ?? openAiDefaultConfig.temperature,
+        top_p: options?.top_p ?? openAiDefaultConfig.top_p
+      }
+    );
+  } else {
+    completion = await openai.chat.completions.create(
+      {
+        model: model ?? GEMINI_MODEL.GEMMA_3_1B_FREE,
+        messages: instruction(inputObj),
+        max_completion_tokens: options?.max_completion_tokens ?? openAiDefaultConfig.max_completion_tokens,
+        temperature: options?.temperature ?? openAiDefaultConfig.temperature,
+        top_p: options?.top_p ?? openAiDefaultConfig.top_p
+      }
+    );
+  }
 
+  if (format) {
+    const res = parsedCompletion?.choices?.[0]?.message?.content || null;
+    return res;
+  }
+  const res = completion?.choices[0]?.message?.content || null;
   return res;
 };
 

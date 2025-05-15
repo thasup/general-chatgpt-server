@@ -75,7 +75,7 @@ For local development, create a `.env` file in the root directory:
 ```env
 NODE_ENV=development
 PORT=3000
-OPENAI_API_KEY=your_api_key_here
+API_KEY=your_api_key_here
 ```
 
 ### AWS Lambda Deployment
@@ -113,7 +113,7 @@ For AWS Lambda deployment, you have several options:
    ```yaml
    provider:
      environment:
-       OPENAI_API_KEY: ${ssm:/my-app/${opt:stage, 'dev'}/api-key~true}
+       API_KEY: ${ssm:/my-app/${opt:stage, 'dev'}/api-key~true}
        DATABASE_URL: ${ssm:/my-app/${opt:stage, 'dev'}/database-url~true}
    ```
 
@@ -130,7 +130,7 @@ For AWS Lambda deployment, you have several options:
 |----------|-------------|---------|----------|
 | NODE_ENV | Environment (development, production) | development | Yes |
 | PORT | Port to run the server on | 3000 | No |
-| OPENAI_API_KEY | API key for external services | - | Yes |
+| API_KEY | API key for external services | - | Yes |
 | DATABASE_URL | Database connection string | - | No |
 
 ## ☁️ AWS Lambda Deployment
@@ -219,7 +219,7 @@ Then reference them in serverless.yml:
 ```yaml
 provider:
   environment:
-    OPENAI_API_KEY: ${ssm:/my-app/${opt:stage, 'dev'}/api-key~true}
+    API_KEY: ${ssm:/my-app/${opt:stage, 'dev'}/api-key~true}
     DATABASE_URL: ${ssm:/my-app/${opt:stage, 'dev'}/database-url~true}
 ```
 

@@ -4,7 +4,7 @@ import { Readable } from "stream";
 // Set up environment variables for testing
 process.env.NODE_ENV = "test";
 process.env.PORT = "3000";
-process.env.OPENAI_API_KEY = "test-api-key";
+process.env.API_KEY = "test-api-key";
 
 // Create mock functions
 export const mockCreate = jest.fn();

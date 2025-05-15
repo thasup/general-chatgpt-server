@@ -14,7 +14,7 @@ provider:
   environment:
     NODE_ENV: ${opt:stage, 'dev'}
     PORT: 8080
-    OPENAI_API_KEY: ${ssm:/aws/reference/secretsmanager/general-chatgpt-server-${opt:stage, 'dev'}-openai-api-key}
+    API_KEY: ${ssm:/aws/reference/secretsmanager/general-chatgpt-server-${opt:stage, 'dev'}-openai-api-key}
   apiGateway:
     shouldStartNameWithService: true
   # Add IAM permissions to access Secrets Manager
@@ -56,7 +56,7 @@ custom:
     include:
       - NODE_ENV
       - PORT
-      - OPENAI_API_KEY
+      - API_KEY
       # Add other environment variables you want to expose
   serverless-offline:
     httpPort: 3000

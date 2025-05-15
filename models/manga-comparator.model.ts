@@ -10,11 +10,20 @@ const mangaComparatorChatInstruction = (mangaInput: InputObject): OpenAI.Chat.Co
     },
     {
       role: "user",
-      content: "Compare who is the overall strongest character between Kaido from One piece and Nagato from Naruto"
+      content: "Compare who is the overall strongest character between Saitama from One Punch Man and Ichigo from Bleach"
     },
     {
       role: "assistant",
-      content: "Winner: Kaido from One Piece\nReason: Kaido is the strongest creature in the world of One Piece, possessing an immense amount of strength and power that is unmatched by any other character in the series. He is also a Logia type Devil Fruit user, which gives him the ability to control and manipulate the elements.\nScore: Kaido: 100, Nagato: 80"
+      content: `
+        {
+          "winner": "Saitama",
+          "reason": "Saitama, also known as One Punch Man, has the ability to defeat any opponent with a single punch, showcasing his overwhelming strength and speed. His power is portrayed as limitless, making him virtually unbeatable. In contrast, while Ichigo is incredibly powerful and has various forms and abilities, he still requires effort to defeat his enemies, which places him at a disadvantage against Saitama's one-punch capability.",
+          "scores": {
+            "char1Score": 100,
+            "char2Score": 85
+          }
+        }
+      `
     },
     {
       role: "user",

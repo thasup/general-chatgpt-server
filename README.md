@@ -38,7 +38,6 @@ npm install
 ```env
 NODE_ENV=development
 PORT=3000
-# Add other required environment variables
 ```
 
 ## 💻 Development
@@ -76,6 +75,7 @@ For local development, create a `.env` file in the root directory:
 NODE_ENV=development
 PORT=3000
 API_KEY=your_api_key_here
+BASE_URL=
 ```
 
 ### AWS Lambda Deployment
@@ -131,7 +131,6 @@ For AWS Lambda deployment, you have several options:
 | NODE_ENV | Environment (development, production) | development | Yes |
 | PORT | Port to run the server on | 3000 | No |
 | API_KEY | API key for external services | - | Yes |
-| DATABASE_URL | Database connection string | - | No |
 
 ## ☁️ AWS Lambda Deployment
 

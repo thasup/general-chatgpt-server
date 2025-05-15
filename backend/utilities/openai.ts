@@ -8,11 +8,11 @@ import { type ChatCompletionCreateParamsBase } from "openai/resources/chat/compl
 import { streamToBuffer } from "@/utilities/common";
 
 dotenv.config();
-const { API_KEY } = process.env;
+const { API_KEY, BASE_URL } = process.env;
 
 const openai = new OpenAI({
   apiKey: API_KEY,
-  baseURL: "https://openrouter.ai/api/v1",
+  baseURL: BASE_URL ?? "https://openrouter.ai/api/v1",
 });
 
 const openAiDefaultConfig = {

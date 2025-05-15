@@ -114,7 +114,6 @@ For AWS Lambda deployment, you have several options:
    provider:
      environment:
        API_KEY: ${ssm:/my-app/${opt:stage, 'dev'}/api-key~true}
-       DATABASE_URL: ${ssm:/my-app/${opt:stage, 'dev'}/database-url~true}
    ```
 
    To store a value in Parameter Store:
@@ -173,7 +172,7 @@ npm run lambda:deploy
 To deploy to a specific stage (e.g., production):
 
 ```bash
-npm run lambda:deploy -- --stage production
+npm run lambda:deploy:prod
 ```
 
 To deploy to a specific region:

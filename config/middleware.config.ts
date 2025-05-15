@@ -72,6 +72,9 @@ export const configureMiddleware = (app: Express): void => {
       servers: [
         {
           url: `http://localhost:${process.env.PORT ?? 9999}/v1`
+        },
+        {
+          url: `https://api.thanachon.me/v1`
         }
       ]
     },

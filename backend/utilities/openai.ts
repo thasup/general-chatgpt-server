@@ -3,7 +3,7 @@ import OpenAI from "openai";
 import { type ResponseFormatJSONObject, type ResponseFormatJSONSchema, type ResponseFormatText } from "openai/resources";
 
 import { type InputObject } from "@/types/openai";
-import { OPENAI_MODEL } from "@/types/common";
+import { GEMINI_MODEL, OPENAI_MODEL } from "@/types/common";
 import { type ChatCompletionCreateParamsBase } from "openai/resources/chat/completions";
 import { streamToBuffer } from "@/utilities/common";
 
@@ -26,7 +26,7 @@ interface ChatCompletionParams {
   instruction: (inputObj: InputObject) => OpenAI.Chat.Completions.ChatCompletionMessageParam[]
   options?: Partial<ChatCompletionCreateParamsBase>
   format?: ResponseFormatJSONSchema | ResponseFormatText | ResponseFormatJSONObject
-  model?: OPENAI_MODEL
+  model?: OPENAI_MODEL | GEMINI_MODEL
 }
 
 const chatCompletion = async ({
@@ -38,7 +38,7 @@ const chatCompletion = async ({
 }: ChatCompletionParams): Promise<string | null> => {
   const completion = await openai.chat.completions.create(
     {
-      model: model ?? OPENAI_MODEL.GPT_4O_MINI,
+      model: model ?? GEMINI_MODEL.GEMMA_3_1B_FREE,
       messages: instruction(inputObj),
       response_format: format,
       max_completion_tokens: options?.max_completion_tokens ?? openAiDefaultConfig.max_completion_tokens,

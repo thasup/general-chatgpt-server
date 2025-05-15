@@ -11,3 +11,9 @@ export enum OPENAI_MODEL {
   GPT_4 = "openai/gpt-4", // 8K context, $30/M input tokens, $60/M output tokens
   GPT_35_TURBO = "openai/gpt-3.5-turbo", // 16K context, $0.50/M input tokens, $1.50/M output tokens
 }
+
+export enum GEMINI_MODEL {
+  GEMMA_3_1B_FREE = "google/gemma-3-1b-it:free", // 33K context, $0/M input tokens, $0/M output tokens
+  GEMMA_27B_FREE = "google/gemma-3-27b-it:free", // 96K context, $0/M input tokens, $0/M output tokens
+  GEMINI_2_0_FLASH_EXP_FREE = "google/gemini-2.0-flash-exp:free", // 1.05M context, $0/M input tokens, $0/M output tokens
+}

@@ -36,8 +36,10 @@ const chatCompletion = async ({
   format,
   model
 }: ChatCompletionParams): Promise<string | null> => {
+  console.log('🚀 ~ chatCompletio - 1', {inputObj, instruction: instruction(inputObj), options, format, model});
   let parsedCompletion: any = null;
   let completion: OpenAI.Chat.Completions.ChatCompletion | null = null;
+  console.log('🚀 ~ chatCompletio - 1.1');
   if (format) {
     parsedCompletion = await openai.beta.chat.completions.parse(
       {
@@ -60,12 +62,23 @@ const chatCompletion = async ({
       }
     );
   }
+  console.log('🚀 ~ chatCompletio - 1.2');
 
   if (format) {
     const res = parsedCompletion?.choices?.[0]?.message?.content || null;
+    console.log('🚀 ~ parsedCompletion - 2', {parsedCompletion, res,
+      choice: parsedCompletion?.choices[0],
+      message: parsedCompletion?.choices[0]?.message,
+      content: parsedCompletion?.choices[0]?.message?.parsed
+    });
     return res;
   }
   const res = completion?.choices[0]?.message?.content || null;
+  console.log('🚀 ~ chatCompletio - 2', {completion, res,
+    choice: completion?.choices[0],
+    message: completion?.choices[0]?.message,
+    content: completion?.choices[0]?.message?.content
+  });
   return res;
 };
 

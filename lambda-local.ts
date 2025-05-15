@@ -1,5 +1,5 @@
 import http from "http";
-import { handler } from "./lambda";
+import { handler } from "@/lambda";
 
 export const runLocal = async function (): Promise<void> {
   const PORT = process.env.PORT ?? 3000;

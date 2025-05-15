@@ -10,8 +10,8 @@ import rateLimit from "express-rate-limit";
 import swaggerJsdoc from "swagger-jsdoc";
 import swaggerUi from "swagger-ui-express";
 
-import { getCorsConfig } from "./cors.config";
-import { envConfig } from "./env.config";
+import { getCorsConfig } from "@/config/cors.config";
+import { envConfig } from "@/config/env.config";
 
 // Rate limit configuration
 const limiter = rateLimit({
@@ -75,7 +75,7 @@ export const configureMiddleware = (app: Express): void => {
         }
       ]
     },
-    apis: ["./backend/**/*.ts"]
+    apis: ["./**/*.ts"]
   };
 
   const swaggerSpec = swaggerJsdoc(options);

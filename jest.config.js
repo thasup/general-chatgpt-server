@@ -2,7 +2,7 @@
 const config = {
   preset: "ts-jest",
   testEnvironment: "node",
-  roots: ["<rootDir>/backend"],
+  roots: ["<rootDir>"],
   testMatch: [
     "**/__tests__/**/*.spec.ts",
     "**/__tests__/**/*.test.ts"
@@ -27,7 +27,7 @@ const config = {
     "/dist/"
   ],
   moduleNameMapper: {
-    "^@/(.*)$": "<rootDir>/backend/$1"
+    "^@/(.*)$": "<rootDir>/$1"
   },
   verbose: true
 };

@@ -71,6 +71,6 @@ package:
     - '!README.md'
     - '!package-lock.json'
     - '!coverage/**'
-    - '!backend/**'
+    - '!node_modules/**'
+    - 'node_modules/**'  # Include all node_modules
     - 'dist/**'
-    - 'node_modules/**'

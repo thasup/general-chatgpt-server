@@ -2,8 +2,8 @@ import serverless from "serverless-http";
 import express from "express";
 import "openai/shims/node";
 
-import { configureMiddleware } from "./config/middleware.config";
-import { configureRoutes } from "./config/routes.config";
+import { configureMiddleware } from "@/config/middleware.config";
+import { configureRoutes } from "@/config/routes.config";
 
 // Create Express app
 const app = express();

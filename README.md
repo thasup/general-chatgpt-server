@@ -403,15 +403,14 @@ The server implements CORS protection with the following configurations:
 
 ```
 general-chatgpt-server/
-├── backend/
-│   ├── config/         # Configuration files
-│   ├── controllers/    # API controllers
-│   ├── middlewares/    # Express middlewares
-│   ├── models/         # Data models
-│   ├── routes/         # API routes
-│   ├── types/          # TypeScript type definitions
-│   ├── utilities/      # Utility functions
-│   └── server.ts       # Main server file
+│── config/         # Configuration files
+│── controllers/    # API controllers
+│── middlewares/    # Express middlewares
+│── models/         # Data models
+│── routes/         # API routes
+│── types/          # TypeScript type definitions
+│── utilities/      # Utility functions
+│── server.ts       # Main server file
 ├── dist/               # Compiled JavaScript
 ├── tests/              # Test files
 ├── .env               # Environment variables

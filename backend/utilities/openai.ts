@@ -38,7 +38,7 @@ const chatCompletion = async ({
 }: ChatCompletionParams): Promise<string | null> => {
   const completion = await openai.chat.completions.create(
     {
-      model: model ?? OPENAI_MODEL.GPT_4_1_MINI,
+      model: model ?? OPENAI_MODEL.GPT_4O_MINI,
       messages: instruction(inputObj),
       response_format: format,
       max_completion_tokens: options?.max_completion_tokens ?? openAiDefaultConfig.max_completion_tokens,

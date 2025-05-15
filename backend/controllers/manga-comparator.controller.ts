@@ -33,7 +33,7 @@ async function postManga (req: Request, res: Response): Promise<void> {
         temperature: 0,
         top_p: 1
       },
-      model: OPENAI_MODEL.O1_MINI
+      model: OPENAI_MODEL.GPT_O1_MINI
     });
 
     handleApiResponse(res, charactorResponse);

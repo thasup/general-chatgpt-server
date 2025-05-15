@@ -1,9 +1,9 @@
 import { type Express, type Request, type Response } from "express";
-import { errorHandler, notFound } from "../middlewares/errors-handling.middleware";
-import colorsPaletteRouter from "../routes/colors-palette.router";
-import mangaComparatorRouter from "../routes/manga-comparator.router";
-import generalRouter from "../routes/general.router";
-import stackConnectRouter from "../routes/stack-connect.router";
+import { errorHandler, notFound } from "@/middlewares/errors-handling.middleware";
+import colorsPaletteRouter from "@/routes/colors-palette.router";
+import mangaComparatorRouter from "@/routes/manga-comparator.router";
+import generalRouter from "@/routes/general.router";
+import stackConnectRouter from "@/routes/stack-connect.router";
 
 export const configureRoutes = (app: Express): void => {
   // Base route

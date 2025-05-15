@@ -1,6 +1,6 @@
 import { type NextFunction, type Request, type Response } from "express";
-import { AppError, NotFoundError } from "../types/errors";
-import { envConfig } from "../config/env.config";
+import { AppError, NotFoundError } from "@/types/errors";
+import { envConfig } from "@/config/env.config";
 import { ZodError } from "zod";
 
 const notFound = (req: Request, res: Response, next: NextFunction): void => {

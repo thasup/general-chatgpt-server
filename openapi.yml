@@ -33,14 +33,16 @@ paths:
                   colors:
                     type: array
                     items:
-                      type: string
-                    description: Hex color codes
-                  paletteName:
-                    type: string
-                    description: Name of the generated color palette
-                  message:
-                    type: string
-                    description: Additional information about the palette
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Hex color code
+                          example: '#FF6F61'
+                        name:
+                          type: string
+                          description: Name of the color
+                          example: Coral
         '400':
           description: Invalid input provided
           content:
@@ -99,13 +101,16 @@ paths:
                   colors:
                     type: array
                     items:
-                      oneOf:
-                        - type: string
-                        - type: object
-                    description: Color values in the requested format
-                  description:
-                    type: string
-                    description: Description of the generated palette
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Hex color code
+                          example: '#FF6F61'
+                        name:
+                          type: string
+                          description: Name of the color
+                          example: Coral
         '400':
           description: Invalid request body
           content:

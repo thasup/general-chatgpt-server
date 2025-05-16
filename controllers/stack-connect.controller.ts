@@ -23,8 +23,14 @@ interface ItoQuestion {
   most: string
 }
 
+interface StackConnectRequestBody {
+  category: string
+  lang?: string
+  hasAudio?: boolean
+}
+
 async function postGenerateFeelinksScenario (req: Request, res: Response): Promise<void> {
-  const { category } = req.body;
+  const { category, hasAudio = false }: StackConnectRequestBody = req.body;
 
   if (!category) {
     res.status(400).json({
@@ -50,19 +56,23 @@ async function postGenerateFeelinksScenario (req: Request, res: Response): Promi
         seed: Math.floor(Math.random() * 1000000) // Ensures a different output each time
       }
     });
-    // const audio = await textToSpeech(scenario ?? "");
 
-    handleApiResponse(res, {
-      scenario,
-      audio: ''
-    });
+    if (hasAudio) {
+      const audio = await textToSpeech(scenario ?? "");
+      handleApiResponse(res, {
+        scenario,
+        audio
+      });
+      return;
+    }
+    handleApiResponse(res, { scenario });
   } catch (error) {
     handleError(res, error);
   }
 }
 
 async function postGenerateSoundsFishyScenario (req: Request, res: Response): Promise<void> {
-  const { category, lang } = req.body;
+  const { category, lang, hasAudio = false }: StackConnectRequestBody = req.body;
 
   if (!category) {
     res.status(400).json({
@@ -99,18 +109,25 @@ async function postGenerateSoundsFishyScenario (req: Request, res: Response): Pr
     });
     // parse JSON format from scenario data
     const scenario: SoundsFishyScenerio = JSON.parse(String(response));
-    // call text to speech in parallel for question, answer, and reference, then send them to handleApiResponse
-    // const audios = await Promise.all([
-    //   textToSpeech(scenario.question)
-    //   textToSpeech(scenario.answer),
-    //   textToSpeech(scenario.reference)
-    // ]);
+
+    if (hasAudio) {
+      // call text to speech in parallel for question, answer, and reference, then send them to handleApiResponse
+      const audios = await Promise.all([
+        textToSpeech(scenario.question),
+        // textToSpeech(scenario.answer),
+        // textToSpeech(scenario.reference)
+      ]);
+      handleApiResponse(res, {
+        scenario,
+        questionAudio: audios[0],
+        // answerAudio: audios[1],
+        // referenceAudio: audios[2]
+      });
+      return;
+    }
 
     handleApiResponse(res, {
       scenario,
-      // questionAudio: audios[0]
-      // answerAudio: audios[1],
-      // referenceAudio: audios[2]
     });
   } catch (error) {
     handleError(res, error);
@@ -118,7 +135,7 @@ async function postGenerateSoundsFishyScenario (req: Request, res: Response): Pr
 }
 
 async function postGenerateItoQuestion (req: Request, res: Response): Promise<void> {
-  const { category, lang } = req.body;
+  const { category, lang, hasAudio = false }: StackConnectRequestBody = req.body;
 
   if (!category) {
     res.status(400).json({
@@ -154,12 +171,17 @@ async function postGenerateItoQuestion (req: Request, res: Response): Promise<vo
       format: zodResponseFormat(ResponseSchema, "response_schema")
     });
     const data: ItoQuestion = JSON.parse(String(response));
-    // const audio = await textToSpeech(data.question ?? "");
 
-    handleApiResponse(res, {
-      data,
-      audio: ''
-    });
+    if (hasAudio) {
+      const audio = await textToSpeech(data.question ?? "");
+      handleApiResponse(res, {
+        data,
+        audio,
+      });
+      return;
+    }
+
+    handleApiResponse(res, { data });
   } catch (error) {
     handleError(res, error);
   }

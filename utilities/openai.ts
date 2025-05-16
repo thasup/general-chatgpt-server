@@ -12,11 +12,15 @@ import { type ChatCompletionCreateParamsBase } from "openai/resources/chat/compl
 import { streamToBuffer } from "@/utilities/common";
 
 dotenv.config();
-const { API_KEY, BASE_URL } = process.env;
+const { API_KEY, BASE_URL, OPENAI_API_KEY } = process.env;
 
-const openai = new OpenAI({
+const openRouter = new OpenAI({
   apiKey: API_KEY,
   baseURL: BASE_URL ?? "https://openrouter.ai/api/v1"
+});
+
+const openAi = new OpenAI({
+  apiKey: OPENAI_API_KEY,
 });
 
 const openAiDefaultConfig = {
@@ -43,7 +47,7 @@ const chatCompletion = async ({
   let parsedCompletion: any = null;
   let completion: OpenAI.Chat.Completions.ChatCompletion | null = null;
   if (format) {
-    parsedCompletion = await openai.beta.chat.completions.parse({
+    parsedCompletion = await openRouter.beta.chat.completions.parse({
       model: model ?? OPENAI_MODEL.GPT_4O_MINI,
       messages: instruction(inputObj),
       response_format: format,
@@ -53,7 +57,7 @@ const chatCompletion = async ({
       top_p: options?.top_p ?? openAiDefaultConfig.top_p
     });
   } else {
-    completion = await openai.chat.completions.create({
+    completion = await openRouter.chat.completions.create({
       model: model ?? GEMINI_MODEL.GEMMA_3_1B_FREE,
       messages: instruction(inputObj),
       max_completion_tokens:
@@ -73,7 +77,7 @@ const chatCompletion = async ({
 
 const textToSpeech = async (text: string): Promise<string> => {
   // const speechFile = path.resolve("./speech.mp3");
-  const mp3 = await openai.audio.speech.create({
+  const mp3 = await openAi.audio.speech.create({
     model: "tts-1",
     voice: "nova",
     input: text,

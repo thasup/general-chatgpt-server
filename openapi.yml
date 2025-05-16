@@ -405,6 +405,10 @@ paths:
                     - Social
                     - Work
                     - Entertainment
+                hasAudio:
+                  type: boolean
+                  description: (Optional) Whether to include audio in the response.
+                  example: false
       responses:
         '200':
           description: Successful response with a generated Feelinks scenario.
@@ -468,6 +472,10 @@ paths:
                   type: string
                   description: The language for the trivia question.
                   example: en-US
+                hasAudio:
+                  type: boolean
+                  description: (Optional) Whether to include audio in the response.
+                  example: false
       responses:
         '200':
           description: Successful response with a generated Sounds Fishy scenario.
@@ -541,6 +549,10 @@ paths:
                   type: string
                   description: The language for the Ito question.
                   example: en-US
+                hasAudio:
+                  type: boolean
+                  description: (Optional) Whether to include audio in the response.
+                  example: false
       responses:
         '200':
           description: Successful response with a generated Ito question.

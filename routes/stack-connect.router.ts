@@ -39,6 +39,10 @@ router.use((req: Request, res: Response, next) => {
  *                   - Social
  *                   - Work
  *                   - Entertainment
+ *               hasAudio:
+ *                 type: boolean
+ *                 description: (Optional) Whether to include audio in the response.
+ *                 example: false
  *     responses:
  *       200:
  *         description: Successful response with a generated Feelinks scenario.
@@ -103,6 +107,10 @@ router.post("/feelinks", postGenerateFeelinksScenario);
  *                 type: string
  *                 description: The language for the trivia question.
  *                 example: "en-US"
+ *               hasAudio:
+ *                 type: boolean
+ *                 description: (Optional) Whether to include audio in the response.
+ *                 example: false
  *     responses:
  *       200:
  *         description: Successful response with a generated Sounds Fishy scenario.
@@ -174,6 +182,10 @@ router.post("/sounds-fishy", postGenerateSoundsFishyScenario);
  *                 type: string
  *                 description: The language for the Ito question.
  *                 example: "en-US"
+ *               hasAudio:
+ *                 type: boolean
+ *                 description: (Optional) Whether to include audio in the response.
+ *                 example: false
  *     responses:
  *       200:
  *         description: Successful response with a generated Ito question.

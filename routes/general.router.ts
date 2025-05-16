@@ -22,7 +22,7 @@ router.use((req: Request, res: Response, next) => {
 });
 
 /**
- * @swagger
+ * @openapi
  * components:
  *   schemas:
  *     TextInput:
@@ -39,25 +39,32 @@ router.use((req: Request, res: Response, next) => {
  */
 
 /**
- * @swagger
+ * @openapi
  *
  * /general/:
  *   get:
  *     tags: [General]
- *     produces:
- *       - application/json
+ *     summary: Get general API information
+ *     description: Returns a greeting message from the general API.
  *     responses:
  *       200:
- *         description: Returns something
+ *         description: Successful response with a greeting message
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: string
+ *               example: "Hello! This is general API :D"
  */
 router.get("/", getSomething);
 
 /**
- * @swagger
+ * @openapi
  *
  * /general/fix-grammar:
  *   post:
  *     tags: [General]
+ *     summary: Fix spelling and grammar
+ *     description: Corrects spelling and grammar in the provided text.
  *     requestBody:
  *       required: true
  *       content:
@@ -66,18 +73,46 @@ router.get("/", getSomething);
  *             $ref: '#/components/schemas/TextInput'
  *     responses:
  *       200:
- *         description: Fixes grammar in the provided text
+ *         description: Successful response with corrected text.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: string
+ *               description: The corrected text.
+ *               example: "This is an example of corrected text."
+ *       400:
+ *         description: Invalid input provided.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   description: Error message.
+ *                   example: "Missing an input"
+ *       500:
+ *         description: Internal server error.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   description: Error message.
+ *                   example: "Internal server error"
  */
 router.post("/fix-grammar", postFixSpellingAndGrammar);
 
 /**
- * @swagger
+ * @openapi
  *
  * /general/summarize:
  *   post:
  *     tags: [General]
- *     produces:
- *       - application/json
+ *     summary: Summarize text
+ *     description: Summarizes the provided text into a concise abstract paragraph.
  *     requestBody:
  *       required: true
  *       content:
@@ -86,18 +121,46 @@ router.post("/fix-grammar", postFixSpellingAndGrammar);
  *             $ref: '#/components/schemas/TextInput'
  *     responses:
  *       200:
- *         description: Summarizes the provided text
+ *         description: Successful response with summarized text.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: string
+ *               description: The summarized text.
+ *               example: "This is a summary of the example text."
+ *       400:
+ *         description: Invalid input provided.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   description: Error message.
+ *                   example: "Missing an input"
+ *       500:
+ *         description: Internal server error.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   description: Error message.
+ *                   example: "Internal server error"
  */
 router.post("/summarize", postSummarize);
 
 /**
- * @swagger
+ * @openapi
  *
  * /general/rewrite:
  *   post:
  *     tags: [General]
- *     produces:
- *       - application/json
+ *     summary: Rewrite text
+ *     description: Rewrites the provided text to be more concise and well-written while preserving the original meaning.
  *     requestBody:
  *       required: true
  *       content:
@@ -106,18 +169,46 @@ router.post("/summarize", postSummarize);
  *             $ref: '#/components/schemas/TextInput'
  *     responses:
  *       200:
- *         description: Rewrites the provided text
+ *         description: Successful response with rewritten text.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: string
+ *               description: The rewritten text.
+ *               example: "This is an example of rewritten text."
+ *       400:
+ *         description: Invalid input provided.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   description: Error message.
+ *                   example: "Missing an input"
+ *       500:
+ *         description: Internal server error.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   description: Error message.
+ *                   example: "Internal server error"
  */
 router.post("/rewrite", postRewrite);
 
 /**
- * @swagger
+ * @openapi
  *
  * /general/explain:
  *   post:
  *     tags: [General]
- *     produces:
- *       - application/json
+ *     summary: Explain text
+ *     description: Explains the provided text clearly and concisely.
  *     requestBody:
  *       required: true
  *       content:
@@ -126,18 +217,46 @@ router.post("/rewrite", postRewrite);
  *             $ref: '#/components/schemas/TextInput'
  *     responses:
  *       200:
- *         description: Explains the provided text
+ *         description: Successful response with explained text.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: string
+ *               description: The explained text.
+ *               example: "This is an explanation of the example text."
+ *       400:
+ *         description: Invalid input provided.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   description: Error message.
+ *                   example: "Missing an input"
+ *       500:
+ *         description: Internal server error.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   description: Error message.
+ *                   example: "Internal server error"
  */
 router.post("/explain", postExplain);
 
 /**
- * @swagger
+ * @openapi
  *
  * /general/translate:
  *   post:
  *     tags: [General]
- *     produces:
- *       - application/json
+ *     summary: Translate text
+ *     description: Translates the provided text into the specified language.
  *     requestBody:
  *       required: true
  *       content:
@@ -146,18 +265,46 @@ router.post("/explain", postExplain);
  *             $ref: '#/components/schemas/TextInput'
  *     responses:
  *       200:
- *         description: Translates the provided text
+ *         description: Successful response with translated text.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: string
+ *               description: The translated text.
+ *               example: "This is a translation of the example text."
+ *       400:
+ *         description: Invalid input provided.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   description: Error message.
+ *                   example: "Missing an input"
+ *       500:
+ *         description: Internal server error.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   description: Error message.
+ *                   example: "Internal server error"
  */
 router.post("/translate", postTranslate);
 
 /**
- * @swagger
+ * @openapi
  *
  * /general/brainstorm:
  *   post:
  *     tags: [General]
- *     produces:
- *       - application/json
+ *     summary: Brainstorm ideas
+ *     description: Generates 10 creative ideas based on the provided topic.
  *     requestBody:
  *       required: true
  *       content:
@@ -166,18 +313,50 @@ router.post("/translate", postTranslate);
  *             $ref: '#/components/schemas/TextInput'
  *     responses:
  *       200:
- *         description: Brainstorms ideas for the provided topic
+ *         description: Successful response with brainstormed ideas.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: string
+ *               description: An array of brainstormed ideas.
+ *               example:
+ *                 - "Idea 1: ..."
+ *                 - "Idea 2: ..."
+ *       400:
+ *         description: Invalid input provided.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   description: Error message.
+ *                   example: "Missing an input"
+ *       500:
+ *         description: Internal server error.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   description: Error message.
+ *                   example: "Internal server error"
  */
 router.post("/brainstorm", postBrainstorm);
 
 /**
- * @swagger
+ * @openapi
  *
  * /general/outline:
  *   post:
  *     tags: [General]
- *     produces:
- *       - application/json
+ *     summary: Outline topic
+ *     description: Generates an outline for the provided topic, including titles, chapters, and subsections in Markdown format.
  *     requestBody:
  *       required: true
  *       content:
@@ -186,18 +365,46 @@ router.post("/brainstorm", postBrainstorm);
  *             $ref: '#/components/schemas/TextInput'
  *     responses:
  *       200:
- *         description: Outlines the provided topic
+ *         description: Successful response with the topic outline.
+ *         content:
+ *           text/markdown:
+ *             schema:
+ *               type: string
+ *               description: The topic outline in Markdown format.
+ *               example: "# Title\n## Chapter 1\n### Section 1\n..."
+ *       400:
+ *         description: Invalid input provided.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   description: Error message.
+ *                   example: "Missing an input"
+ *       500:
+ *         description: Internal server error.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   description: Error message.
+ *                   example: "Internal server error"
  */
 router.post("/outline", postOutline);
 
 /**
- * @swagger
+ * @openapi
  *
  * /general/write-blog:
  *   post:
  *     tags: [General]
- *     produces:
- *       - application/json
+ *     summary: Write blog post
+ *     description: Generates a blog post based on the provided topic, including a title, content, and conclusion in Markdown format.
  *     requestBody:
  *       required: true
  *       content:
@@ -206,18 +413,46 @@ router.post("/outline", postOutline);
  *             $ref: '#/components/schemas/TextInput'
  *     responses:
  *       200:
- *         description: Writes a blog post on the provided topic
+ *         description: Successful response with the generated blog post.
+ *         content:
+ *           text/markdown:
+ *             schema:
+ *               type: string
+ *               description: The generated blog post in Markdown format.
+ *               example: "# Blog Title\n## Introduction\n...\n## Conclusion"
+ *       400:
+ *         description: Invalid input provided.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   description: Error message.
+ *                   example: "Missing an input"
+ *       500:
+ *         description: Internal server error.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   description: Error message.
+ *                   example: "Internal server error"
  */
 router.post("/write-blog", postWriteBlog);
 
 /**
- * @swagger
+ * @openapi
  *
  * /general/shorter:
  *   post:
  *     tags: [General]
- *     produces:
- *       - application/json
+ *     summary: Shorten text
+ *     description: Rewrites the provided text to be shorter while keeping the core meaning the same.
  *     requestBody:
  *       required: true
  *       content:
@@ -226,18 +461,46 @@ router.post("/write-blog", postWriteBlog);
  *             $ref: '#/components/schemas/TextInput'
  *     responses:
  *       200:
- *         description: Shortens the provided text
+ *         description: Successful response with shortened text.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: string
+ *               description: The shortened text.
+ *               example: "This is a shortened example."
+ *       400:
+ *         description: Invalid input provided.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   description: Error message.
+ *                   example: "Missing an input"
+ *       500:
+ *         description: Internal server error.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   description: Error message.
+ *                   example: "Internal server error"
  */
 router.post("/shorter", postShorter);
 
 /**
- * @swagger
+ * @openapi
  *
  * /general/longer:
  *   post:
  *     tags: [General]
- *     produces:
- *       - application/json
+ *     summary: Lengthen text
+ *     description: Rewrites the provided text to be longer while keeping the core meaning the same.
  *     requestBody:
  *       required: true
  *       content:
@@ -246,7 +509,35 @@ router.post("/shorter", postShorter);
  *             $ref: '#/components/schemas/TextInput'
  *     responses:
  *       200:
- *         description: Lengthens the provided text
+ *         description: Successful response with lengthened text.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: string
+ *               description: The lengthened text.
+ *               example: "This is a longer example of some text."
+ *       400:
+ *         description: Invalid input provided.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   description: Error message.
+ *                   example: "Missing an input"
+ *       500:
+ *         description: Internal server error.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   description: Error message.
+ *                   example: "Internal server error"
  */
 router.post("/longer", postLonger);
 

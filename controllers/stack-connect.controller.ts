@@ -153,10 +153,8 @@ async function postGenerateItoQuestion (req: Request, res: Response): Promise<vo
       },
       format: zodResponseFormat(ResponseSchema, "response_schema")
     });
-    console.log("🚀 ~ postGenerateItoQuestion ~ response:", response)
     const data: ItoQuestion = JSON.parse(String(response));
     // const audio = await textToSpeech(data.question ?? "");
-    console.log("🚀 ~ postGenerateItoQuestion ~ data:", data)
 
     handleApiResponse(res, {
       data,

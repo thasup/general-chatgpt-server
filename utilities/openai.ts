@@ -1,6 +1,10 @@
 import dotenv from "dotenv";
 import OpenAI from "openai";
-import { type ResponseFormatJSONObject, type ResponseFormatJSONSchema, type ResponseFormatText } from "openai/resources";
+import {
+  type ResponseFormatJSONObject,
+  type ResponseFormatJSONSchema,
+  type ResponseFormatText
+} from "openai/resources";
 
 import { type InputObject } from "@/types/openai";
 import { DEEPSEEK_MODEL, GEMINI_MODEL, OPENAI_MODEL } from "@/types/common";
@@ -12,7 +16,7 @@ const { API_KEY, BASE_URL } = process.env;
 
 const openai = new OpenAI({
   apiKey: API_KEY,
-  baseURL: BASE_URL ?? "https://openrouter.ai/api/v1",
+  baseURL: BASE_URL ?? "https://openrouter.ai/api/v1"
 });
 
 const openAiDefaultConfig = {
@@ -22,11 +26,11 @@ const openAiDefaultConfig = {
 };
 
 interface ChatCompletionParams {
-  inputObj: InputObject
-  instruction: (inputObj: InputObject) => OpenAI.Chat.Completions.ChatCompletionMessageParam[]
-  options?: Partial<ChatCompletionCreateParamsBase>
-  format?: ResponseFormatJSONSchema | ResponseFormatText | ResponseFormatJSONObject
-  model?: OPENAI_MODEL | GEMINI_MODEL | DEEPSEEK_MODEL
+  inputObj: InputObject;
+  instruction: (inputObj: InputObject) => OpenAI.Chat.Completions.ChatCompletionMessageParam[];
+  options?: Partial<ChatCompletionCreateParamsBase>;
+  format?: ResponseFormatJSONSchema | ResponseFormatText | ResponseFormatJSONObject;
+  model?: OPENAI_MODEL | GEMINI_MODEL | DEEPSEEK_MODEL;
 }
 
 const chatCompletion = async ({
@@ -36,49 +40,34 @@ const chatCompletion = async ({
   format,
   model
 }: ChatCompletionParams): Promise<string | null> => {
-  console.log('🚀 ~ chatCompletio - 1', {inputObj, instruction: instruction(inputObj), options, format, model});
   let parsedCompletion: any = null;
   let completion: OpenAI.Chat.Completions.ChatCompletion | null = null;
-  console.log('🚀 ~ chatCompletio - 1.1');
   if (format) {
-    parsedCompletion = await openai.beta.chat.completions.parse(
-      {
-        model: model ?? OPENAI_MODEL.GPT_4O_MINI,
-        messages: instruction(inputObj),
-        response_format: format,
-        max_completion_tokens: options?.max_completion_tokens ?? openAiDefaultConfig.max_completion_tokens,
-        temperature: options?.temperature ?? openAiDefaultConfig.temperature,
-        top_p: options?.top_p ?? openAiDefaultConfig.top_p
-      }
-    );
+    parsedCompletion = await openai.beta.chat.completions.parse({
+      model: model ?? OPENAI_MODEL.GPT_4O_MINI,
+      messages: instruction(inputObj),
+      response_format: format,
+      max_completion_tokens:
+        options?.max_completion_tokens ?? openAiDefaultConfig.max_completion_tokens,
+      temperature: options?.temperature ?? openAiDefaultConfig.temperature,
+      top_p: options?.top_p ?? openAiDefaultConfig.top_p
+    });
   } else {
-    completion = await openai.chat.completions.create(
-      {
-        model: model ?? GEMINI_MODEL.GEMMA_3_1B_FREE,
-        messages: instruction(inputObj),
-        max_completion_tokens: options?.max_completion_tokens ?? openAiDefaultConfig.max_completion_tokens,
-        temperature: options?.temperature ?? openAiDefaultConfig.temperature,
-        top_p: options?.top_p ?? openAiDefaultConfig.top_p
-      }
-    );
+    completion = await openai.chat.completions.create({
+      model: model ?? GEMINI_MODEL.GEMMA_3_1B_FREE,
+      messages: instruction(inputObj),
+      max_completion_tokens:
+        options?.max_completion_tokens ?? openAiDefaultConfig.max_completion_tokens,
+      temperature: options?.temperature ?? openAiDefaultConfig.temperature,
+      top_p: options?.top_p ?? openAiDefaultConfig.top_p
+    });
   }
-  console.log('🚀 ~ chatCompletio - 1.2');
 
   if (format) {
     const res = parsedCompletion?.choices?.[0]?.message?.content || null;
-    console.log('🚀 ~ parsedCompletion - 2', {parsedCompletion, res,
-      choice: parsedCompletion?.choices[0],
-      message: parsedCompletion?.choices[0]?.message,
-      content: parsedCompletion?.choices[0]?.message?.parsed
-    });
     return res;
   }
   const res = completion?.choices[0]?.message?.content || null;
-  console.log('🚀 ~ chatCompletio - 2', {completion, res,
-    choice: completion?.choices[0],
-    message: completion?.choices[0]?.message,
-    content: completion?.choices[0]?.message?.content
-  });
   return res;
 };
 
@@ -99,8 +88,4 @@ const textToSpeech = async (text: string): Promise<string> => {
   return audioBuffer.toString("base64");
 };
 
-export {
-  openAiDefaultConfig,
-  chatCompletion,
-  textToSpeech
-};
+export { openAiDefaultConfig, chatCompletion, textToSpeech };
